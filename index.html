@@ -1,0 +1,1813 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>IDI & YELLO - Trade Marketing Console</title>
+
+  <!-- PWA iOS & Android -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Manifest dinámico -->
+  <script>
+    const manifest = {
+      name: "IDI & YELLO Trade Marketing",
+      short_name: "Yello Rutas",
+      start_url: "./",
+      display: "standalone",
+      background_color: "#f8fafc",
+      theme_color: "#ffffff",
+      icons: [{
+        src: "https://cdn-icons-png.flaticon.com/512/1041/1041883.png",
+        sizes: "192x192",
+        type: "image/png"
+      }]
+    };
+    const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+    const link = document.createElement('link');
+    link.rel = 'manifest';
+    link.href = URL.createObjectURL(blob);
+    document.head.appendChild(link);
+  </script>
+
+  <style>
+    :root {
+      --bg-body: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-subtle: #f1f5f9;
+      --border-color: #e2e8f0;
+      --border-focus: #b45309;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --accent: #d97706;
+      --accent-hover: #b45309;
+      --accent-soft: #fef3c7;
+      --success: #059669;
+      --success-soft: #d1fae5;
+      --danger: #dc2626;
+      --danger-soft: #fee2e2;
+      --info: #0284c7;
+      --info-soft: #e0f2fe;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* PANTALLA DE CARGA (SPLASH) */
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s;
+    }
+    #splash-screen.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .splash-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 280px;
+      width: 100%;
+    }
+    .splash-idi {
+      border: 2px solid #475569;
+      padding: 0.5rem 2rem;
+      border-radius: 4px;
+      color: #334155;
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 0.5rem;
+      margin-right: -0.5rem;
+    }
+    .splash-div {
+      width: 32px;
+      height: 2px;
+      background-color: var(--accent);
+      margin: 1.5rem 0;
+    }
+    .splash-yello-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.15rem;
+      color: #0f172a;
+    }
+    .splash-yello-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.25rem;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+    .splash-bar-wrap {
+      width: 140px;
+      height: 3px;
+      background-color: #e2e8f0;
+      border-radius: 4px;
+      margin-top: 2.5rem;
+      overflow: hidden;
+    }
+    .splash-bar-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--accent);
+      animation: splashLoad 2.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    @keyframes splashLoad {
+      0% { width: 0%; }
+      70% { width: 80%; }
+      100% { width: 100%; }
+    }
+
+    /* BARRA SUPERIOR (HEADER) */
+    header {
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      padding: env(safe-area-inset-top, 0.85rem) 1.5rem 0.85rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .header-content {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .mini-badge-idi {
+      border: 1.5px solid #475569;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.15rem;
+      padding: 0.2rem 0.45rem;
+      border-radius: 3px;
+      color: #334155;
+    }
+    .brand-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .role-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.05rem;
+      background-color: var(--bg-surface-subtle);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+    }
+    .role-tag.admin {
+      background-color: var(--accent-soft);
+      color: var(--accent-hover);
+      border-color: #fcd34d;
+    }
+    .btn-logout {
+      background-color: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-logout:hover {
+      background-color: var(--danger-soft);
+      border-color: #fca5a5;
+      color: var(--danger);
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    main {
+      flex: 1;
+      padding: 1.5rem 1rem;
+      max-width: 1300px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .clean-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* AUTENTICACIÓN */
+    .auth-wrapper {
+      max-width: 420px;
+      margin: 2rem auto;
+    }
+    .auth-hero-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .auth-hero-idi {
+      border: 2px solid #334155;
+      padding: 0.4rem 1.2rem;
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: 0.4rem;
+      margin-right: -0.4rem;
+      color: #1e293b;
+      border-radius: 3px;
+    }
+    .auth-hero-div {
+      width: 1px;
+      height: 30px;
+      background-color: var(--border-color);
+    }
+    .auth-hero-yello {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.1;
+    }
+    .auth-hero-yello small {
+      display: block;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.2rem;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .tab-pills {
+      display: flex;
+      background-color: var(--bg-surface-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 4px;
+      margin-bottom: 1.5rem;
+    }
+    .tab-pill {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 0.6rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-pill.active {
+      background-color: var(--bg-surface);
+      color: var(--text-main);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* FORMULARIOS Y BOTONES */
+    .field-group {
+      margin-bottom: 1rem;
+    }
+    .field-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05rem;
+      margin-bottom: 0.4rem;
+    }
+    .form-input, .form-select {
+      width: 100%;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.75rem 0.9rem;
+      border-radius: var(--radius-md);
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-input:focus, .form-select:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15);
+    }
+    .btn-solid {
+      width: 100%;
+      background-color: var(--accent);
+      color: #ffffff;
+      border: none;
+      padding: 0.85rem;
+      border-radius: var(--radius-md);
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+    .btn-solid:hover { background-color: var(--accent-hover); }
+    .btn-solid:active { transform: scale(0.99); }
+    .btn-danger-solid { background-color: var(--danger); }
+    .btn-danger-solid:hover { background-color: #b91c1c; }
+    .alert-banner {
+      background-color: var(--danger-soft);
+      border: 1px solid #fca5a5;
+      color: #991b1b;
+      font-size: 0.82rem;
+      padding: 0.65rem 0.9rem;
+      border-radius: var(--radius-md);
+      margin-bottom: 1.25rem;
+      display: none;
+    }
+
+    /* GPS BADGE */
+    .gps-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: var(--bg-surface-subtle);
+      border: 1px solid var(--border-color);
+      padding: 0.4rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .gps-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background-color: var(--success);
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.2);
+    }
+
+    /* GRID RESPONSIVO GENERAL */
+    .responsive-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (min-width: 992px) {
+      .responsive-grid-user { grid-template-columns: 420px 1fr; }
+      .responsive-grid-admin { grid-template-columns: 360px 1fr; }
+    }
+
+    /* PROMOTOR: SESIÓN ACTIVA Y PILARES */
+    .active-session-banner {
+      background: linear-gradient(to right, #ffffff, #fffbeb);
+      border: 1px solid #fde68a;
+      border-left: 5px solid var(--accent);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .active-store-heading {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #78350f;
+    }
+    .active-clock {
+      font-size: 0.9rem;
+      font-family: ui-monospace, monospace;
+      color: #b45309;
+      font-weight: 600;
+      margin-top: 0.25rem;
+    }
+    .audit-pillar-box {
+      background-color: var(--bg-surface-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+      margin-bottom: 1rem;
+    }
+    .pillar-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .pillar-instruction {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin: 0.25rem 0 0.75rem;
+      line-height: 1.35;
+    }
+    .compliance-selector {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+    .compliance-btn {
+      flex: 1;
+      padding: 0.55rem;
+      text-align: center;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background-color: var(--bg-surface);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .compliance-btn input { display: none; }
+    .compliance-btn.selected-yes {
+      background-color: var(--success);
+      border-color: var(--success);
+      color: #ffffff;
+    }
+    .compliance-btn.selected-no {
+      background-color: var(--danger);
+      border-color: var(--danger);
+      color: #ffffff;
+    }
+
+    /* DISPARADOR DE FOTO */
+    .photo-drop-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background-color: var(--bg-surface);
+      border: 1.5px dashed var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .photo-drop-trigger:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background-color: var(--accent-soft);
+    }
+    .photo-drop-trigger.ready {
+      border-style: solid;
+      border-color: var(--success);
+      background-color: var(--success-soft);
+      color: #065f46;
+      font-weight: 600;
+    }
+    .photo-preview-thumbnail {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      margin-top: 0.5rem;
+      cursor: pointer;
+    }
+
+    /* ========================================================
+       NUEVO DASHBOARD ADMINISTRADOR PROFESIONAL (ESTILOS)
+       ======================================================== */
+    .admin-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    @media (min-width: 768px) and (max-width: 991px) {
+      .admin-metrics-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .metric-box {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1rem 0.9rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .metric-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background-color: var(--border-color);
+    }
+    .metric-box.active-card::before { background-color: var(--success); }
+    .metric-box.completed-card::before { background-color: var(--info); }
+    .metric-box.time-card::before { background-color: var(--accent); }
+    .metric-box.compliance-card::before { background-color: #8b5cf6; }
+
+    .metric-number {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1;
+    }
+    .metric-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05rem;
+      margin-top: 0.35rem;
+    }
+
+    /* BARRAS DE PROGRESO DE CUMPLIMIENTO */
+    .performance-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .perf-heading {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.04rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .pillar-progress-item {
+      margin-bottom: 0.85rem;
+    }
+    .pillar-progress-item:last-child { margin-bottom: 0; }
+    .pillar-progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.76rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      color: var(--text-main);
+    }
+    .pillar-bar-bg {
+      width: 100%;
+      height: 8px;
+      background-color: var(--bg-surface-subtle);
+      border-radius: 9999px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+    .pillar-bar-fill {
+      height: 100%;
+      border-radius: 9999px;
+      transition: width 0.4s ease;
+    }
+    .fill-p1 { background-color: #0284c7; }
+    .fill-p2 { background-color: #d97706; }
+    .fill-p3 { background-color: #059669; }
+
+    /* FILTROS DE AUDITORÍA */
+    .filters-cluster {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ENTRADA DE REGISTRO EN EL FEED */
+    .record-entry {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.15rem;
+      margin-bottom: 0.85rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .record-entry:hover {
+      box-shadow: var(--shadow-md);
+    }
+    .record-topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.35rem;
+    }
+    .store-label {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .duration-tag {
+      font-size: 0.78rem;
+      font-family: ui-monospace, monospace;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      background-color: var(--bg-surface-subtle);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+    }
+    .duration-tag.in-progress {
+      background-color: var(--success-soft);
+      color: #065f46;
+      border-color: #a7f3d0;
+    }
+    .promoter-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 0.65rem;
+    }
+    .gps-anchors {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.65rem;
+    }
+    .gps-link {
+      color: var(--info);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .gps-link:hover { text-decoration: underline; }
+    .badges-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 0.75rem;
+    }
+    .eval-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.45rem;
+      border-radius: 4px;
+    }
+    .eval-badge.yes { background-color: var(--success-soft); color: #065f46; }
+    .eval-badge.no { background-color: var(--danger-soft); color: #991b1b; }
+
+    /* GRILLA DE FOTOS */
+    .photos-quad-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    @media (min-width: 768px) {
+      .photos-quad-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .photo-tile {
+      position: relative;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      background-color: #000000;
+      height: 95px;
+    }
+    .photo-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: zoom-in;
+      transition: transform 0.2s;
+    }
+    .photo-tile img:hover { transform: scale(1.05); }
+    .photo-tile-tag {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.8);
+      color: #ffffff;
+      font-size: 0.62rem;
+      padding: 0.2rem 0.4rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* MODAL DE IMAGEN FULLSCREEN */
+    #imageModal {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(4px);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    #imageModal.active { display: flex; }
+    #modalFullImage {
+      max-width: 95vw;
+      max-height: 85vh;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      object-fit: contain;
+      background: #000;
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: #ffffff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .view-zone { display: none; }
+    .view-zone.active { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- PANTALLA DE CARGA -->
+  <div id="splash-screen">
+    <div class="splash-box">
+      <div class="splash-idi">IDI</div>
+      <div class="splash-div"></div>
+      <div class="splash-yello-title">YELLO</div>
+      <div class="splash-yello-sub">MKT Group</div>
+      <div class="splash-bar-wrap">
+        <div class="splash-bar-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-content">
+      <div class="brand-cluster">
+        <span class="mini-badge-idi">IDI</span>
+        <span class="brand-title">Trade Management Console</span>
+      </div>
+      <div class="header-nav">
+        <span class="role-tag" id="roleTag" style="display: none;"></span>
+        <button class="btn-logout" id="btnLogout" style="display: none;">Cerrar Sesión</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. VISTA DE AUTENTICACIÓN -->
+    <section id="authZone" class="view-zone active">
+      <div class="clean-card auth-wrapper">
+        <div class="auth-hero-logos">
+          <div class="auth-hero-idi">IDI</div>
+          <div class="auth-hero-div"></div>
+          <div class="auth-hero-yello">
+            YELLO
+            <small>MKT Group</small>
+          </div>
+        </div>
+
+        <div class="tab-pills">
+          <button class="tab-pill active" id="tabLoginBtn">Iniciar Sesión</button>
+          <button class="tab-pill" id="tabRegisterBtn">Registrarse</button>
+        </div>
+
+        <div id="authAlert" class="alert-banner"></div>
+
+        <form id="formLogin">
+          <div class="field-group">
+            <label class="field-label">Correo Electrónico</label>
+            <input type="email" id="loginEmail" class="form-input" placeholder="promotor@yellomkt.com" required autocomplete="email">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Contraseña</label>
+            <input type="password" id="loginPass" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+          <button type="submit" class="btn-solid">Ingresar al Portal</button>
+        </form>
+
+        <form id="formRegister" style="display: none;">
+          <div class="field-group">
+            <label class="field-label">Nombre Completo</label>
+            <input type="text" id="regName" class="form-input" placeholder="Nombre y Apellidos" required autocomplete="name">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Correo Electrónico</label>
+            <input type="email" id="regEmail" class="form-input" placeholder="correo@empresa.com" required autocomplete="email">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Contraseña (Mínimo 6 caracteres)</label>
+            <input type="password" id="regPass" class="form-input" placeholder="••••••••" minlength="6" required autocomplete="new-password">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Código de Rol (Opcional)</label>
+            <input type="text" id="regCode" class="form-input" placeholder="Código de autorización">
+            <span style="font-size: 0.72rem; color: var(--text-muted); display: block; margin-top: 0.3rem;">* Ingresa "Yello-Admin" para rol de administrador.</span>
+          </div>
+          <button type="submit" class="btn-solid">Registrar Cuenta</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 2. VISTA PROMOTOR -->
+    <section id="userZone" class="view-zone">
+      <div class="responsive-grid responsive-grid-user">
+        <div>
+          <!-- Check-in -->
+          <div class="clean-card" id="cardCheckIn">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <h2 style="font-size: 1.05rem; font-weight: 700;">Check-in de Asistencia</h2>
+              <div class="gps-indicator">
+                <div class="gps-dot"></div>
+                <span>GPS Obligatorio</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Tienda a Visitar</label>
+              <select id="selStore" class="form-select" required>
+                <option value="" disabled selected>-- Selecciona una tienda de la ruta --</option>
+                <optgroup label="Ciudad de México (CDMX)">
+                  <option value="SP CALZADA DE LOS LEONES">SP CALZADA DE LOS LEONES (Álvaro Obregón)</option>
+                  <option value="SP PARQUES POLANCO">SP PARQUES POLANCO (Miguel Hidalgo)</option>
+                  <option value="SP F DE LAS LOMAS">SP F DE LAS LOMAS (Fuente de las Lomas)</option>
+                  <option value="SP HORACIO">SP HORACIO (Polanco)</option>
+                  <option value="SP BARRILACO">SP BARRILACO (Lomas de Chapultepec)</option>
+                  <option value="SP MICHOACÁN">SP MICHOACÁN (Condesa)</option>
+                  <option value="SP ORADORES">SP ORADORES (Huixquilucan)</option>
+                  <option value="SP LOS MORALES">SP LOS MORALES (Polanco)</option>
+                  <option value="SP B. DE LAS LOMAS">SP B. DE LAS LOMAS (Bosques de las Lomas)</option>
+                  <option value="SP VIRREYES">SP VIRREYES (Lomas de Chapultepec)</option>
+                  <option value="SP HOMERO">SP HOMERO (Polanco)</option>
+                  <option value="SP JARDINES">SP JARDINES (Jardines del Pedregal)</option>
+                  <option value="SP LOMAS ANÁHUAC">SP LOMAS ANÁHUAC</option>
+                  <option value="SP BOSQUES DE MINAS">SP BOSQUES DE MINAS</option>
+                  <option value="SP STA FE">SP STA FE (Santa Fe)</option>
+                  <option value="SP FUENTES DEL PEDREGAL">SP FUENTES DEL PEDREGAL (Tlalpan)</option>
+                  <option value="SP VISTAHERMOSA">SP VISTAHERMOSA (Cuajimalpa)</option>
+                  <option value="SP AXOMIATLA">SP AXOMIATLA (Álvaro Obregón)</option>
+                </optgroup>
+                <optgroup label="Estado de México">
+                  <option value="SP TECAMACHALCO">SP TECAMACHALCO (Huixquilucan / Naucalpan)</option>
+                  <option value="SP ESMERALDA">SP ESMERALDA (Atizapán de Zaragoza)</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Fotografía de Entrada / Fachada *</label>
+              <label class="photo-drop-trigger" id="triggerFotoIn">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                <span id="textFotoIn">Tomar o subir foto (PNG / JPG)</span>
+                <input type="file" id="inputFotoIn" accept="image/png, image/jpeg, image/jpg, image/webp" capture="environment" style="display:none;">
+              </label>
+              <img id="prevFotoIn" class="photo-preview-thumbnail" style="display:none;" alt="Preview Entrada">
+            </div>
+
+            <button id="btnDoCheckIn" class="btn-solid" style="margin-top: 1rem;">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              Validar GPS y Registrar Entrada
+            </button>
+          </div>
+
+          <!-- Auditoría Activa -->
+          <div class="clean-card" id="cardAudit" style="display: none;">
+            <div class="active-session-banner">
+              <div class="active-store-heading" id="lblActiveStore">-</div>
+              <div class="active-clock" id="lblActiveTimer">Tiempo en tienda: 00:00:00</div>
+              <div style="font-size: 0.72rem; color: #92400e; margin-top: 0.35rem;" id="lblGpsInStatus">GPS verificado</div>
+            </div>
+
+            <form id="formAudit">
+              <div class="audit-pillar-box">
+                <div class="pillar-title">1. Apego al planograma</div>
+                <div class="pillar-instruction">Acomodo físico coincide con el plano autorizado: posición, orden, bloques y niveles.</div>
+                <div class="compliance-selector">
+                  <label class="compliance-btn selected-yes" id="lblP1Yes">
+                    <input type="radio" name="pilar1" value="Cumple" checked> Sí Cumple
+                  </label>
+                  <label class="compliance-btn" id="lblP1No">
+                    <input type="radio" name="pilar1" value="No Cumple"> No Cumple
+                  </label>
+                </div>
+                <label class="photo-drop-trigger" id="triggerFotoP1">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                  <span id="textFotoP1">Evidencia Planograma (PNG/JPG) *</span>
+                  <input type="file" id="inputFotoP1" accept="image/png, image/jpeg, image/jpg, image/webp" capture="environment" style="display:none;">
+                </label>
+                <img id="prevFotoP1" class="photo-preview-thumbnail" style="display:none;" alt="Preview P1">
+              </div>
+
+              <div class="audit-pillar-box">
+                <div class="pillar-title">2. Flujo de navegación</div>
+                <div class="pillar-instruction">Recorrido de compra acorde al flujo de tienda. Apertura obligatoria por vinos tintos.</div>
+                <div class="compliance-selector">
+                  <label class="compliance-btn selected-yes" id="lblP2Yes">
+                    <input type="radio" name="pilar2" value="Cumple" checked> Sí Cumple
+                  </label>
+                  <label class="compliance-btn" id="lblP2No">
+                    <input type="radio" name="pilar2" value="No Cumple"> No Cumple
+                  </label>
+                </div>
+                <label class="photo-drop-trigger" id="triggerFotoP2">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                  <span id="textFotoP2">Evidencia Flujo Tintos (PNG/JPG) *</span>
+                  <input type="file" id="inputFotoP2" accept="image/png, image/jpeg, image/jpg, image/webp" capture="environment" style="display:none;">
+                </label>
+                <img id="prevFotoP2" class="photo-preview-thumbnail" style="display:none;" alt="Preview P2">
+              </div>
+
+              <div class="audit-pillar-box">
+                <div class="pillar-title">3. Distribución de espacios</div>
+                <div class="pillar-instruction">Frentes asignados por marca, SKU, presentaciones mini y sin alcohol según estrategia.</div>
+                <div class="compliance-selector">
+                  <label class="compliance-btn selected-yes" id="lblP3Yes">
+                    <input type="radio" name="pilar3" value="Cumple" checked> Sí Cumple
+                  </label>
+                  <label class="compliance-btn" id="lblP3No">
+                    <input type="radio" name="pilar3" value="No Cumple"> No Cumple
+                  </label>
+                </div>
+                <label class="photo-drop-trigger" id="triggerFotoP3">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                  <span id="textFotoP3">Evidencia Espacios / Anaquel (PNG/JPG) *</span>
+                  <input type="file" id="inputFotoP3" accept="image/png, image/jpeg, image/jpg, image/webp" capture="environment" style="display:none;">
+                </label>
+                <img id="prevFotoP3" class="photo-preview-thumbnail" style="display:none;" alt="Preview P3">
+              </div>
+
+              <button type="submit" class="btn-solid btn-danger-solid">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                Validar GPS y Finalizar Check-out
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div>
+          <div class="clean-card">
+            <h3 style="font-size: 0.92rem; font-weight: 700; color: var(--text-main); margin-bottom: 1rem;">Mi Recorrido del Día</h3>
+            <div id="userVisitsFeed">
+              <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 1.5rem 0;">No has concluido visitas hoy.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. VISTA ADMINISTRADOR (DASHBOARD ANALÍTICO COMPLETO) -->
+    <section id="adminZone" class="view-zone">
+      <div class="responsive-grid responsive-grid-admin">
+        
+        <!-- Columna Izquierda: KPIs, Desempeño y Filtros -->
+        <div>
+          <!-- Métricas Primarias -->
+          <div class="admin-metrics-grid">
+            <div class="metric-box active-card">
+              <div class="metric-number" id="kpiActive">0</div>
+              <div class="metric-label">En Tienda</div>
+            </div>
+            <div class="metric-box completed-card">
+              <div class="metric-number" id="kpiFinished">0</div>
+              <div class="metric-label">Concluidas</div>
+            </div>
+            <div class="metric-box time-card">
+              <div class="metric-number" id="kpiAvgTime">0m</div>
+              <div class="metric-label">Tiempo Promedio</div>
+            </div>
+            <div class="metric-box compliance-card">
+              <div class="metric-number" id="kpiGlobalRate">0%</div>
+              <div class="metric-label">% Apego Global</div>
+            </div>
+          </div>
+
+          <!-- Barras de Auditoría por Pilar -->
+          <div class="performance-card">
+            <div class="perf-heading">
+              <span>Auditoría por Pilar</span>
+              <span id="lblCoverageCount" style="color: var(--accent); font-size: 0.75rem;">0/20 Tiendas</span>
+            </div>
+
+            <div class="pillar-progress-item">
+              <div class="pillar-progress-meta">
+                <span>1. Planograma</span>
+                <span id="rateP1">0%</span>
+              </div>
+              <div class="pillar-bar-bg">
+                <div class="pillar-bar-fill fill-p1" id="barP1" style="width: 0%;"></div>
+              </div>
+            </div>
+
+            <div class="pillar-progress-item">
+              <div class="pillar-progress-meta">
+                <span>2. Flujo (Tintos)</span>
+                <span id="rateP2">0%</span>
+              </div>
+              <div class="pillar-bar-bg">
+                <div class="pillar-bar-fill fill-p2" id="barP2" style="width: 0%;"></div>
+              </div>
+            </div>
+
+            <div class="pillar-progress-item">
+              <div class="pillar-progress-meta">
+                <span>3. Espacios / SKU</span>
+                <span id="rateP3">0%</span>
+              </div>
+              <div class="pillar-bar-bg">
+                <div class="pillar-bar-fill fill-p3" id="barP3" style="width: 0%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Consola de Filtros y Descarga -->
+          <div class="filters-cluster">
+            <h3 style="font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem; text-transform: uppercase; letter-spacing: 0.04rem;">Filtros de Auditoría</h3>
+            
+            <div class="field-group">
+              <label class="field-label">Buscar Promotor o Sucursal</label>
+              <input type="text" id="adminSearchInput" class="form-input" placeholder="Ej. Horacio, Polanco, Juan...">
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Filtrar por Estado</label>
+              <select id="adminStatusFilter" class="form-select">
+                <option value="ALL">Todas las visitas</option>
+                <option value="EN_TIENDA">En servicio activo</option>
+                <option value="CONCLUIDO">Concluidas con auditoría</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Filtrar por Tienda Específica</label>
+              <select id="adminStoreFilter" class="form-select">
+                <option value="ALL">Todas las 20 tiendas</option>
+                <option value="SP CALZADA DE LOS LEONES">SP CALZADA DE LOS LEONES</option>
+                <option value="SP PARQUES POLANCO">SP PARQUES POLANCO</option>
+                <option value="SP F DE LAS LOMAS">SP F DE LAS LOMAS</option>
+                <option value="SP HORACIO">SP HORACIO</option>
+                <option value="SP BARRILACO">SP BARRILACO</option>
+                <option value="SP MICHOACÁN">SP MICHOACÁN</option>
+                <option value="SP ORADORES">SP ORADORES</option>
+                <option value="SP LOS MORALES">SP LOS MORALES</option>
+                <option value="SP B. DE LAS LOMAS">SP B. DE LAS LOMAS</option>
+                <option value="SP VIRREYES">SP VIRREYES</option>
+                <option value="SP HOMERO">SP HOMERO</option>
+                <option value="SP JARDINES">SP JARDINES</option>
+                <option value="SP LOMAS ANÁHUAC">SP LOMAS ANÁHUAC</option>
+                <option value="SP BOSQUES DE MINAS">SP BOSQUES DE MINAS</option>
+                <option value="SP STA FE">SP STA FE</option>
+                <option value="SP FUENTES DEL PEDREGAL">SP FUENTES DEL PEDREGAL</option>
+                <option value="SP VISTAHERMOSA">SP VISTAHERMOSA</option>
+                <option value="SP AXOMIATLA">SP AXOMIATLA</option>
+                <option value="SP TECAMACHALCO">SP TECAMACHALCO</option>
+                <option value="SP ESMERALDA">SP ESMERALDA</option>
+              </select>
+            </div>
+
+            <button id="btnExportCsvData" class="btn-solid" style="background-color: #334155; margin-top: 0.5rem;">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Descargar Reporte Ejecutivo CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Feed Central de Auditorías -->
+        <div>
+          <div class="clean-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <div>
+                <h2 style="font-size: 1.05rem; font-weight: 700;">Bitácora Operativa en Tiempo Real</h2>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">Monitoreo GPS y Evidencias Fotográficas</span>
+              </div>
+              <span style="font-size: 0.78rem; font-weight: 700; color: var(--accent); background: var(--accent-soft); padding: 0.25rem 0.6rem; border-radius: 4px;" id="lblTotalFeedCount">0 registros</span>
+            </div>
+
+            <div id="adminMasterFeed">
+              <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 2rem 0;">Cargando reportes en tiempo real...</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL FULLSCREEN DE FOTOS -->
+  <div id="imageModal">
+    <button class="modal-close-btn" id="modalCloseBtn">&times;</button>
+    <img id="modalFullImage" src="" alt="Evidencia Ampliada">
+  </div>
+
+  <!-- FIREBASE SDK V10 -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { 
+      getAuth, 
+      createUserWithEmailAndPassword, 
+      signInWithEmailAndPassword, 
+      signOut, 
+      onAuthStateChanged 
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { 
+      getFirestore, 
+      collection, 
+      doc, 
+      setDoc, 
+      getDoc, 
+      addDoc, 
+      updateDoc,
+      onSnapshot, 
+      serverTimestamp, 
+      query, 
+      where, 
+      orderBy 
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const splash = document.getElementById('splash-screen');
+        splash.classList.add('fade-out');
+      }, 2100);
+    });
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAMR4tHRc66VMLjLT7N4mktMJloY-Jj0qI",
+      authDomain: "proyecto-idi.firebaseapp.com",
+      projectId: "proyecto-idi",
+      storageBucket: "proyecto-idi.firebasestorage.app",
+      messagingSenderId: "380235897376",
+      appId: "1:380235897376:web:a88b2f9467281659b8ba45",
+      measurementId: "G-LRGZRLC5MD"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const authZone = document.getElementById('authZone');
+    const userZone = document.getElementById('userZone');
+    const adminZone = document.getElementById('adminZone');
+    const roleTag = document.getElementById('roleTag');
+    const btnLogout = document.getElementById('btnLogout');
+    const authAlert = document.getElementById('authAlert');
+
+    const tabLoginBtn = document.getElementById('tabLoginBtn');
+    const tabRegisterBtn = document.getElementById('tabRegisterBtn');
+    const formLogin = document.getElementById('formLogin');
+    const formRegister = document.getElementById('formRegister');
+
+    let currentUserProfile = null;
+    let activeVisitState = null;
+    let visitClockTimer = null;
+    let unsubUserVisits = null;
+    let unsubAdminVisits = null;
+    let masterVisitsStore = [];
+
+    function captureGpsCoords() {
+      return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+          reject(new Error("Tu dispositivo no admite geolocalización."));
+          return;
+        }
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            resolve({
+              lat: Number(pos.coords.latitude.toFixed(6)),
+              lng: Number(pos.coords.longitude.toFixed(6)),
+              accuracy: Math.round(pos.coords.accuracy)
+            });
+          },
+          (err) => {
+            let detail = "Error de GPS.";
+            if (err.code === 1) detail = "Debes permitir el acceso a tu ubicación GPS.";
+            else if (err.code === 2) detail = "Señal GPS no disponible. Activa la ubicación de tu móvil.";
+            else if (err.code === 3) detail = "Tiempo de espera agotado al consultar GPS.";
+            reject(new Error(detail));
+          },
+          { enableHighAccuracy: true, timeout: 14000, maximumAge: 0 }
+        );
+      });
+    }
+
+    function processImageFile(file, maxWidth = 900, quality = 0.75) {
+      return new Promise((resolve, reject) => {
+        if (!file.type.match(/image\/(png|jpeg|jpg|webp)/i)) {
+          reject(new Error("Formato no soportado. Sube una foto PNG o JPG."));
+          return;
+        }
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = (e) => {
+          const img = new Image();
+          img.src = e.target.result;
+          img.onload = () => {
+            let width = img.width;
+            let height = img.height;
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+          img.onerror = () => reject(new Error("No se pudo procesar la imagen."));
+        };
+        fileReader.onerror = () => reject(new Error("Error al leer el archivo."));
+      });
+    }
+
+    const imageModal = document.getElementById('imageModal');
+    const modalFullImage = document.getElementById('modalFullImage');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    window.openImageModal = (src) => {
+      modalFullImage.src = src;
+      imageModal.classList.add('active');
+    };
+    modalCloseBtn.onclick = () => imageModal.classList.remove('active');
+    imageModal.onclick = (e) => { if (e.target === imageModal) imageModal.classList.remove('active'); };
+
+    tabLoginBtn.onclick = () => {
+      tabLoginBtn.classList.add('active');
+      tabRegisterBtn.classList.remove('active');
+      formLogin.style.display = 'block';
+      formRegister.style.display = 'none';
+      authAlert.style.display = 'none';
+    };
+    tabRegisterBtn.onclick = () => {
+      tabRegisterBtn.classList.add('active');
+      tabLoginBtn.classList.remove('active');
+      formRegister.style.display = 'block';
+      formLogin.style.display = 'none';
+      authAlert.style.display = 'none';
+    };
+
+    formRegister.onsubmit = async (e) => {
+      e.preventDefault();
+      authAlert.style.display = 'none';
+      const name = document.getElementById('regName').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const pass = document.getElementById('regPass').value;
+      const code = document.getElementById('regCode').value.trim();
+      const role = (code === "Yello-Admin") ? "admin" : "normal";
+
+      try {
+        const cred = await createUserWithEmailAndPassword(auth, email, pass);
+        await setDoc(doc(db, "usuarios", cred.user.uid), {
+          nombre: name,
+          email: email,
+          role: role,
+          creado: serverTimestamp()
+        });
+      } catch (err) {
+        showAuthError(parseAuthError(err.code));
+      }
+    };
+
+    formLogin.onsubmit = async (e) => {
+      e.preventDefault();
+      authAlert.style.display = 'none';
+      try {
+        await signInWithEmailAndPassword(auth, document.getElementById('loginEmail').value.trim(), document.getElementById('loginPass').value);
+      } catch (err) {
+        showAuthError(parseAuthError(err.code));
+      }
+    };
+
+    btnLogout.onclick = async () => {
+      if (unsubUserVisits) unsubUserVisits();
+      if (unsubAdminVisits) unsubAdminVisits();
+      if (visitClockTimer) clearInterval(visitClockTimer);
+      await signOut(auth);
+    };
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const uDoc = await getDoc(doc(db, "usuarios", user.uid));
+          currentUserProfile = uDoc.exists() ? { uid: user.uid, ...uDoc.data() } : { uid: user.uid, email: user.email, role: 'normal', nombre: user.email };
+          
+          authZone.classList.remove('active');
+          btnLogout.style.display = 'block';
+          roleTag.style.display = 'inline-block';
+          roleTag.textContent = currentUserProfile.role === 'admin' ? 'Administrador' : 'Promotor';
+
+          if (currentUserProfile.role === 'admin') {
+            roleTag.className = 'role-tag admin';
+            adminZone.classList.add('active');
+            userZone.classList.remove('active');
+            initAdminModule();
+          } else {
+            roleTag.className = 'role-tag';
+            userZone.classList.add('active');
+            adminZone.classList.remove('active');
+            initPromoterModule(user.uid);
+          }
+        } catch (e) {
+          console.error("Error al cargar perfil:", e);
+        }
+      } else {
+        authZone.classList.add('active');
+        userZone.classList.remove('active');
+        adminZone.classList.remove('active');
+        roleTag.style.display = 'none';
+        btnLogout.style.display = 'none';
+      }
+    });
+
+    // MÓDULO PROMOTOR
+    function initPromoterModule(uid) {
+      const cardCheckIn = document.getElementById('cardCheckIn');
+      const cardAudit = document.getElementById('cardAudit');
+      const selStore = document.getElementById('selStore');
+      const btnDoCheckIn = document.getElementById('btnDoCheckIn');
+      const lblActiveStore = document.getElementById('lblActiveStore');
+      const lblActiveTimer = document.getElementById('lblActiveTimer');
+      const lblGpsInStatus = document.getElementById('lblGpsInStatus');
+      const formAudit = document.getElementById('formAudit');
+      const userVisitsFeed = document.getElementById('userVisitsFeed');
+
+      let fotoInBase64 = "";
+      let fotoP1Base64 = "";
+      let fotoP2Base64 = "";
+      let fotoP3Base64 = "";
+
+      bindPhotoField('inputFotoIn', 'triggerFotoIn', 'textFotoIn', 'prevFotoIn', 'Foto de Entrada Lista (PNG/JPG)', (b64) => fotoInBase64 = b64);
+      bindPhotoField('inputFotoP1', 'triggerFotoP1', 'textFotoP1', 'prevFotoP1', 'Foto Planograma Lista', (b64) => fotoP1Base64 = b64);
+      bindPhotoField('inputFotoP2', 'triggerFotoP2', 'textFotoP2', 'prevFotoP2', 'Foto Flujo Lista', (b64) => fotoP2Base64 = b64);
+      bindPhotoField('inputFotoP3', 'triggerFotoP3', 'textFotoP3', 'prevFotoP3', 'Foto Espacios Lista', (b64) => fotoP3Base64 = b64);
+
+      bindComplianceButtons('pilar1', 'lblP1Yes', 'lblP1No');
+      bindComplianceButtons('pilar2', 'lblP2Yes', 'lblP2No');
+      bindComplianceButtons('pilar3', 'lblP3Yes', 'lblP3No');
+
+      btnDoCheckIn.onclick = async () => {
+        const store = selStore.value;
+        if (!store) { alert("Selecciona una tienda de la ruta."); return; }
+        if (!fotoInBase64) { alert("La foto de fachada/entrada es obligatoria."); return; }
+
+        btnDoCheckIn.disabled = true;
+        btnDoCheckIn.innerHTML = `<span>Validando coordenadas GPS...</span>`;
+
+        try {
+          const gpsIn = await captureGpsCoords();
+          const docRef = await addDoc(collection(db, "visitas"), {
+            userId: uid,
+            promotor: currentUserProfile.nombre || currentUserProfile.email,
+            email: currentUserProfile.email,
+            tienda: store,
+            checkIn: serverTimestamp(),
+            checkInGps: gpsIn,
+            fotoCheckin: fotoInBase64,
+            checkOut: null,
+            checkOutGps: null,
+            status: "EN_TIENDA",
+            pilar1: null,
+            pilar2: null,
+            pilar3: null,
+            fotoP1: null,
+            fotoP2: null,
+            fotoP3: null,
+            minutosServicio: 0
+          });
+
+          activeVisitState = { id: docRef.id, tienda: store, start: new Date(), gps: gpsIn };
+          renderActiveView();
+        } catch (err) {
+          alert("Aviso de Check-in: " + err.message);
+        } finally {
+          btnDoCheckIn.disabled = false;
+          btnDoCheckIn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg> Validar GPS y Registrar Entrada`;
+        }
+      };
+
+      formAudit.onsubmit = async (e) => {
+        e.preventDefault();
+        if (!activeVisitState) return;
+
+        if (!fotoP1Base64) { alert("La foto de apego al planograma es obligatoria."); return; }
+        if (!fotoP2Base64) { alert("La foto de flujo de navegación (apertura por tintos) es obligatoria."); return; }
+        if (!fotoP3Base64) { alert("La foto de distribución de espacios es obligatoria."); return; }
+
+        const submitBtn = formAudit.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<span>Validando GPS de salida...</span>`;
+
+        try {
+          const gpsOut = await captureGpsCoords();
+          const p1 = document.querySelector('input[name="pilar1"]:checked').value;
+          const p2 = document.querySelector('input[name="pilar2"]:checked').value;
+          const p3 = document.querySelector('input[name="pilar3"]:checked').value;
+
+          const now = new Date();
+          const diffMs = now - activeVisitState.start;
+          const minutes = Math.max(1, Math.round(diffMs / 60000));
+
+          await updateDoc(doc(db, "visitas", activeVisitState.id), {
+            checkOut: serverTimestamp(),
+            checkOutGps: gpsOut,
+            status: "CONCLUIDO",
+            minutosServicio: minutes,
+            pilar1: p1,
+            pilar2: p2,
+            pilar3: p3,
+            fotoP1: fotoP1Base64,
+            fotoP2: fotoP2Base64,
+            fotoP3: fotoP3Base64
+          });
+
+          clearInterval(visitClockTimer);
+          activeVisitState = null;
+          formAudit.reset();
+
+          resetField('triggerFotoIn', 'textFotoIn', 'prevFotoIn', 'Tomar o subir foto (PNG / JPG)');
+          resetField('triggerFotoP1', 'textFotoP1', 'prevFotoP1', 'Evidencia Planograma (PNG/JPG) *');
+          resetField('triggerFotoP2', 'textFotoP2', 'prevFotoP2', 'Evidencia Flujo Tintos (PNG/JPG) *');
+          resetField('triggerFotoP3', 'textFotoP3', 'prevFotoP3', 'Evidencia Espacios / Anaquel (PNG/JPG) *');
+          fotoInBase64 = fotoP1Base64 = fotoP2Base64 = fotoP3Base64 = "";
+
+          cardCheckIn.style.display = 'block';
+          cardAudit.style.display = 'none';
+        } catch (err) {
+          alert("Aviso de Check-out: " + err.message);
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg> Validar GPS y Finalizar Check-out`;
+        }
+      };
+
+      function renderActiveView() {
+        cardCheckIn.style.display = 'none';
+        cardAudit.style.display = 'block';
+        lblActiveStore.textContent = activeVisitState.tienda;
+        lblGpsInStatus.textContent = `GPS Entrada: ±${activeVisitState.gps?.accuracy || 0}m de precisión`;
+
+        if (visitClockTimer) clearInterval(visitClockTimer);
+        visitClockTimer = setInterval(() => {
+          const elapsedSecs = Math.floor((new Date() - activeVisitState.start) / 1000);
+          const h = String(Math.floor(elapsedSecs / 3600)).padStart(2, '0');
+          const m = String(Math.floor((elapsedSecs % 3600) / 60)).padStart(2, '0');
+          const s = String(elapsedSecs % 60).padStart(2, '0');
+          lblActiveTimer.textContent = `Tiempo en tienda: ${h}:${m}:${s}`;
+        }, 1000);
+      }
+
+      const q = query(collection(db, "visitas"), where("userId", "==", uid), orderBy("checkIn", "desc"));
+      if (unsubUserVisits) unsubUserVisits();
+      unsubUserVisits = onSnapshot(q, (snap) => {
+        userVisitsFeed.innerHTML = '';
+        let foundOpenSession = false;
+
+        snap.forEach((d) => {
+          const v = d.data();
+          if (v.status === "EN_TIENDA" && !foundOpenSession) {
+            foundOpenSession = true;
+            activeVisitState = {
+              id: d.id,
+              tienda: v.tienda,
+              start: v.checkIn ? v.checkIn.toDate() : new Date(),
+              gps: v.checkInGps
+            };
+            renderActiveView();
+          }
+
+          if (v.status === "CONCLUIDO") {
+            const item = document.createElement('div');
+            item.className = 'record-entry';
+            item.innerHTML = `
+              <div class="record-topline">
+                <span class="store-label">${v.tienda}</span>
+                <span class="duration-tag">${v.minutosServicio} min de servicio</span>
+              </div>
+              <div class="badges-row">
+                <span class="eval-badge ${v.pilar1 === 'Cumple' ? 'yes' : 'no'}">Planograma: ${v.pilar1}</span>
+                <span class="eval-badge ${v.pilar2 === 'Cumple' ? 'yes' : 'no'}">Flujo: ${v.pilar2}</span>
+                <span class="eval-badge ${v.pilar3 === 'Cumple' ? 'yes' : 'no'}">Espacios: ${v.pilar3}</span>
+              </div>
+              <div class="photos-quad-grid">
+                ${v.fotoCheckin ? `<div class="photo-tile"><img src="${v.fotoCheckin}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">Fachada</span></div>` : ''}
+                ${v.fotoP1 ? `<div class="photo-tile"><img src="${v.fotoP1}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">P1: Planograma</span></div>` : ''}
+                ${v.fotoP2 ? `<div class="photo-tile"><img src="${v.fotoP2}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">P2: Flujo</span></div>` : ''}
+                ${v.fotoP3 ? `<div class="photo-tile"><img src="${v.fotoP3}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">P3: Espacios</span></div>` : ''}
+              </div>
+            `;
+            userVisitsFeed.appendChild(item);
+          }
+        });
+
+        if (userVisitsFeed.children.length === 0) {
+          userVisitsFeed.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 1.5rem 0;">No has concluido visitas hoy.</p>';
+        }
+      });
+    }
+
+    // MÓDULO ADMINISTRADOR PROFESIONAL
+    function initAdminModule() {
+      const kpiActive = document.getElementById('kpiActive');
+      const kpiFinished = document.getElementById('kpiFinished');
+      const kpiAvgTime = document.getElementById('kpiAvgTime');
+      const kpiGlobalRate = document.getElementById('kpiGlobalRate');
+      const lblCoverageCount = document.getElementById('lblCoverageCount');
+      
+      const rateP1 = document.getElementById('rateP1');
+      const rateP2 = document.getElementById('rateP2');
+      const rateP3 = document.getElementById('rateP3');
+      const barP1 = document.getElementById('barP1');
+      const barP2 = document.getElementById('barP2');
+      const barP3 = document.getElementById('barP3');
+
+      const adminMasterFeed = document.getElementById('adminMasterFeed');
+      const lblTotalFeedCount = document.getElementById('lblTotalFeedCount');
+      const adminSearchInput = document.getElementById('adminSearchInput');
+      const adminStatusFilter = document.getElementById('adminStatusFilter');
+      const adminStoreFilter = document.getElementById('adminStoreFilter');
+      const btnExportCsvData = document.getElementById('btnExportCsvData');
+
+      const q = query(collection(db, "visitas"), orderBy("checkIn", "desc"));
+      if (unsubAdminVisits) unsubAdminVisits();
+      unsubAdminVisits = onSnapshot(q, (snapshot) => {
+        masterVisitsStore = [];
+        let inStore = 0, done = 0, totalMins = 0;
+        let p1Yes = 0, p2Yes = 0, p3Yes = 0;
+        const uniqueStoresVisited = new Set();
+
+        snapshot.forEach((d) => {
+          const item = { id: d.id, ...d.data() };
+          masterVisitsStore.push(item);
+          if (item.tienda) uniqueStoresVisited.add(item.tienda);
+
+          if (item.status === 'EN_TIENDA') inStore++;
+          if (item.status === 'CONCLUIDO') {
+            done++;
+            totalMins += (item.minutosServicio || 0);
+            if (item.pilar1 === 'Cumple') p1Yes++;
+            if (item.pilar2 === 'Cumple') p2Yes++;
+            if (item.pilar3 === 'Cumple') p3Yes++;
+          }
+        });
+
+        // Actualizar Tarjetas KPI
+        kpiActive.textContent = inStore;
+        kpiFinished.textContent = done;
+        kpiAvgTime.textContent = done > 0 ? `${Math.round(totalMins / done)}m` : '0m';
+        lblCoverageCount.textContent = `${uniqueStoresVisited.size}/20 Tiendas`;
+
+        // Métricas de Cumplimiento por Pilar
+        const p1Pct = done > 0 ? Math.round((p1Yes / done) * 100) : 0;
+        const p2Pct = done > 0 ? Math.round((p2Yes / done) * 100) : 0;
+        const p3Pct = done > 0 ? Math.round((p3Yes / done) * 100) : 0;
+        const globalPct = done > 0 ? Math.round(((p1Yes + p2Yes + p3Yes) / (done * 3)) * 100) : 0;
+
+        kpiGlobalRate.textContent = `${globalPct}%`;
+
+        rateP1.textContent = `${p1Pct}%`;
+        barP1.style.width = `${p1Pct}%`;
+
+        rateP2.textContent = `${p2Pct}%`;
+        barP2.style.width = `${p2Pct}%`;
+
+        rateP3.textContent = `${p3Pct}%`;
+        barP3.style.width = `${p3Pct}%`;
+
+        renderAdminFeed();
+      });
+
+      // Filtros reactivos
+      adminSearchInput.oninput = () => renderAdminFeed();
+      adminStatusFilter.onchange = () => renderAdminFeed();
+      adminStoreFilter.onchange = () => renderAdminFeed();
+
+      function renderAdminFeed() {
+        const queryTerm = adminSearchInput.value.trim().toLowerCase();
+        const statusTerm = adminStatusFilter.value;
+        const storeTerm = adminStoreFilter.value;
+
+        adminMasterFeed.innerHTML = '';
+
+        const filtered = masterVisitsStore.filter(v => {
+          const matchSearch = v.tienda.toLowerCase().includes(queryTerm) || 
+                              (v.promotor && v.promotor.toLowerCase().includes(queryTerm));
+          const matchStatus = (statusTerm === 'ALL') || (v.status === statusTerm);
+          const matchStore = (storeTerm === 'ALL') || (v.tienda === storeTerm);
+          return matchSearch && matchStatus && matchStore;
+        });
+
+        lblTotalFeedCount.textContent = `${filtered.length} visitas listadas`;
+
+        if (filtered.length === 0) {
+          adminMasterFeed.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 2rem 0;">No se encontraron registros bajo los filtros aplicados.</p>';
+          return;
+        }
+
+        filtered.forEach((v) => {
+          const card = document.createElement('div');
+          card.className = 'record-entry';
+
+          const timeIn = v.checkIn ? new Date(v.checkIn.toDate()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+          const timeOut = v.checkOut ? new Date(v.checkOut.toDate()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+          const linkGpsIn = v.checkInGps ? `https://maps.google.com/?q=${v.checkInGps.lat},${v.checkInGps.lng}` : null;
+          const linkGpsOut = v.checkOutGps ? `https://maps.google.com/?q=${v.checkOutGps.lat},${v.checkOutGps.lng}` : null;
+
+          card.innerHTML = `
+            <div class="record-topline">
+              <span class="store-label">${v.tienda}</span>
+              <span class="duration-tag ${v.status === 'EN_TIENDA' ? 'in-progress' : ''}">
+                ${v.status === 'EN_TIENDA' ? '● En Servicio' : `${v.minutosServicio} min`}
+              </span>
+            </div>
+            <div class="promoter-meta">${v.promotor} (${v.email}) | Entrada: ${timeIn} ${timeOut ? `• Salida: ${timeOut}` : ''}</div>
+            
+            <div class="gps-anchors">
+              ${linkGpsIn ? `<a href="${linkGpsIn}" target="_blank" class="gps-link">📍 GPS Entrada (±${v.checkInGps.accuracy}m)</a>` : ''}
+              ${linkGpsOut ? `<a href="${linkGpsOut}" target="_blank" class="gps-link">📍 GPS Salida (±${v.checkOutGps.accuracy}m)</a>` : ''}
+            </div>
+
+            ${v.status === 'CONCLUIDO' ? `
+              <div class="badges-row">
+                <span class="eval-badge ${v.pilar1 === 'Cumple' ? 'yes' : 'no'}">Planograma: ${v.pilar1}</span>
+                <span class="eval-badge ${v.pilar2 === 'Cumple' ? 'yes' : 'no'}">Flujo: ${v.pilar2}</span>
+                <span class="eval-badge ${v.pilar3 === 'Cumple' ? 'yes' : 'no'}">Espacios: ${v.pilar3}</span>
+              </div>
+              <div class="photos-quad-grid">
+                ${v.fotoCheckin ? `<div class="photo-tile"><img src="${v.fotoCheckin}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">Fachada</span></div>` : ''}
+                ${v.fotoP1 ? `<div class="photo-tile"><img src="${v.fotoP1}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">P1: Planograma</span></div>` : ''}
+                ${v.fotoP2 ? `<div class="photo-tile"><img src="${v.fotoP2}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">P2: Flujo</span></div>` : ''}
+                ${v.fotoP3 ? `<div class="photo-tile"><img src="${v.fotoP3}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">P3: Espacios</span></div>` : ''}
+              </div>
+            ` : `
+              <div class="photos-quad-grid" style="grid-template-columns: 1fr; max-width: 220px;">
+                ${v.fotoCheckin ? `<div class="photo-tile" style="height: 100px;"><img src="${v.fotoCheckin}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">Foto Entrada Check-in</span></div>` : ''}
+              </div>
+            `}
+          `;
+          adminMasterFeed.appendChild(card);
+        });
+      }
+
+      // Descarga de CSV completa
+      btnExportCsvData.onclick = () => {
+        if (!masterVisitsStore.length) { alert("No hay registros para exportar."); return; }
+        let csvContent = "Tienda,Promotor,Correo,Estatus,Minutos_Servicio,Fecha_Entrada,Hora_Entrada,Hora_Salida,GPS_Entrada_Lat,GPS_Entrada_Lng,Link_Maps_Entrada,GPS_Salida_Lat,GPS_Salida_Lng,Link_Maps_Salida,Planograma,Flujo,Espacios\n";
+        
+        masterVisitsStore.forEach(r => {
+          const inDate = r.checkIn ? new Date(r.checkIn.toDate()).toLocaleDateString() : '';
+          const inTime = r.checkIn ? new Date(r.checkIn.toDate()).toLocaleTimeString() : '';
+          const outTime = r.checkOut ? new Date(r.checkOut.toDate()).toLocaleTimeString() : '';
+          
+          const inLat = r.checkInGps ? r.checkInGps.lat : '';
+          const inLng = r.checkInGps ? r.checkInGps.lng : '';
+          const mapsIn = r.checkInGps ? `https://maps.google.com/?q=${inLat},${inLng}` : '';
+
+          const outLat = r.checkOutGps ? r.checkOutGps.lat : '';
+          const outLng = r.checkOutGps ? r.checkOutGps.lng : '';
+          const mapsOut = r.checkOutGps ? `https://maps.google.com/?q=${outLat},${outLng}` : '';
+
+          csvContent += `"${r.tienda}","${r.promotor}","${r.email}","${r.status}",${r.minutosServicio || 0},"${inDate}","${inTime}","${outTime}","${inLat}","${inLng}","${mapsIn}","${outLat}","${outLng}","${mapsOut}","${r.pilar1 || ''}","${r.pilar2 || ''}","${r.pilar3 || ''}"\n`;
+        });
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `auditoria_ejecutiva_rutas_${new Date().toISOString().slice(0,10)}.csv`;
+        a.click();
+      };
+    }
+
+    // Helpers
+    function bindPhotoField(inputId, triggerId, textId, prevId, successMsg, onB64) {
+      const input = document.getElementById(inputId);
+      const trigger = document.getElementById(triggerId);
+      const text = document.getElementById(textId);
+      const prev = document.getElementById(prevId);
+
+      trigger.onclick = () => input.click();
+      input.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          text.textContent = "Comprimiendo imagen...";
+          try {
+            const b64 = await processImageFile(file);
+            prev.src = b64;
+            prev.style.display = 'block';
+            trigger.classList.add('ready');
+            text.textContent = successMsg;
+            onB64(b64);
+          } catch (err) {
+            alert(err.message);
+            text.textContent = "Error al procesar foto";
+          }
+        }
+      };
+    }
+
+    function resetField(triggerId, textId, prevId, labelText) {
+      const trigger = document.getElementById(triggerId);
+      const text = document.getElementById(textId);
+      const prev = document.getElementById(prevId);
+      trigger.classList.remove('ready');
+      text.textContent = labelText;
+      prev.src = "";
+      prev.style.display = 'none';
+    }
+
+    function bindComplianceButtons(radioName, yesId, noId) {
+      const radios = document.querySelectorAll(`input[name="${radioName}"]`);
+      const yesBtn = document.getElementById(yesId);
+      const noBtn = document.getElementById(noId);
+
+      radios.forEach(r => {
+        r.addEventListener('change', () => {
+          if (r.value === 'Cumple') {
+            yesBtn.className = 'compliance-btn selected-yes';
+            noBtn.className = 'compliance-btn';
+          } else {
+            yesBtn.className = 'compliance-btn';
+            noBtn.className = 'compliance-btn selected-no';
+          }
+        });
+      });
+    }
+
+    function showAuthError(msg) {
+      authAlert.textContent = msg;
+      authAlert.style.display = 'block';
+    }
+
+    function parseAuthError(code) {
+      switch (code) {
+        case 'auth/invalid-email': return 'El formato del correo es inválido.';
+        case 'auth/user-not-found': return 'No existe un usuario con este correo.';
+        case 'auth/wrong-password': return 'Contraseña incorrecta.';
+        case 'auth/invalid-credential': return 'Credenciales de acceso incorrectas.';
+        case 'auth/email-already-in-use': return 'Este correo ya se encuentra registrado.';
+        case 'auth/weak-password': return 'La contraseña debe contener al menos 6 caracteres.';
+        default: return 'No se pudo completar la autenticación. Revisa tus datos.';
+      }
+    }
+  </script>
+
+  <!-- Service Worker PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        const swBlob = new Blob([`
+          self.addEventListener('install', e => self.skipWaiting());
+          self.addEventListener('activate', e => self.clients.claim());
+          self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => caches.match(e.request))));
+        `], { type: 'application/javascript' });
+        navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
