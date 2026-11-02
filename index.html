@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>IDI & YELLO - Trade Marketing Console</title>
+  <title>IDI & YELLO - Trade Marketing Enterprise & Share of Shelf</title>
 
-  <!-- PWA iOS & Android -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="theme-color" content="#ffffff">
@@ -13,7 +12,7 @@
   <!-- Manifest dinámico -->
   <script>
     const manifest = {
-      name: "IDI & YELLO Trade Marketing",
+      name: "IDI & YELLO Enterprise",
       short_name: "Yello Rutas",
       start_url: "./",
       display: "standalone",
@@ -50,12 +49,14 @@
       --danger-soft: #fee2e2;
       --info: #0284c7;
       --info-soft: #e0f2fe;
+      --purple: #7c3aed;
+      --purple-soft: #ede9fe;
       --radius-sm: 6px;
       --radius-md: 10px;
       --radius-lg: 14px;
       --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
     }
 
     * {
@@ -74,7 +75,6 @@
       flex-direction: column;
     }
 
-    /* PANTALLA DE CARGA (SPLASH) */
     #splash-screen {
       position: fixed;
       inset: 0;
@@ -84,7 +84,7 @@
       align-items: center;
       justify-content: center;
       z-index: 9999;
-      transition: opacity 0.5s ease, visibility 0.5s;
+      transition: opacity 0.4s ease, visibility 0.4s;
     }
     #splash-screen.fade-out {
       opacity: 0;
@@ -132,22 +132,22 @@
       height: 3px;
       background-color: #e2e8f0;
       border-radius: 4px;
-      margin-top: 2.5rem;
+      margin-top: 2rem;
       overflow: hidden;
     }
     .splash-bar-fill {
       height: 100%;
       width: 0%;
       background-color: var(--accent);
-      animation: splashLoad 2.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      animation: splashLoad 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     }
     @keyframes splashLoad {
       0% { width: 0%; }
-      70% { width: 80%; }
+      70% { width: 85%; }
       100% { width: 100%; }
     }
 
-    /* BARRA SUPERIOR (HEADER) */
+    /* HEADER */
     header {
       background-color: var(--bg-surface);
       border-bottom: 1px solid var(--border-color);
@@ -158,7 +158,7 @@
       box-shadow: var(--shadow-sm);
     }
     .header-content {
-      max-width: 1300px;
+      max-width: 1400px;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -221,11 +221,10 @@
       color: var(--danger);
     }
 
-    /* CONTENEDOR PRINCIPAL */
     main {
       flex: 1;
       padding: 1.5rem 1rem;
-      max-width: 1300px;
+      max-width: 1400px;
       margin: 0 auto;
       width: 100%;
     }
@@ -239,77 +238,7 @@
       box-shadow: var(--shadow-sm);
     }
 
-    /* AUTENTICACIÓN */
-    .auth-wrapper {
-      max-width: 420px;
-      margin: 2rem auto;
-    }
-    .auth-hero-logos {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.25rem;
-      margin-bottom: 1.5rem;
-    }
-    .auth-hero-idi {
-      border: 2px solid #334155;
-      padding: 0.4rem 1.2rem;
-      font-size: 1.2rem;
-      font-weight: 800;
-      letter-spacing: 0.4rem;
-      margin-right: -0.4rem;
-      color: #1e293b;
-      border-radius: 3px;
-    }
-    .auth-hero-div {
-      width: 1px;
-      height: 30px;
-      background-color: var(--border-color);
-    }
-    .auth-hero-yello {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: #0f172a;
-      line-height: 1.1;
-    }
-    .auth-hero-yello small {
-      display: block;
-      font-size: 0.65rem;
-      color: var(--text-muted);
-      letter-spacing: 0.2rem;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-    .tab-pills {
-      display: flex;
-      background-color: var(--bg-surface-subtle);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 4px;
-      margin-bottom: 1.5rem;
-    }
-    .tab-pill {
-      flex: 1;
-      background: transparent;
-      border: none;
-      padding: 0.6rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .tab-pill.active {
-      background-color: var(--bg-surface);
-      color: var(--text-main);
-      box-shadow: var(--shadow-sm);
-    }
-
-    /* FORMULARIOS Y BOTONES */
-    .field-group {
-      margin-bottom: 1rem;
-    }
+    .field-group { margin-bottom: 1rem; }
     .field-label {
       display: block;
       font-size: 0.75rem;
@@ -348,10 +277,23 @@
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      transition: background-color 0.2s, transform 0.1s;
+      transition: background-color 0.2s;
     }
     .btn-solid:hover { background-color: var(--accent-hover); }
-    .btn-solid:active { transform: scale(0.99); }
+    .btn-secondary {
+      background-color: var(--bg-surface-subtle);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.75rem;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+    .btn-secondary:hover { background-color: #e2e8f0; }
     .btn-danger-solid { background-color: var(--danger); }
     .btn-danger-solid:hover { background-color: #b91c1c; }
     .alert-banner {
@@ -365,39 +307,16 @@
       display: none;
     }
 
-    /* GPS BADGE */
-    .gps-indicator {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background-color: var(--bg-surface-subtle);
-      border: 1px solid var(--border-color);
-      padding: 0.4rem 0.75rem;
-      border-radius: 9999px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-    }
-    .gps-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background-color: var(--success);
-      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.2);
-    }
-
-    /* GRID RESPONSIVO GENERAL */
     .responsive-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 1.5rem;
     }
     @media (min-width: 992px) {
-      .responsive-grid-user { grid-template-columns: 420px 1fr; }
-      .responsive-grid-admin { grid-template-columns: 360px 1fr; }
+      .responsive-grid-user { grid-template-columns: 460px 1fr; }
+      .responsive-grid-admin { grid-template-columns: 380px 1fr; }
     }
 
-    /* PROMOTOR: SESIÓN ACTIVA Y PILARES */
     .active-session-banner {
       background: linear-gradient(to right, #ffffff, #fffbeb);
       border: 1px solid #fde68a;
@@ -406,11 +325,7 @@
       padding: 1.25rem;
       margin-bottom: 1.25rem;
     }
-    .active-store-heading {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #78350f;
-    }
+    .active-store-heading { font-size: 1.15rem; font-weight: 700; color: #78350f; }
     .active-clock {
       font-size: 0.9rem;
       font-family: ui-monospace, monospace;
@@ -425,347 +340,208 @@
       padding: 1.1rem;
       margin-bottom: 1rem;
     }
-    .pillar-title {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-    .pillar-instruction {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin: 0.25rem 0 0.75rem;
-      line-height: 1.35;
-    }
-    .compliance-selector {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 0.85rem;
-    }
+    .pillar-title { font-size: 0.92rem; font-weight: 700; color: var(--text-main); }
+    .pillar-instruction { font-size: 0.78rem; color: var(--text-muted); margin: 0.25rem 0 0.75rem; line-height: 1.35; }
+    .compliance-selector { display: flex; gap: 0.5rem; margin-bottom: 0.85rem; }
     .compliance-btn {
-      flex: 1;
-      padding: 0.55rem;
-      text-align: center;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      background-color: var(--bg-surface);
-      color: var(--text-muted);
-      font-size: 0.82rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s;
+      flex: 1; padding: 0.55rem; text-align: center;
+      border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+      background-color: var(--bg-surface); color: var(--text-muted);
+      font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.15s;
     }
     .compliance-btn input { display: none; }
-    .compliance-btn.selected-yes {
-      background-color: var(--success);
-      border-color: var(--success);
-      color: #ffffff;
-    }
-    .compliance-btn.selected-no {
-      background-color: var(--danger);
-      border-color: var(--danger);
-      color: #ffffff;
-    }
+    .compliance-btn.selected-yes { background-color: var(--success); border-color: var(--success); color: #ffffff; }
+    .compliance-btn.selected-no { background-color: var(--danger); border-color: var(--danger); color: #ffffff; }
 
-    /* DISPARADOR DE FOTO */
-    .photo-drop-trigger {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      background-color: var(--bg-surface);
-      border: 1.5px dashed var(--border-color);
-      border-radius: var(--radius-sm);
-      padding: 0.75rem;
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .photo-drop-trigger:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background-color: var(--accent-soft);
-    }
-    .photo-drop-trigger.ready {
-      border-style: solid;
-      border-color: var(--success);
-      background-color: var(--success-soft);
-      color: #065f46;
-      font-weight: 600;
-    }
-    .photo-preview-thumbnail {
-      width: 100%;
-      height: 110px;
-      object-fit: cover;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border-color);
-      margin-top: 0.5rem;
-      cursor: pointer;
-    }
-
-    /* ========================================================
-       NUEVO DASHBOARD ADMINISTRADOR PROFESIONAL (ESTILOS)
-       ======================================================== */
-    .admin-metrics-grid {
+    /* FRENTES / SHARE OF SHELF INPUTS */
+    .sos-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 0.75rem;
-      margin-bottom: 1.25rem;
+      margin-bottom: 0.75rem;
     }
-    @media (min-width: 768px) and (max-width: 991px) {
-      .admin-metrics-grid { grid-template-columns: repeat(4, 1fr); }
+    .sos-live-pill {
+      background-color: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 0.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .photo-drop-trigger {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background-color: var(--bg-surface); border: 1.5px dashed var(--border-color);
+      border-radius: var(--radius-sm); padding: 0.75rem;
+      font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: all 0.2s;
+    }
+    .photo-drop-trigger:hover { border-color: var(--accent); color: var(--accent); background-color: var(--accent-soft); }
+    .photo-drop-trigger.ready { border-style: solid; border-color: var(--success); background-color: var(--success-soft); color: #065f46; font-weight: 600; }
+    .photo-preview-thumbnail { width: 100%; height: 110px; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-top: 0.5rem; cursor: pointer; }
+
+    /* DASHBOARD KPIS */
+    .admin-metrics-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-bottom: 1.25rem;
+    }
+    @media (min-width: 1200px) {
+      .admin-metrics-grid-sos { grid-template-columns: repeat(3, 1fr); }
     }
     .metric-box {
-      background-color: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 1rem 0.9rem;
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
+      background-color: var(--bg-surface); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); padding: 1rem 0.9rem; position: relative; overflow: hidden; box-shadow: var(--shadow-sm);
     }
-    .metric-box::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background-color: var(--border-color);
-    }
+    .metric-box::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background-color: var(--border-color); }
     .metric-box.active-card::before { background-color: var(--success); }
     .metric-box.completed-card::before { background-color: var(--info); }
     .metric-box.time-card::before { background-color: var(--accent); }
     .metric-box.compliance-card::before { background-color: #8b5cf6; }
+    .metric-box.sos-card::before { background-color: var(--purple); }
+    .metric-number { font-size: 1.55rem; font-weight: 800; color: var(--text-main); line-height: 1; }
+    .metric-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05rem; margin-top: 0.35rem; }
 
-    .metric-number {
-      font-size: 1.55rem;
-      font-weight: 800;
-      color: var(--text-main);
-      line-height: 1;
+    .admin-tab-bar {
+      display: flex; background-color: var(--bg-surface-subtle); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); padding: 4px; margin-bottom: 1.25rem; overflow-x: auto;
     }
-    .metric-label {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      font-weight: 700;
-      letter-spacing: 0.05rem;
-      margin-top: 0.35rem;
+    .admin-tab-btn {
+      flex: 1; padding: 0.65rem 0.8rem; font-size: 0.82rem; font-weight: 600; border: none; background: transparent;
+      color: var(--text-muted); border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s; white-space: nowrap;
     }
+    .admin-tab-btn.active { background-color: var(--bg-surface); color: var(--text-main); box-shadow: var(--shadow-sm); }
 
-    /* BARRAS DE PROGRESO DE CUMPLIMIENTO */
-    .performance-card {
-      background-color: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      padding: 1.25rem;
-      margin-bottom: 1.25rem;
-      box-shadow: var(--shadow-sm);
-    }
-    .perf-heading {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-main);
-      text-transform: uppercase;
-      letter-spacing: 0.04rem;
-      margin-bottom: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .pillar-progress-item {
-      margin-bottom: 0.85rem;
-    }
-    .pillar-progress-item:last-child { margin-bottom: 0; }
-    .pillar-progress-meta {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.76rem;
-      font-weight: 600;
-      margin-bottom: 0.3rem;
-      color: var(--text-main);
-    }
-    .pillar-bar-bg {
-      width: 100%;
-      height: 8px;
-      background-color: var(--bg-surface-subtle);
-      border-radius: 9999px;
-      overflow: hidden;
-      border: 1px solid var(--border-color);
-    }
-    .pillar-bar-fill {
-      height: 100%;
-      border-radius: 9999px;
-      transition: width 0.4s ease;
-    }
-    .fill-p1 { background-color: #0284c7; }
-    .fill-p2 { background-color: #d97706; }
-    .fill-p3 { background-color: #059669; }
-
-    /* FILTROS DE AUDITORÍA */
-    .filters-cluster {
-      background-color: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      padding: 1.25rem;
-      margin-bottom: 1.25rem;
-      box-shadow: var(--shadow-sm);
-    }
-
-    /* ENTRADA DE REGISTRO EN EL FEED */
-    .record-entry {
-      background-color: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 1.15rem;
-      margin-bottom: 0.85rem;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .record-entry:hover {
-      box-shadow: var(--shadow-md);
-    }
-    .record-topline {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 0.35rem;
-    }
-    .store-label {
-      font-size: 0.98rem;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-    .duration-tag {
-      font-size: 0.78rem;
-      font-family: ui-monospace, monospace;
-      font-weight: 600;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      background-color: var(--bg-surface-subtle);
-      color: var(--text-muted);
-      border: 1px solid var(--border-color);
-    }
-    .duration-tag.in-progress {
-      background-color: var(--success-soft);
-      color: #065f46;
-      border-color: #a7f3d0;
-    }
-    .promoter-meta {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-bottom: 0.65rem;
-    }
-    .gps-anchors {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      margin-bottom: 0.65rem;
-    }
-    .gps-link {
-      color: var(--info);
-      text-decoration: none;
-      font-size: 0.75rem;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-    .gps-link:hover { text-decoration: underline; }
-    .badges-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      margin-bottom: 0.75rem;
-    }
-    .eval-badge {
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 0.2rem 0.45rem;
-      border-radius: 4px;
-    }
-    .eval-badge.yes { background-color: var(--success-soft); color: #065f46; }
-    .eval-badge.no { background-color: var(--danger-soft); color: #991b1b; }
-
-    /* GRILLA DE FOTOS */
-    .photos-quad-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.5rem;
-      margin-top: 0.5rem;
+    .gallery-masonry {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.65rem;
     }
     @media (min-width: 768px) {
-      .photos-quad-grid { grid-template-columns: repeat(4, 1fr); }
+      .gallery-masonry { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0.85rem; }
     }
-    .photo-tile {
-      position: relative;
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      border: 1px solid var(--border-color);
-      background-color: #000000;
-      height: 95px;
+    .gallery-card {
+      border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; background: #fff;
+      display: flex; flex-direction: column; box-shadow: var(--shadow-sm);
     }
-    .photo-tile img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      cursor: zoom-in;
-      transition: transform 0.2s;
+    .gallery-card img { width: 100%; height: 130px; object-fit: cover; cursor: pointer; transition: transform 0.2s; }
+    .gallery-card img:hover { transform: scale(1.03); }
+    .gallery-info { padding: 0.45rem 0.55rem; font-size: 0.68rem; }
+    .gallery-tag { font-weight: 700; color: var(--accent-hover); display: block; }
+    .gallery-store { color: var(--text-main); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .route-checkbox-list {
+      max-height: 220px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+      padding: 0.5rem; background: var(--bg-surface); margin-bottom: 1rem;
     }
-    .photo-tile img:hover { transform: scale(1.05); }
-    .photo-tile-tag {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(15, 23, 42, 0.8);
-      color: #ffffff;
-      font-size: 0.62rem;
-      padding: 0.2rem 0.4rem;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .route-checkbox-item {
+      display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; padding: 0.35rem 0; border-bottom: 1px solid #f1f5f9;
     }
 
-    /* MODAL DE IMAGEN FULLSCREEN */
-    #imageModal {
+    .table-container {
+      width: 100%; overflow-x: auto; margin-top: 1rem;
+    }
+    .custom-table {
+      width: 100%; border-collapse: collapse; font-size: 0.82rem; text-align: left;
+    }
+    .custom-table th {
+      background-color: var(--bg-surface-subtle); padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border-color);
+      color: var(--text-muted); font-weight: 700; text-transform: uppercase; font-size: 0.7rem;
+    }
+    .custom-table td {
+      padding: 0.6rem 0.75rem; border-bottom: 1px solid #f1f5f9; color: var(--text-main);
+    }
+
+    /* SISTEMA DE MODAL PERSONALIZADO (POPUP) */
+    .custom-modal-backdrop {
       position: fixed;
       inset: 0;
-      background-color: rgba(15, 23, 42, 0.9);
+      background-color: rgba(15, 23, 42, 0.7);
       backdrop-filter: blur(4px);
-      z-index: 10000;
+      z-index: 10500;
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
+      padding: 1.25rem;
     }
-    #imageModal.active { display: flex; }
-    #modalFullImage {
-      max-width: 95vw;
-      max-height: 85vh;
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-lg);
-      object-fit: contain;
-      background: #000;
+    .custom-modal-backdrop.active {
+      display: flex;
     }
-    .modal-close-btn {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      background: #ffffff;
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      font-size: 1.2rem;
-      font-weight: 700;
+    .custom-modal-card {
+      background-color: #ffffff;
+      border-radius: var(--radius-lg);
+      max-width: 440px;
+      width: 100%;
+      padding: 1.75rem;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      border: 1px solid var(--border-color);
+      animation: modalSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes modalSlideIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .custom-modal-title {
+      font-size: 1.1rem;
+      font-weight: 800;
       color: var(--text-main);
-      cursor: pointer;
+      margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-md);
+      gap: 0.5rem;
+    }
+    .custom-modal-body {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-bottom: 1.5rem;
+    }
+    .custom-modal-actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: flex-end;
+    }
+    .modal-btn {
+      padding: 0.65rem 1.2rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+    .modal-btn-cancel {
+      background: var(--bg-surface-subtle);
+      border-color: var(--border-color);
+      color: var(--text-main);
+    }
+    .modal-btn-cancel:hover {
+      background: #e2e8f0;
+    }
+    .modal-btn-confirm {
+      background: var(--accent);
+      color: #fff;
+    }
+    .modal-btn-confirm:hover {
+      background: var(--accent-hover);
+    }
+    .modal-btn-danger {
+      background: var(--danger);
+      color: #fff;
+    }
+    .modal-btn-danger:hover {
+      background: #b91c1c;
+    }
+
+    /* MODAL DE FOTO FULLSCREEN */
+    #imageModal {
+      position: fixed; inset: 0; background-color: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(4px); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 1.5rem;
+    }
+    #imageModal.active { display: flex; }
+    #modalFullImage { max-width: 95vw; max-height: 85vh; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); object-fit: contain; }
+    .modal-close-btn {
+      position: absolute; top: 1.5rem; right: 1.5rem; background: #ffffff; border: none; border-radius: 50%;
+      width: 40px; height: 40px; font-size: 1.2rem; font-weight: 700; cursor: pointer; box-shadow: var(--shadow-md);
     }
 
     .view-zone { display: none; }
@@ -781,9 +557,7 @@
       <div class="splash-div"></div>
       <div class="splash-yello-title">YELLO</div>
       <div class="splash-yello-sub">MKT Group</div>
-      <div class="splash-bar-wrap">
-        <div class="splash-bar-fill"></div>
-      </div>
+      <div class="splash-bar-wrap"><div class="splash-bar-fill"></div></div>
     </div>
   </div>
 
@@ -795,6 +569,9 @@
         <span class="brand-title">Trade Management Console</span>
       </div>
       <div class="header-nav">
+        <button id="btnOpenDedicatedDashboard" style="display: none; background: var(--accent-soft); color: var(--accent-hover); border: 1px solid #fcd34d; font-size: 0.75rem; font-weight: 700; padding: 0.3rem 0.6rem; border-radius: 4px; cursor: pointer;">
+          📊 Dashboard Full
+        </button>
         <span class="role-tag" id="roleTag" style="display: none;"></span>
         <button class="btn-logout" id="btnLogout" style="display: none;">Cerrar Sesión</button>
       </div>
@@ -804,19 +581,16 @@
   <main>
     <!-- 1. VISTA DE AUTENTICACIÓN -->
     <section id="authZone" class="view-zone active">
-      <div class="clean-card auth-wrapper">
-        <div class="auth-hero-logos">
-          <div class="auth-hero-idi">IDI</div>
-          <div class="auth-hero-div"></div>
-          <div class="auth-hero-yello">
-            YELLO
-            <small>MKT Group</small>
-          </div>
+      <div class="clean-card" style="max-width: 420px; margin: 2rem auto;">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 1.25rem; margin-bottom: 1.5rem;">
+          <div style="border: 2px solid #334155; padding: 0.4rem 1.2rem; font-size: 1.2rem; font-weight: 800; letter-spacing: 0.4rem; color: #1e293b; border-radius: 3px;">IDI</div>
+          <div style="width: 1px; height: 30px; background-color: var(--border-color);"></div>
+          <div style="font-size: 1.15rem; font-weight: 800; color: #0f172a;">YELLO <small style="display: block; font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.2rem;">MKT Group</small></div>
         </div>
 
-        <div class="tab-pills">
-          <button class="tab-pill active" id="tabLoginBtn">Iniciar Sesión</button>
-          <button class="tab-pill" id="tabRegisterBtn">Registrarse</button>
+        <div style="display: flex; background: var(--bg-surface-subtle); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 4px; margin-bottom: 1.5rem;">
+          <button class="admin-tab-btn active" id="tabLoginBtn">Iniciar Sesión</button>
+          <button class="admin-tab-btn" id="tabRegisterBtn">Registrarse</button>
         </div>
 
         <div id="authAlert" class="alert-banner"></div>
@@ -864,45 +638,22 @@
           <div class="clean-card" id="cardCheckIn">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
               <h2 style="font-size: 1.05rem; font-weight: 700;">Check-in de Asistencia</h2>
-              <div class="gps-indicator">
-                <div class="gps-dot"></div>
-                <span>GPS Obligatorio</span>
-              </div>
+              <span id="routeAssignedBadge" style="font-size: 0.72rem; background: var(--accent-soft); color: var(--accent-hover); padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700;">Ruta de Hoy</span>
             </div>
 
-            <div class="field-group">
+            <div id="noRouteAlert" style="display: none; background: #fffbeb; border: 1px solid #fef3c7; color: #b45309; padding: 0.75rem; border-radius: 6px; font-size: 0.8rem; margin-bottom: 1rem;">
+              Sin ruta asignada hoy. Mostrando catálogo completo de tiendas.
+            </div>
+
+            <div class="field-group" id="storeSelectGroup">
               <label class="field-label">Tienda a Visitar</label>
               <select id="selStore" class="form-select" required>
-                <option value="" disabled selected>-- Selecciona una tienda de la ruta --</option>
-                <optgroup label="Ciudad de México (CDMX)">
-                  <option value="SP CALZADA DE LOS LEONES">SP CALZADA DE LOS LEONES (Álvaro Obregón)</option>
-                  <option value="SP PARQUES POLANCO">SP PARQUES POLANCO (Miguel Hidalgo)</option>
-                  <option value="SP F DE LAS LOMAS">SP F DE LAS LOMAS (Fuente de las Lomas)</option>
-                  <option value="SP HORACIO">SP HORACIO (Polanco)</option>
-                  <option value="SP BARRILACO">SP BARRILACO (Lomas de Chapultepec)</option>
-                  <option value="SP MICHOACÁN">SP MICHOACÁN (Condesa)</option>
-                  <option value="SP ORADORES">SP ORADORES (Huixquilucan)</option>
-                  <option value="SP LOS MORALES">SP LOS MORALES (Polanco)</option>
-                  <option value="SP B. DE LAS LOMAS">SP B. DE LAS LOMAS (Bosques de las Lomas)</option>
-                  <option value="SP VIRREYES">SP VIRREYES (Lomas de Chapultepec)</option>
-                  <option value="SP HOMERO">SP HOMERO (Polanco)</option>
-                  <option value="SP JARDINES">SP JARDINES (Jardines del Pedregal)</option>
-                  <option value="SP LOMAS ANÁHUAC">SP LOMAS ANÁHUAC</option>
-                  <option value="SP BOSQUES DE MINAS">SP BOSQUES DE MINAS</option>
-                  <option value="SP STA FE">SP STA FE (Santa Fe)</option>
-                  <option value="SP FUENTES DEL PEDREGAL">SP FUENTES DEL PEDREGAL (Tlalpan)</option>
-                  <option value="SP VISTAHERMOSA">SP VISTAHERMOSA (Cuajimalpa)</option>
-                  <option value="SP AXOMIATLA">SP AXOMIATLA (Álvaro Obregón)</option>
-                </optgroup>
-                <optgroup label="Estado de México">
-                  <option value="SP TECAMACHALCO">SP TECAMACHALCO (Huixquilucan / Naucalpan)</option>
-                  <option value="SP ESMERALDA">SP ESMERALDA (Atizapán de Zaragoza)</option>
-                </optgroup>
+                <option value="" disabled selected>-- Elige una tienda --</option>
               </select>
             </div>
 
             <div class="field-group">
-              <label class="field-label">Fotografía de Entrada / Fachada *</label>
+              <label class="field-label">Fotografía de Fachada / Entrada *</label>
               <label class="photo-drop-trigger" id="triggerFotoIn">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
                 <span id="textFotoIn">Tomar o subir foto (PNG / JPG)</span>
@@ -917,7 +668,7 @@
             </button>
           </div>
 
-          <!-- Auditoría Activa -->
+          <!-- Auditoría en Curso y Check-out -->
           <div class="clean-card" id="cardAudit" style="display: none;">
             <div class="active-session-banner">
               <div class="active-store-heading" id="lblActiveStore">-</div>
@@ -947,7 +698,7 @@
 
               <div class="audit-pillar-box">
                 <div class="pillar-title">2. Flujo de navegación</div>
-                <div class="pillar-instruction">Recorrido de compra acorde al flujo de tienda. Apertura obligatoria por vinos tintos.</div>
+                <div class="pillar-instruction">Recorrido acorde al flujo. Apertura obligatoria por vinos tintos.</div>
                 <div class="compliance-selector">
                   <label class="compliance-btn selected-yes" id="lblP2Yes">
                     <input type="radio" name="pilar2" value="Cumple" checked> Sí Cumple
@@ -964,9 +715,11 @@
                 <img id="prevFotoP2" class="photo-preview-thumbnail" style="display:none;" alt="Preview P2">
               </div>
 
+              <!-- PILAR 3 + SHARE OF SHELF -->
               <div class="audit-pillar-box">
-                <div class="pillar-title">3. Distribución de espacios</div>
-                <div class="pillar-instruction">Frentes asignados por marca, SKU, presentaciones mini y sin alcohol según estrategia.</div>
+                <div class="pillar-title">3. Distribución de espacios y Frentes</div>
+                <div class="pillar-instruction">Frentes asignados por marca, SKU, presentaciones mini y sin alcohol. Conteo de participación.</div>
+                
                 <div class="compliance-selector">
                   <label class="compliance-btn selected-yes" id="lblP3Yes">
                     <input type="radio" name="pilar3" value="Cumple" checked> Sí Cumple
@@ -975,6 +728,23 @@
                     <input type="radio" name="pilar3" value="No Cumple"> No Cumple
                   </label>
                 </div>
+
+                <div class="sos-grid">
+                  <div>
+                    <label class="field-label">Frentes Marca Propia</label>
+                    <input type="number" id="inputFrentesPropios" class="form-input" min="0" value="0" required>
+                  </div>
+                  <div>
+                    <label class="field-label">Frentes Competencia</label>
+                    <input type="number" id="inputFrentesCompetencia" class="form-input" min="0" value="0" required>
+                  </div>
+                </div>
+
+                <div class="sos-live-pill">
+                  <span>Participación en Anaquel (SOS):</span>
+                  <span id="lblLiveSos" style="color: var(--purple);">0.0%</span>
+                </div>
+
                 <label class="photo-drop-trigger" id="triggerFotoP3">
                   <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
                   <span id="textFotoP3">Evidencia Espacios / Anaquel (PNG/JPG) *</span>
@@ -986,6 +756,10 @@
               <button type="submit" class="btn-solid btn-danger-solid">
                 <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                 Validar GPS y Finalizar Check-out
+              </button>
+
+              <button type="button" id="btnCancelActiveVisit" class="btn-secondary">
+                Cancelar visita / Cambiar de tienda
               </button>
             </form>
           </div>
@@ -1002,13 +776,12 @@
       </div>
     </section>
 
-    <!-- 3. VISTA ADMINISTRADOR (DASHBOARD ANALÍTICO COMPLETO) -->
+    <!-- 3. VISTA ADMINISTRADOR -->
     <section id="adminZone" class="view-zone">
       <div class="responsive-grid responsive-grid-admin">
         
-        <!-- Columna Izquierda: KPIs, Desempeño y Filtros -->
+        <!-- Panel Izquierdo: Métricas y Filtros -->
         <div>
-          <!-- Métricas Primarias -->
           <div class="admin-metrics-grid">
             <div class="metric-box active-card">
               <div class="metric-number" id="kpiActive">0</div>
@@ -1026,111 +799,168 @@
               <div class="metric-number" id="kpiGlobalRate">0%</div>
               <div class="metric-label">% Apego Global</div>
             </div>
-          </div>
-
-          <!-- Barras de Auditoría por Pilar -->
-          <div class="performance-card">
-            <div class="perf-heading">
-              <span>Auditoría por Pilar</span>
-              <span id="lblCoverageCount" style="color: var(--accent); font-size: 0.75rem;">0/20 Tiendas</span>
-            </div>
-
-            <div class="pillar-progress-item">
-              <div class="pillar-progress-meta">
-                <span>1. Planograma</span>
-                <span id="rateP1">0%</span>
-              </div>
-              <div class="pillar-bar-bg">
-                <div class="pillar-bar-fill fill-p1" id="barP1" style="width: 0%;"></div>
-              </div>
-            </div>
-
-            <div class="pillar-progress-item">
-              <div class="pillar-progress-meta">
-                <span>2. Flujo (Tintos)</span>
-                <span id="rateP2">0%</span>
-              </div>
-              <div class="pillar-bar-bg">
-                <div class="pillar-bar-fill fill-p2" id="barP2" style="width: 0%;"></div>
-              </div>
-            </div>
-
-            <div class="pillar-progress-item">
-              <div class="pillar-progress-meta">
-                <span>3. Espacios / SKU</span>
-                <span id="rateP3">0%</span>
-              </div>
-              <div class="pillar-bar-bg">
-                <div class="pillar-bar-fill fill-p3" id="barP3" style="width: 0%;"></div>
-              </div>
+            <div class="metric-box sos-card" style="grid-column: span 2;">
+              <div class="metric-number" id="kpiAvgSos" style="color: var(--purple);">0%</div>
+              <div class="metric-label">Participación en Anaquel Promedio (SOS)</div>
             </div>
           </div>
 
-          <!-- Consola de Filtros y Descarga -->
-          <div class="filters-cluster">
-            <h3 style="font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem; text-transform: uppercase; letter-spacing: 0.04rem;">Filtros de Auditoría</h3>
+          <!-- Filtros Avanzados -->
+          <div class="clean-card">
+            <h3 style="font-size: 0.88rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.85rem; letter-spacing: 0.05rem;">Filtros de Auditoría</h3>
             
             <div class="field-group">
-              <label class="field-label">Buscar Promotor o Sucursal</label>
-              <input type="text" id="adminSearchInput" class="form-input" placeholder="Ej. Horacio, Polanco, Juan...">
+              <label class="field-label">Buscar Promotor o Tienda</label>
+              <input type="text" id="adminSearchInput" class="form-input" placeholder="Nombre de promotor o sucursal...">
             </div>
 
             <div class="field-group">
-              <label class="field-label">Filtrar por Estado</label>
-              <select id="adminStatusFilter" class="form-select">
-                <option value="ALL">Todas las visitas</option>
-                <option value="EN_TIENDA">En servicio activo</option>
-                <option value="CONCLUIDO">Concluidas con auditoría</option>
+              <label class="field-label">Filtrar por Tienda</label>
+              <select id="adminFilterStore" class="form-select">
+                <option value="ALL">Todas las tiendas</option>
               </select>
             </div>
 
             <div class="field-group">
-              <label class="field-label">Filtrar por Tienda Específica</label>
-              <select id="adminStoreFilter" class="form-select">
-                <option value="ALL">Todas las 20 tiendas</option>
-                <option value="SP CALZADA DE LOS LEONES">SP CALZADA DE LOS LEONES</option>
-                <option value="SP PARQUES POLANCO">SP PARQUES POLANCO</option>
-                <option value="SP F DE LAS LOMAS">SP F DE LAS LOMAS</option>
-                <option value="SP HORACIO">SP HORACIO</option>
-                <option value="SP BARRILACO">SP BARRILACO</option>
-                <option value="SP MICHOACÁN">SP MICHOACÁN</option>
-                <option value="SP ORADORES">SP ORADORES</option>
-                <option value="SP LOS MORALES">SP LOS MORALES</option>
-                <option value="SP B. DE LAS LOMAS">SP B. DE LAS LOMAS</option>
-                <option value="SP VIRREYES">SP VIRREYES</option>
-                <option value="SP HOMERO">SP HOMERO</option>
-                <option value="SP JARDINES">SP JARDINES</option>
-                <option value="SP LOMAS ANÁHUAC">SP LOMAS ANÁHUAC</option>
-                <option value="SP BOSQUES DE MINAS">SP BOSQUES DE MINAS</option>
-                <option value="SP STA FE">SP STA FE</option>
-                <option value="SP FUENTES DEL PEDREGAL">SP FUENTES DEL PEDREGAL</option>
-                <option value="SP VISTAHERMOSA">SP VISTAHERMOSA</option>
-                <option value="SP AXOMIATLA">SP AXOMIATLA</option>
-                <option value="SP TECAMACHALCO">SP TECAMACHALCO</option>
-                <option value="SP ESMERALDA">SP ESMERALDA</option>
+              <label class="field-label">Filtrar por Promotor</label>
+              <select id="adminFilterPromoter" class="form-select">
+                <option value="ALL">Todos los promotores</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Estado de la Visita</label>
+              <select id="adminFilterStatus" class="form-select">
+                <option value="ALL">Todos los estados</option>
+                <option value="EN_TIENDA">En servicio actualmente</option>
+                <option value="CONCLUIDO">Concluidas</option>
               </select>
             </div>
 
             <button id="btnExportCsvData" class="btn-solid" style="background-color: #334155; margin-top: 0.5rem;">
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-              Descargar Reporte Ejecutivo CSV
+              Exportar Auditoría CSV
             </button>
+
+            <!-- Zona de Depuración -->
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <label class="field-label" style="color: var(--danger);">Zona de Depuración</label>
+              <button id="btnDeleteAllVisits" class="btn-solid btn-danger-solid" style="font-size: 0.8rem; padding: 0.6rem;">
+                Vaciar Todas las Visitas
+              </button>
+            </div>
           </div>
         </div>
 
-        <!-- Columna Derecha: Feed Central de Auditorías -->
+        <!-- Panel Derecho: Vistas con Pestañas -->
         <div>
-          <div class="clean-card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-              <div>
-                <h2 style="font-size: 1.05rem; font-weight: 700;">Bitácora Operativa en Tiempo Real</h2>
-                <span style="font-size: 0.75rem; color: var(--text-muted);">Monitoreo GPS y Evidencias Fotográficas</span>
-              </div>
-              <span style="font-size: 0.78rem; font-weight: 700; color: var(--accent); background: var(--accent-soft); padding: 0.25rem 0.6rem; border-radius: 4px;" id="lblTotalFeedCount">0 registros</span>
-            </div>
+          <div class="admin-tab-bar">
+            <button class="admin-tab-btn active" id="btnTabFeed">Bitácora en Vivo</button>
+            <button class="admin-tab-btn" id="btnTabGallery">Galería de Evidencias</button>
+            <button class="admin-tab-btn" id="btnTabAssign">Asignar Rutas</button>
+            <button class="admin-tab-btn" id="btnTabStores">Gestión de Tiendas & GPS</button>
+          </div>
 
+          <!-- PESTAÑA 1: Bitácora -->
+          <div class="clean-card" id="adminFeedContainer">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <h2 style="font-size: 1.05rem; font-weight: 700;">Auditoría de Rutas</h2>
+              <span id="lblTotalFeedCount" style="font-size: 0.75rem; color: var(--text-muted);">0 visitas</span>
+            </div>
             <div id="adminMasterFeed">
-              <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 2rem 0;">Cargando reportes en tiempo real...</p>
+              <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 2rem 0;">Cargando registros...</p>
+            </div>
+          </div>
+
+          <!-- PESTAÑA 2: Galería de Fotos -->
+          <div class="clean-card" id="adminGalleryContainer" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <h2 style="font-size: 1.05rem; font-weight: 700;">Evidencias Fotográficas</h2>
+              <span id="lblTotalPhotosCount" style="font-size: 0.75rem; color: var(--accent); font-weight: 700;">0 fotos</span>
+            </div>
+            <div class="gallery-masonry" id="adminGlobalGallery">
+              <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 2rem 0;">Cargando galería...</p>
+            </div>
+          </div>
+
+          <!-- PESTAÑA 3: Asignar Rutas Diarias -->
+          <div class="clean-card" id="adminAssignContainer" style="display: none;">
+            <h2 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem;">Programación de Rutas por Promotor</h2>
+            <form id="formAssignRoute">
+              <div class="field-group">
+                <label class="field-label">Seleccionar Promotor</label>
+                <select id="routePromoterSelect" class="form-select" required>
+                  <option value="" disabled selected>Cargando lista de promotores...</option>
+                </select>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label">Fecha de Visita</label>
+                <input type="date" id="routeDateInput" class="form-input" required>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label">Seleccionar Tiendas a Visitar</label>
+                <div class="route-checkbox-list" id="routeStoresCheckList"></div>
+              </div>
+
+              <button type="submit" class="btn-solid">Guardar y Asignar Ruta</button>
+            </form>
+          </div>
+
+          <!-- PESTAÑA 4: Gestión de Tiendas Manuales -->
+          <div class="clean-card" id="adminStoresContainer" style="display: none;">
+            <h2 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem;">Alta de Tiendas con Coordenadas GPS</h2>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Registra sucursales con coordenadas exactas para validar la proximidad del promotor al hacer Check-in.
+            </p>
+
+            <form id="formAddCustomStore">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                <div class="field-group">
+                  <label class="field-label">Nombre de la Tienda</label>
+                  <input type="text" id="newStoreName" class="form-input" placeholder="Ej. SP INTERLOMAS" required>
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Zona / Alcaldía</label>
+                  <input type="text" id="newStoreZone" class="form-input" placeholder="Ej. Huixquilucan, Edomex" required>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem;">
+                <div class="field-group">
+                  <label class="field-label">Latitud</label>
+                  <input type="number" step="any" id="newStoreLat" class="form-input" placeholder="19.432608" required>
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Longitud</label>
+                  <input type="number" step="any" id="newStoreLng" class="form-input" placeholder="-99.133209" required>
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Radio Tolerancia (m)</label>
+                  <input type="number" id="newStoreRadius" class="form-input" value="350" required>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-solid" style="background-color: var(--info);">
+                Agregar Tienda al Catálogo
+              </button>
+            </form>
+
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Tienda</th>
+                    <th>Zona</th>
+                    <th>Coordenadas GPS</th>
+                    <th>Radio</th>
+                    <th>Acción</th>
+                  </tr>
+                </thead>
+                <tbody id="storesTableBody">
+                  <tr><td colspan="5" style="text-align:center;">Cargando catálogo...</td></tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -1139,7 +969,66 @@
     </section>
   </main>
 
-  <!-- MODAL FULLSCREEN DE FOTOS -->
+  <!-- VENTANA APARTE DEDICADA PARA EL DASHBOARD EJECUTIVO -->
+  <div id="dedicatedDashboardModal" class="custom-modal-backdrop">
+    <div class="custom-modal-card" style="max-width: 950px; width: 95vw; max-height: 90vh; overflow-y: auto;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+        <div>
+          <h2 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">Panel Ejecutivo Trade Marketing</h2>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Consola de Auditoría y Share of Shelf</span>
+        </div>
+        <button id="btnCloseDedicatedDashboard" class="modal-btn modal-btn-cancel" style="padding: 0.35rem 0.75rem;">✕ Cerrar Ventana</button>
+      </div>
+
+      <div class="admin-metrics-grid admin-metrics-grid-sos">
+        <div class="metric-box active-card">
+          <div class="metric-number" id="modalKpiActive">0</div>
+          <div class="metric-label">En Tienda Activos</div>
+        </div>
+        <div class="metric-box completed-card">
+          <div class="metric-number" id="modalKpiFinished">0</div>
+          <div class="metric-label">Auditorías Concluidas</div>
+        </div>
+        <div class="metric-box time-card">
+          <div class="metric-number" id="modalKpiAvgTime">0m</div>
+          <div class="metric-label">Tiempo Promedio Servicio</div>
+        </div>
+        <div class="metric-box compliance-card">
+          <div class="metric-number" id="modalKpiGlobalRate">0%</div>
+          <div class="metric-label">% Apego a Pilares</div>
+        </div>
+        <div class="metric-box sos-card">
+          <div class="metric-number" id="modalKpiAvgSos" style="color: var(--purple);">0%</div>
+          <div class="metric-label">Participación en Anaquel (SOS)</div>
+        </div>
+        <div class="metric-box" style="border-left: 4px solid var(--accent);">
+          <div class="metric-number" id="modalKpiTotalFacings">0</div>
+          <div class="metric-label">Total Frentes Auditados</div>
+        </div>
+      </div>
+
+      <div class="clean-card" style="margin-top: 1rem; padding: 1rem;">
+        <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem;">Resumen de Frentes por Marca</h3>
+        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+          <div>Frentes IDI/Yello: <strong id="modalSumOwn" style="color: var(--purple);">0</strong></div>
+          <div>Frentes Competencia: <strong id="modalSumComp" style="color: var(--text-muted);">0</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SISTEMA DE MODAL PERSONALIZADO (POPUP) -->
+  <div id="customDialogModal" class="custom-modal-backdrop">
+    <div class="custom-modal-card">
+      <div class="custom-modal-title" id="customDialogTitle">Aviso</div>
+      <div class="custom-modal-body" id="customDialogBody">Mensaje del sistema</div>
+      <div class="custom-modal-actions" id="customDialogActions">
+        <button id="customDialogBtnConfirm" class="modal-btn modal-btn-confirm">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL FULLSCREEN FOTOS -->
   <div id="imageModal">
     <button class="modal-close-btn" id="modalCloseBtn">&times;</button>
     <img id="modalFullImage" src="" alt="Evidencia Ampliada">
@@ -1163,19 +1052,42 @@
       getDoc, 
       addDoc, 
       updateDoc,
+      deleteDoc,
       onSnapshot, 
       serverTimestamp, 
       query, 
-      where, 
-      orderBy 
+      where 
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
     window.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         const splash = document.getElementById('splash-screen');
         splash.classList.add('fade-out');
-      }, 2100);
+      }, 1200);
     });
+
+    const INITIAL_STORES = [
+      { nombre: "SP CALZADA DE LOS LEONES", zona: "Álvaro Obregón", lat: 19.3621, lng: -99.2081, radius: 350 },
+      { nombre: "SP PARQUES POLANCO", zona: "Miguel Hidalgo", lat: 19.4402, lng: -99.1805, radius: 350 },
+      { nombre: "SP F DE LAS LOMAS", zona: "Cuajimalpa", lat: 19.3871, lng: -99.2612, radius: 350 },
+      { nombre: "SP HORACIO", zona: "Miguel Hidalgo (Polanco)", lat: 19.4348, lng: -99.1915, radius: 350 },
+      { nombre: "SP BARRILACO", zona: "Miguel Hidalgo", lat: 19.4265, lng: -99.2155, radius: 350 },
+      { nombre: "SP MICHOACÁN", zona: "Cuauhtémoc (Condesa)", lat: 19.4124, lng: -99.1751, radius: 350 },
+      { nombre: "SP ORADORES", zona: "Huixquilucan", lat: 19.3982, lng: -99.2825, radius: 350 },
+      { nombre: "SP LOS MORALES", zona: "Miguel Hidalgo (Polanco)", lat: 19.4371, lng: -99.2052, radius: 350 },
+      { nombre: "SP B. DE LAS LOMAS", zona: "Cuajimalpa", lat: 19.3892, lng: -99.2481, radius: 350 },
+      { nombre: "SP VIRREYES", zona: "Miguel Hidalgo", lat: 19.4278, lng: -99.2091, radius: 350 },
+      { nombre: "SP HOMERO", zona: "Miguel Hidalgo (Polanco)", lat: 19.4385, lng: -99.1932, radius: 350 },
+      { nombre: "SP JARDINES", zona: "Álvaro Obregón (Pedregal)", lat: 19.3142, lng: -99.2085, radius: 350 },
+      { nombre: "SP LOMAS ANÁHUAC", zona: "Huixquilucan", lat: 19.3995, lng: -99.2691, radius: 350 },
+      { nombre: "SP BOSQUES DE MINAS", zona: "Huixquilucan", lat: 19.4122, lng: -99.2558, radius: 350 },
+      { nombre: "SP STA FE", zona: "Cuajimalpa / Santa Fe", lat: 19.3601, lng: -99.2688, radius: 350 },
+      { nombre: "SP FUENTES DEL PEDREGAL", zona: "Tlalpan", lat: 19.3021, lng: -99.2154, radius: 350 },
+      { nombre: "SP VISTAHERMOSA", zona: "Cuajimalpa", lat: 19.3785, lng: -99.2812, radius: 350 },
+      { nombre: "SP AXOMIATLA", zona: "Álvaro Obregón", lat: 19.3491, lng: -99.2441, radius: 350 },
+      { nombre: "SP TECAMACHALCO", zona: "Naucalpan, Edomex", lat: 19.4231, lng: -99.2415, radius: 350 },
+      { nombre: "SP ESMERALDA", zona: "Atizapán de Zaragoza, Edomex", lat: 19.5421, lng: -99.2891, radius: 400 }
+    ];
 
     const firebaseConfig = {
       apiKey: "AIzaSyAMR4tHRc66VMLjLT7N4mktMJloY-Jj0qI",
@@ -1209,6 +1121,68 @@
     let unsubUserVisits = null;
     let unsubAdminVisits = null;
     let masterVisitsStore = [];
+    let masterStoresList = [];
+
+    // SISTEMA DE POPUPS PERSONALIZADOS
+    const customDialogModal = document.getElementById('customDialogModal');
+    const customDialogTitle = document.getElementById('customDialogTitle');
+    const customDialogBody = document.getElementById('customDialogBody');
+    const customDialogActions = document.getElementById('customDialogActions');
+
+    function showCustomAlert(title, message) {
+      return new Promise((resolve) => {
+        customDialogTitle.textContent = title;
+        customDialogBody.innerHTML = message;
+        customDialogActions.innerHTML = `<button class="modal-btn modal-btn-confirm" id="btnPopupOk">Aceptar</button>`;
+        customDialogModal.classList.add('active');
+        document.getElementById('btnPopupOk').onclick = () => {
+          customDialogModal.classList.remove('active');
+          resolve(true);
+        };
+      });
+    }
+
+    function showCustomConfirm(title, message, isDanger = false) {
+      return new Promise((resolve) => {
+        customDialogTitle.textContent = title;
+        customDialogBody.innerHTML = message;
+        customDialogActions.innerHTML = `
+          <button class="modal-btn modal-btn-cancel" id="btnPopupCancel">Cancelar</button>
+          <button class="modal-btn ${isDanger ? 'modal-btn-danger' : 'modal-btn-confirm'}" id="btnPopupOk">Confirmar</button>
+        `;
+        customDialogModal.classList.add('active');
+        document.getElementById('btnPopupCancel').onclick = () => {
+          customDialogModal.classList.remove('active');
+          resolve(false);
+        };
+        document.getElementById('btnPopupOk').onclick = () => {
+          customDialogModal.classList.remove('active');
+          resolve(true);
+        };
+      });
+    }
+
+    // DASHBOARD EN VENTANA APARTE
+    const btnOpenDedicatedDashboard = document.getElementById('btnOpenDedicatedDashboard');
+    const dedicatedDashboardModal = document.getElementById('dedicatedDashboardModal');
+    const btnCloseDedicatedDashboard = document.getElementById('btnCloseDedicatedDashboard');
+
+    btnOpenDedicatedDashboard.onclick = () => dedicatedDashboardModal.classList.add('active');
+    btnCloseDedicatedDashboard.onclick = () => dedicatedDashboardModal.classList.remove('active');
+
+    function calcularDistanciaMetros(lat1, lon1, lat2, lon2) {
+      const R = 6371e3;
+      const phi1 = lat1 * Math.PI / 180;
+      const phi2 = lat2 * Math.PI / 180;
+      const deltaPhi = (lat2 - lat1) * Math.PI / 180;
+      const deltaLambda = (lon2 - lon1) * Math.PI / 180;
+
+      const a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
+                Math.cos(phi1) * Math.cos(phi2) *
+                Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return Math.round(R * c);
+    }
 
     function captureGpsCoords() {
       return new Promise((resolve, reject) => {
@@ -1226,9 +1200,9 @@
           },
           (err) => {
             let detail = "Error de GPS.";
-            if (err.code === 1) detail = "Debes permitir el acceso a tu ubicación GPS.";
+            if (err.code === 1) detail = "Permite el acceso al GPS para validar tu asistencia.";
             else if (err.code === 2) detail = "Señal GPS no disponible. Activa la ubicación de tu móvil.";
-            else if (err.code === 3) detail = "Tiempo de espera agotado al consultar GPS.";
+            else if (err.code === 3) detail = "Tiempo de espera GPS agotado.";
             reject(new Error(detail));
           },
           { enableHighAccuracy: true, timeout: 14000, maximumAge: 0 }
@@ -1239,7 +1213,7 @@
     function processImageFile(file, maxWidth = 900, quality = 0.75) {
       return new Promise((resolve, reject) => {
         if (!file.type.match(/image\/(png|jpeg|jpg|webp)/i)) {
-          reject(new Error("Formato no soportado. Sube una foto PNG o JPG."));
+          reject(new Error("Formato incompatible. Sube una foto PNG o JPG."));
           return;
         }
         const fileReader = new FileReader();
@@ -1304,14 +1278,9 @@
       try {
         const cred = await createUserWithEmailAndPassword(auth, email, pass);
         await setDoc(doc(db, "usuarios", cred.user.uid), {
-          nombre: name,
-          email: email,
-          role: role,
-          creado: serverTimestamp()
+          nombre: name, email, role, creado: serverTimestamp()
         });
-      } catch (err) {
-        showAuthError(parseAuthError(err.code));
-      }
+      } catch (err) { showAuthError(parseAuthError(err.code)); }
     };
 
     formLogin.onsubmit = async (e) => {
@@ -1319,9 +1288,7 @@
       authAlert.style.display = 'none';
       try {
         await signInWithEmailAndPassword(auth, document.getElementById('loginEmail').value.trim(), document.getElementById('loginPass').value);
-      } catch (err) {
-        showAuthError(parseAuthError(err.code));
-      }
+      } catch (err) { showAuthError(parseAuthError(err.code)); }
     };
 
     btnLogout.onclick = async () => {
@@ -1330,6 +1297,14 @@
       if (visitClockTimer) clearInterval(visitClockTimer);
       await signOut(auth);
     };
+
+    onSnapshot(collection(db, "tiendas"), async (snap) => {
+      if (snap.empty) {
+        for (const s of INITIAL_STORES) {
+          await addDoc(collection(db, "tiendas"), s);
+        }
+      }
+    });
 
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -1344,28 +1319,31 @@
 
           if (currentUserProfile.role === 'admin') {
             roleTag.className = 'role-tag admin';
+            btnOpenDedicatedDashboard.style.display = 'inline-block';
             adminZone.classList.add('active');
             userZone.classList.remove('active');
             initAdminModule();
           } else {
             roleTag.className = 'role-tag';
+            btnOpenDedicatedDashboard.style.display = 'none';
             userZone.classList.add('active');
             adminZone.classList.remove('active');
             initPromoterModule(user.uid);
           }
-        } catch (e) {
-          console.error("Error al cargar perfil:", e);
-        }
+        } catch (e) { console.error("Error al cargar perfil:", e); }
       } else {
         authZone.classList.add('active');
         userZone.classList.remove('active');
         adminZone.classList.remove('active');
         roleTag.style.display = 'none';
         btnLogout.style.display = 'none';
+        btnOpenDedicatedDashboard.style.display = 'none';
       }
     });
 
-    // MÓDULO PROMOTOR
+    // ==========================================
+    // MÓDULO PROMOTOR (SHARE OF SHELF DINÁMICO)
+    // ==========================================
     function initPromoterModule(uid) {
       const cardCheckIn = document.getElementById('cardCheckIn');
       const cardAudit = document.getElementById('cardAudit');
@@ -1376,13 +1354,74 @@
       const lblGpsInStatus = document.getElementById('lblGpsInStatus');
       const formAudit = document.getElementById('formAudit');
       const userVisitsFeed = document.getElementById('userVisitsFeed');
+      const btnCancelActiveVisit = document.getElementById('btnCancelActiveVisit');
+      const noRouteAlert = document.getElementById('noRouteAlert');
+
+      const inputFrentesPropios = document.getElementById('inputFrentesPropios');
+      const inputFrentesCompetencia = document.getElementById('inputFrentesCompetencia');
+      const lblLiveSos = document.getElementById('lblLiveSos');
 
       let fotoInBase64 = "";
       let fotoP1Base64 = "";
       let fotoP2Base64 = "";
       let fotoP3Base64 = "";
 
-      bindPhotoField('inputFotoIn', 'triggerFotoIn', 'textFotoIn', 'prevFotoIn', 'Foto de Entrada Lista (PNG/JPG)', (b64) => fotoInBase64 = b64);
+      // Cálculo live de participación en anaquel
+      function updateLiveSos() {
+        const propios = parseInt(inputFrentesPropios.value) || 0;
+        const comp = parseInt(inputFrentesCompetencia.value) || 0;
+        const total = propios + comp;
+        const rate = total > 0 ? ((propios / total) * 100).toFixed(1) : "0.0";
+        lblLiveSos.textContent = `${rate}%`;
+      }
+      inputFrentesPropios.oninput = updateLiveSos;
+      inputFrentesCompetencia.oninput = updateLiveSos;
+
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const qRoute = query(collection(db, "rutas"), where("userId", "==", uid), where("fecha", "==", todayStr));
+      
+      onSnapshot(qRoute, (snap) => {
+        selStore.innerHTML = '';
+        const defaultOpt = document.createElement('option');
+        defaultOpt.value = "";
+        defaultOpt.disabled = true;
+        defaultOpt.selected = true;
+
+        if (snap.empty) {
+          noRouteAlert.style.display = 'block';
+          defaultOpt.textContent = "-- Selecciona una tienda del catálogo --";
+          selStore.appendChild(defaultOpt);
+          masterStoresList.forEach(s => {
+            const opt = document.createElement('option');
+            opt.value = s.nombre;
+            opt.textContent = `🏪 ${s.nombre} (${s.zona})`;
+            selStore.appendChild(opt);
+          });
+          return;
+        }
+
+        noRouteAlert.style.display = 'none';
+        defaultOpt.textContent = "-- Selecciona una tienda de tu ruta asignada --";
+        selStore.appendChild(defaultOpt);
+
+        const assignedStores = [];
+        snap.forEach(docR => {
+          const data = docR.data();
+          if (data.tiendas && Array.isArray(data.tiendas)) {
+            data.tiendas.forEach(storeName => {
+              if (!assignedStores.includes(storeName)) {
+                assignedStores.push(storeName);
+                const opt = document.createElement('option');
+                opt.value = storeName;
+                opt.textContent = `📍 ${storeName}`;
+                selStore.appendChild(opt);
+              }
+            });
+          }
+        });
+      });
+
+      bindPhotoField('inputFotoIn', 'triggerFotoIn', 'textFotoIn', 'prevFotoIn', 'Foto de Entrada Lista', (b64) => fotoInBase64 = b64);
       bindPhotoField('inputFotoP1', 'triggerFotoP1', 'textFotoP1', 'prevFotoP1', 'Foto Planograma Lista', (b64) => fotoP1Base64 = b64);
       bindPhotoField('inputFotoP2', 'triggerFotoP2', 'textFotoP2', 'prevFotoP2', 'Foto Flujo Lista', (b64) => fotoP2Base64 = b64);
       bindPhotoField('inputFotoP3', 'triggerFotoP3', 'textFotoP3', 'prevFotoP3', 'Foto Espacios Lista', (b64) => fotoP3Base64 = b64);
@@ -1391,16 +1430,43 @@
       bindComplianceButtons('pilar2', 'lblP2Yes', 'lblP2No');
       bindComplianceButtons('pilar3', 'lblP3Yes', 'lblP3No');
 
+      btnCancelActiveVisit.onclick = async () => {
+        const confirmCancel = await showCustomConfirm("Cancelar Visita", "¿Estás seguro de cancelar esta visita y regresar al selector de tiendas?", true);
+        if (!confirmCancel) return;
+
+        if (activeVisitState && activeVisitState.id) {
+          try { await deleteDoc(doc(db, "visitas", activeVisitState.id)); } catch (e) {}
+        }
+        resetAllToInitState();
+      };
+
       btnDoCheckIn.onclick = async () => {
         const store = selStore.value;
-        if (!store) { alert("Selecciona una tienda de la ruta."); return; }
-        if (!fotoInBase64) { alert("La foto de fachada/entrada es obligatoria."); return; }
+        if (!store) { await showCustomAlert("Campo Requerido", "Por favor selecciona una tienda para continuar."); return; }
+        if (!fotoInBase64) { await showCustomAlert("Foto Obligatoria", "Es obligatorio adjuntar la foto de la fachada o entrada."); return; }
 
         btnDoCheckIn.disabled = true;
         btnDoCheckIn.innerHTML = `<span>Validando coordenadas GPS...</span>`;
 
         try {
           const gpsIn = await captureGpsCoords();
+          const targetStoreObj = masterStoresList.find(s => s.nombre === store);
+          let distanceAlert = "";
+
+          if (targetStoreObj && targetStoreObj.lat && targetStoreObj.lng) {
+            const dist = calcularDistanciaMetros(gpsIn.lat, gpsIn.lng, targetStoreObj.lat, targetStoreObj.lng);
+            const radioMax = targetStoreObj.radius || 350;
+            if (dist > radioMax) {
+              const proceed = await showCustomConfirm("Aviso de Proximidad", `Te encuentras a <strong>${dist} metros</strong> de la sucursal (radio de tolerancia permitido: ${radioMax}m). ¿Deseas registrar el Check-in de todos modos?`);
+              if (!proceed) {
+                btnDoCheckIn.disabled = false;
+                btnDoCheckIn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg> Validar GPS y Registrar Entrada`;
+                return;
+              }
+              distanceAlert = `Fuera de rango (${dist}m)`;
+            }
+          }
+
           const docRef = await addDoc(collection(db, "visitas"), {
             userId: uid,
             promotor: currentUserProfile.nombre || currentUserProfile.email,
@@ -1408,6 +1474,7 @@
             tienda: store,
             checkIn: serverTimestamp(),
             checkInGps: gpsIn,
+            proximidadAlerta: distanceAlert,
             fotoCheckin: fotoInBase64,
             checkOut: null,
             checkOutGps: null,
@@ -1415,6 +1482,9 @@
             pilar1: null,
             pilar2: null,
             pilar3: null,
+            frentesPropios: 0,
+            frentesCompetencia: 0,
+            shareOfShelf: 0,
             fotoP1: null,
             fotoP2: null,
             fotoP3: null,
@@ -1424,7 +1494,7 @@
           activeVisitState = { id: docRef.id, tienda: store, start: new Date(), gps: gpsIn };
           renderActiveView();
         } catch (err) {
-          alert("Aviso de Check-in: " + err.message);
+          await showCustomAlert("Aviso de Check-in", err.message);
         } finally {
           btnDoCheckIn.disabled = false;
           btnDoCheckIn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg> Validar GPS y Registrar Entrada`;
@@ -1435,9 +1505,9 @@
         e.preventDefault();
         if (!activeVisitState) return;
 
-        if (!fotoP1Base64) { alert("La foto de apego al planograma es obligatoria."); return; }
-        if (!fotoP2Base64) { alert("La foto de flujo de navegación (apertura por tintos) es obligatoria."); return; }
-        if (!fotoP3Base64) { alert("La foto de distribución de espacios es obligatoria."); return; }
+        if (!fotoP1Base64) { await showCustomAlert("Evidencia Faltante", "La foto de planograma es obligatoria."); return; }
+        if (!fotoP2Base64) { await showCustomAlert("Evidencia Faltante", "La foto de flujo (apertura por tintos) es obligatoria."); return; }
+        if (!fotoP3Base64) { await showCustomAlert("Evidencia Faltante", "La foto de espacios es obligatoria."); return; }
 
         const submitBtn = formAudit.querySelector('button[type="submit"]');
         submitBtn.disabled = true;
@@ -1448,6 +1518,11 @@
           const p1 = document.querySelector('input[name="pilar1"]:checked').value;
           const p2 = document.querySelector('input[name="pilar2"]:checked').value;
           const p3 = document.querySelector('input[name="pilar3"]:checked').value;
+
+          const fPropios = parseInt(inputFrentesPropios.value) || 0;
+          const fComp = parseInt(inputFrentesCompetencia.value) || 0;
+          const totalFacings = fPropios + fComp;
+          const sosCalculado = totalFacings > 0 ? Number(((fPropios / totalFacings) * 100).toFixed(1)) : 0;
 
           const now = new Date();
           const diffMs = now - activeVisitState.start;
@@ -1461,30 +1536,43 @@
             pilar1: p1,
             pilar2: p2,
             pilar3: p3,
+            frentesPropios: fPropios,
+            frentesCompetencia: fComp,
+            shareOfShelf: sosCalculado,
             fotoP1: fotoP1Base64,
             fotoP2: fotoP2Base64,
             fotoP3: fotoP3Base64
           });
 
-          clearInterval(visitClockTimer);
-          activeVisitState = null;
-          formAudit.reset();
-
-          resetField('triggerFotoIn', 'textFotoIn', 'prevFotoIn', 'Tomar o subir foto (PNG / JPG)');
-          resetField('triggerFotoP1', 'textFotoP1', 'prevFotoP1', 'Evidencia Planograma (PNG/JPG) *');
-          resetField('triggerFotoP2', 'textFotoP2', 'prevFotoP2', 'Evidencia Flujo Tintos (PNG/JPG) *');
-          resetField('triggerFotoP3', 'textFotoP3', 'prevFotoP3', 'Evidencia Espacios / Anaquel (PNG/JPG) *');
-          fotoInBase64 = fotoP1Base64 = fotoP2Base64 = fotoP3Base64 = "";
-
-          cardCheckIn.style.display = 'block';
-          cardAudit.style.display = 'none';
+          resetAllToInitState();
+          await showCustomAlert("Visita Guardada", "¡Auditoría y conteo de frentes concluidos exitosamente!");
         } catch (err) {
-          alert("Aviso de Check-out: " + err.message);
+          await showCustomAlert("Aviso de Check-out", err.message);
         } finally {
           submitBtn.disabled = false;
           submitBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg> Validar GPS y Finalizar Check-out`;
         }
       };
+
+      function resetAllToInitState() {
+        if (visitClockTimer) clearInterval(visitClockTimer);
+        activeVisitState = null;
+        formAudit.reset();
+
+        inputFrentesPropios.value = 0;
+        inputFrentesCompetencia.value = 0;
+        lblLiveSos.textContent = "0.0%";
+
+        resetField('triggerFotoIn', 'textFotoIn', 'prevFotoIn', 'Tomar o subir foto (PNG / JPG)');
+        resetField('triggerFotoP1', 'textFotoP1', 'prevFotoP1', 'Evidencia Planograma (PNG/JPG) *');
+        resetField('triggerFotoP2', 'textFotoP2', 'prevFotoP2', 'Evidencia Flujo Tintos (PNG/JPG) *');
+        resetField('triggerFotoP3', 'textFotoP3', 'prevFotoP3', 'Evidencia Espacios / Anaquel (PNG/JPG) *');
+        fotoInBase64 = fotoP1Base64 = fotoP2Base64 = fotoP3Base64 = "";
+
+        selStore.selectedIndex = 0;
+        cardAudit.style.display = 'none';
+        cardCheckIn.style.display = 'block';
+      }
 
       function renderActiveView() {
         cardCheckIn.style.display = 'none';
@@ -1502,43 +1590,42 @@
         }, 1000);
       }
 
-      const q = query(collection(db, "visitas"), where("userId", "==", uid), orderBy("checkIn", "desc"));
+      const q = query(collection(db, "visitas"), where("userId", "==", uid));
       if (unsubUserVisits) unsubUserVisits();
       unsubUserVisits = onSnapshot(q, (snap) => {
         userVisitsFeed.innerHTML = '';
-        let foundOpenSession = false;
+        let foundOpen = false;
 
-        snap.forEach((d) => {
-          const v = d.data();
-          if (v.status === "EN_TIENDA" && !foundOpenSession) {
-            foundOpenSession = true;
-            activeVisitState = {
-              id: d.id,
-              tienda: v.tienda,
-              start: v.checkIn ? v.checkIn.toDate() : new Date(),
-              gps: v.checkInGps
-            };
+        const docsArr = [];
+        snap.forEach(d => docsArr.push({ id: d.id, ...d.data() }));
+        docsArr.sort((a, b) => (b.checkIn?.seconds || 0) - (a.checkIn?.seconds || 0));
+
+        docsArr.forEach((v) => {
+          if (v.status === "EN_TIENDA" && !foundOpen) {
+            foundOpen = true;
+            activeVisitState = { id: v.id, tienda: v.tienda, start: v.checkIn ? v.checkIn.toDate() : new Date(), gps: v.checkInGps };
             renderActiveView();
           }
 
           if (v.status === "CONCLUIDO") {
             const item = document.createElement('div');
-            item.className = 'record-entry';
+            item.className = 'clean-card';
+            item.style.padding = '1rem';
             item.innerHTML = `
-              <div class="record-topline">
-                <span class="store-label">${v.tienda}</span>
-                <span class="duration-tag">${v.minutosServicio} min de servicio</span>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem;">
+                <span style="font-weight: 700; font-size: 0.95rem;">${v.tienda}</span>
+                <span style="font-size: 0.75rem; background: var(--bg-surface-subtle); padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600;">${v.minutosServicio} min</span>
               </div>
-              <div class="badges-row">
-                <span class="eval-badge ${v.pilar1 === 'Cumple' ? 'yes' : 'no'}">Planograma: ${v.pilar1}</span>
-                <span class="eval-badge ${v.pilar2 === 'Cumple' ? 'yes' : 'no'}">Flujo: ${v.pilar2}</span>
-                <span class="eval-badge ${v.pilar3 === 'Cumple' ? 'yes' : 'no'}">Espacios: ${v.pilar3}</span>
+              <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.6rem;">
+                <span style="font-size: 0.68rem; padding: 0.2rem 0.4rem; border-radius: 3px; ${v.pilar1 === 'Cumple' ? 'background: var(--success-soft); color: #065f46;' : 'background: var(--danger-soft); color: #991b1b;'}">Planograma: ${v.pilar1}</span>
+                <span style="font-size: 0.68rem; padding: 0.2rem 0.4rem; border-radius: 3px; ${v.pilar2 === 'Cumple' ? 'background: var(--success-soft); color: #065f46;' : 'background: var(--danger-soft); color: #991b1b;'}">Flujo: ${v.pilar2}</span>
+                <span style="font-size: 0.68rem; padding: 0.2rem 0.4rem; border-radius: 3px; background: var(--purple-soft); color: var(--purple); font-weight:700;">SOS: ${v.shareOfShelf || 0}%</span>
               </div>
-              <div class="photos-quad-grid">
-                ${v.fotoCheckin ? `<div class="photo-tile"><img src="${v.fotoCheckin}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">Fachada</span></div>` : ''}
-                ${v.fotoP1 ? `<div class="photo-tile"><img src="${v.fotoP1}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">P1: Planograma</span></div>` : ''}
-                ${v.fotoP2 ? `<div class="photo-tile"><img src="${v.fotoP2}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">P2: Flujo</span></div>` : ''}
-                ${v.fotoP3 ? `<div class="photo-tile"><img src="${v.fotoP3}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">P3: Espacios</span></div>` : ''}
+              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem;">
+                ${v.fotoCheckin ? `<img src="${v.fotoCheckin}" style="width: 100%; height: 60px; object-fit: cover; border-radius: 4px; cursor: pointer;" onclick="openImageModal(this.src)">` : ''}
+                ${v.fotoP1 ? `<img src="${v.fotoP1}" style="width: 100%; height: 60px; object-fit: cover; border-radius: 4px; cursor: pointer;" onclick="openImageModal(this.src)">` : ''}
+                ${v.fotoP2 ? `<img src="${v.fotoP2}" style="width: 100%; height: 60px; object-fit: cover; border-radius: 4px; cursor: pointer;" onclick="openImageModal(this.src)">` : ''}
+                ${v.fotoP3 ? `<img src="${v.fotoP3}" style="width: 100%; height: 60px; object-fit: cover; border-radius: 4px; cursor: pointer;" onclick="openImageModal(this.src)">` : ''}
               </div>
             `;
             userVisitsFeed.appendChild(item);
@@ -1551,41 +1638,189 @@
       });
     }
 
+    // ==========================================
     // MÓDULO ADMINISTRADOR PROFESIONAL
+    // ==========================================
     function initAdminModule() {
       const kpiActive = document.getElementById('kpiActive');
       const kpiFinished = document.getElementById('kpiFinished');
       const kpiAvgTime = document.getElementById('kpiAvgTime');
       const kpiGlobalRate = document.getElementById('kpiGlobalRate');
-      const lblCoverageCount = document.getElementById('lblCoverageCount');
-      
-      const rateP1 = document.getElementById('rateP1');
-      const rateP2 = document.getElementById('rateP2');
-      const rateP3 = document.getElementById('rateP3');
-      const barP1 = document.getElementById('barP1');
-      const barP2 = document.getElementById('barP2');
-      const barP3 = document.getElementById('barP3');
+      const kpiAvgSos = document.getElementById('kpiAvgSos');
+
+      // Modales del Dashboard Dedicado
+      const modalKpiActive = document.getElementById('modalKpiActive');
+      const modalKpiFinished = document.getElementById('modalKpiFinished');
+      const modalKpiAvgTime = document.getElementById('modalKpiAvgTime');
+      const modalKpiGlobalRate = document.getElementById('modalKpiGlobalRate');
+      const modalKpiAvgSos = document.getElementById('modalKpiAvgSos');
+      const modalKpiTotalFacings = document.getElementById('modalKpiTotalFacings');
+      const modalSumOwn = document.getElementById('modalSumOwn');
+      const modalSumComp = document.getElementById('modalSumComp');
 
       const adminMasterFeed = document.getElementById('adminMasterFeed');
+      const adminGlobalGallery = document.getElementById('adminGlobalGallery');
       const lblTotalFeedCount = document.getElementById('lblTotalFeedCount');
+      const lblTotalPhotosCount = document.getElementById('lblTotalPhotosCount');
+      
       const adminSearchInput = document.getElementById('adminSearchInput');
-      const adminStatusFilter = document.getElementById('adminStatusFilter');
-      const adminStoreFilter = document.getElementById('adminStoreFilter');
+      const adminFilterStore = document.getElementById('adminFilterStore');
+      const adminFilterPromoter = document.getElementById('adminFilterPromoter');
+      const adminFilterStatus = document.getElementById('adminFilterStatus');
       const btnExportCsvData = document.getElementById('btnExportCsvData');
+      const btnDeleteAllVisits = document.getElementById('btnDeleteAllVisits');
 
-      const q = query(collection(db, "visitas"), orderBy("checkIn", "desc"));
+      const btnTabFeed = document.getElementById('btnTabFeed');
+      const btnTabGallery = document.getElementById('btnTabGallery');
+      const btnTabAssign = document.getElementById('btnTabAssign');
+      const btnTabStores = document.getElementById('btnTabStores');
+      
+      const adminFeedContainer = document.getElementById('adminFeedContainer');
+      const adminGalleryContainer = document.getElementById('adminGalleryContainer');
+      const adminAssignContainer = document.getElementById('adminAssignContainer');
+      const adminStoresContainer = document.getElementById('adminStoresContainer');
+
+      const routePromoterSelect = document.getElementById('routePromoterSelect');
+      const routeDateInput = document.getElementById('routeDateInput');
+      const routeStoresCheckList = document.getElementById('routeStoresCheckList');
+      const formAssignRoute = document.getElementById('formAssignRoute');
+
+      const formAddCustomStore = document.getElementById('formAddCustomStore');
+      const storesTableBody = document.getElementById('storesTableBody');
+
+      routeDateInput.value = new Date().toISOString().slice(0, 10);
+
+      const tabElements = [
+        { btn: btnTabFeed, container: adminFeedContainer },
+        { btn: btnTabGallery, container: adminGalleryContainer },
+        { btn: btnTabAssign, container: adminAssignContainer },
+        { btn: btnTabStores, container: adminStoresContainer }
+      ];
+
+      tabElements.forEach(({ btn, container }) => {
+        btn.onclick = () => {
+          tabElements.forEach(t => {
+            t.btn.classList.remove('active');
+            t.container.style.display = 'none';
+          });
+          btn.classList.add('active');
+          container.style.display = 'block';
+        };
+      });
+
+      onSnapshot(collection(db, "tiendas"), (snap) => {
+        masterStoresList = [];
+        routeStoresCheckList.innerHTML = '';
+        adminFilterStore.innerHTML = '<option value="ALL">Todas las tiendas</option>';
+        storesTableBody.innerHTML = '';
+
+        snap.forEach(d => {
+          const st = { id: d.id, ...d.data() };
+          masterStoresList.push(st);
+
+          const lbl = document.createElement('label');
+          lbl.className = 'route-checkbox-item';
+          lbl.innerHTML = `<input type="checkbox" name="assignStoreCheck" value="${st.nombre}"> <span>${st.nombre} (${st.zona})</span>`;
+          routeStoresCheckList.appendChild(lbl);
+
+          const opt = document.createElement('option');
+          opt.value = st.nombre;
+          opt.textContent = st.nombre;
+          adminFilterStore.appendChild(opt);
+
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td style="font-weight:600;">${st.nombre}</td>
+            <td>${st.zona}</td>
+            <td><a href="https://maps.google.com/?q=${st.lat},${st.lng}" target="_blank" style="color:var(--info);">${st.lat}, ${st.lng}</a></td>
+            <td>${st.radius || 350}m</td>
+            <td><button class="delete-store-btn" data-id="${d.id}" style="background:none; border:none; color:var(--danger); cursor:pointer; font-size:0.75rem;">Eliminar</button></td>
+          `;
+          storesTableBody.appendChild(tr);
+        });
+
+        document.querySelectorAll('.delete-store-btn').forEach(b => {
+          b.onclick = async (e) => {
+            const confirmed = await showCustomConfirm("Eliminar Tienda", "¿Estás seguro de eliminar esta tienda del catálogo?", true);
+            if (confirmed) {
+              await deleteDoc(doc(db, "tiendas", e.target.getAttribute('data-id')));
+            }
+          };
+        });
+      });
+
+      formAddCustomStore.onsubmit = async (e) => {
+        e.preventDefault();
+        const nombre = document.getElementById('newStoreName').value.trim().toUpperCase();
+        const zona = document.getElementById('newStoreZone').value.trim();
+        const lat = parseFloat(document.getElementById('newStoreLat').value);
+        const lng = parseFloat(document.getElementById('newStoreLng').value);
+        const radius = parseInt(document.getElementById('newStoreRadius').value) || 350;
+
+        try {
+          await addDoc(collection(db, "tiendas"), { nombre, zona, lat, lng, radius });
+          formAddCustomStore.reset();
+          await showCustomAlert("Éxito", "¡Tienda y coordenadas agregadas con éxito al catálogo!");
+        } catch (err) { await showCustomAlert("Error", err.message); }
+      };
+
+      onSnapshot(collection(db, "usuarios"), (snap) => {
+        routePromoterSelect.innerHTML = '<option value="" disabled selected>Selecciona un promotor</option>';
+        adminFilterPromoter.innerHTML = '<option value="ALL">Todos los promotores</option>';
+
+        snap.forEach(d => {
+          const u = { id: d.id, ...d.data() };
+          if (u.role !== 'admin') {
+            const opt = document.createElement('option');
+            opt.value = d.id;
+            opt.textContent = `${u.nombre || u.email} (${u.email})`;
+            routePromoterSelect.appendChild(opt);
+
+            const optFilter = document.createElement('option');
+            optFilter.value = u.email;
+            optFilter.textContent = u.nombre || u.email;
+            adminFilterPromoter.appendChild(optFilter);
+          }
+        });
+      });
+
+      formAssignRoute.onsubmit = async (e) => {
+        e.preventDefault();
+        const promoterId = routePromoterSelect.value;
+        const targetDate = routeDateInput.value;
+        const selectedStores = Array.from(document.querySelectorAll('input[name="assignStoreCheck"]:checked')).map(cb => cb.value);
+
+        if (!promoterId) { await showCustomAlert("Atención", "Selecciona un promotor."); return; }
+        if (!selectedStores.length) { await showCustomAlert("Atención", "Selecciona al menos una tienda para la ruta."); return; }
+
+        try {
+          await addDoc(collection(db, "rutas"), {
+            userId: promoterId,
+            fecha: targetDate,
+            tiendas: selectedStores,
+            creado: serverTimestamp()
+          });
+          await showCustomAlert("Ruta Programada", `¡Ruta asignada con éxito! Se programaron ${selectedStores.length} tiendas para el ${targetDate}.`);
+          document.querySelectorAll('input[name="assignStoreCheck"]').forEach(cb => cb.checked = false);
+        } catch (err) { await showCustomAlert("Error", err.message); }
+      };
+
       if (unsubAdminVisits) unsubAdminVisits();
-      unsubAdminVisits = onSnapshot(q, (snapshot) => {
+      unsubAdminVisits = onSnapshot(collection(db, "visitas"), (snapshot) => {
         masterVisitsStore = [];
         let inStore = 0, done = 0, totalMins = 0;
         let p1Yes = 0, p2Yes = 0, p3Yes = 0;
-        const uniqueStoresVisited = new Set();
+        let sumSos = 0, countSos = 0;
+        let totalPropios = 0, totalComp = 0;
 
         snapshot.forEach((d) => {
           const item = { id: d.id, ...d.data() };
           masterVisitsStore.push(item);
-          if (item.tienda) uniqueStoresVisited.add(item.tienda);
+        });
 
+        masterVisitsStore.sort((a, b) => (b.checkIn?.seconds || 0) - (a.checkIn?.seconds || 0));
+
+        masterVisitsStore.forEach(item => {
           if (item.status === 'EN_TIENDA') inStore++;
           if (item.status === 'CONCLUIDO') {
             done++;
@@ -1593,65 +1828,71 @@
             if (item.pilar1 === 'Cumple') p1Yes++;
             if (item.pilar2 === 'Cumple') p2Yes++;
             if (item.pilar3 === 'Cumple') p3Yes++;
+
+            if (item.frentesPropios !== undefined) {
+              totalPropios += (item.frentesPropios || 0);
+              totalComp += (item.frentesCompetencia || 0);
+              sumSos += (item.shareOfShelf || 0);
+              countSos++;
+            }
           }
         });
 
-        // Actualizar Tarjetas KPI
+        const avgMins = done > 0 ? `${Math.round(totalMins / done)}m` : '0m';
+        const globalPct = done > 0 ? `${Math.round(((p1Yes + p2Yes + p3Yes) / (done * 3)) * 100)}%` : '0%';
+        const avgSosVal = countSos > 0 ? `${(sumSos / countSos).toFixed(1)}%` : '0%';
+
+        // Actualizar KPIs panel principal
         kpiActive.textContent = inStore;
         kpiFinished.textContent = done;
-        kpiAvgTime.textContent = done > 0 ? `${Math.round(totalMins / done)}m` : '0m';
-        lblCoverageCount.textContent = `${uniqueStoresVisited.size}/20 Tiendas`;
+        kpiAvgTime.textContent = avgMins;
+        kpiGlobalRate.textContent = globalPct;
+        kpiAvgSos.textContent = avgSosVal;
 
-        // Métricas de Cumplimiento por Pilar
-        const p1Pct = done > 0 ? Math.round((p1Yes / done) * 100) : 0;
-        const p2Pct = done > 0 ? Math.round((p2Yes / done) * 100) : 0;
-        const p3Pct = done > 0 ? Math.round((p3Yes / done) * 100) : 0;
-        const globalPct = done > 0 ? Math.round(((p1Yes + p2Yes + p3Yes) / (done * 3)) * 100) : 0;
+        // Actualizar KPIs modal dedicado
+        modalKpiActive.textContent = inStore;
+        modalKpiFinished.textContent = done;
+        modalKpiAvgTime.textContent = avgMins;
+        modalKpiGlobalRate.textContent = globalPct;
+        modalKpiAvgSos.textContent = avgSosVal;
+        modalKpiTotalFacings.textContent = totalPropios + totalComp;
+        modalSumOwn.textContent = totalPropios;
+        modalSumComp.textContent = totalComp;
 
-        kpiGlobalRate.textContent = `${globalPct}%`;
-
-        rateP1.textContent = `${p1Pct}%`;
-        barP1.style.width = `${p1Pct}%`;
-
-        rateP2.textContent = `${p2Pct}%`;
-        barP2.style.width = `${p2Pct}%`;
-
-        rateP3.textContent = `${p3Pct}%`;
-        barP3.style.width = `${p3Pct}%`;
-
-        renderAdminFeed();
+        renderFilteredAdminView();
       });
 
-      // Filtros reactivos
-      adminSearchInput.oninput = () => renderAdminFeed();
-      adminStatusFilter.onchange = () => renderAdminFeed();
-      adminStoreFilter.onchange = () => renderAdminFeed();
+      adminSearchInput.oninput = () => renderFilteredAdminView();
+      adminFilterStore.onchange = () => renderFilteredAdminView();
+      adminFilterPromoter.onchange = () => renderFilteredAdminView();
+      adminFilterStatus.onchange = () => renderFilteredAdminView();
 
-      function renderAdminFeed() {
+      function renderFilteredAdminView() {
         const queryTerm = adminSearchInput.value.trim().toLowerCase();
-        const statusTerm = adminStatusFilter.value;
-        const storeTerm = adminStoreFilter.value;
+        const storeTerm = adminFilterStore.value;
+        const promoterTerm = adminFilterPromoter.value;
+        const statusTerm = adminFilterStatus.value;
 
         adminMasterFeed.innerHTML = '';
+        adminGlobalGallery.innerHTML = '';
 
         const filtered = masterVisitsStore.filter(v => {
-          const matchSearch = v.tienda.toLowerCase().includes(queryTerm) || 
-                              (v.promotor && v.promotor.toLowerCase().includes(queryTerm));
-          const matchStatus = (statusTerm === 'ALL') || (v.status === statusTerm);
+          const matchQuery = (v.tienda && v.tienda.toLowerCase().includes(queryTerm)) || 
+                             (v.promotor && v.promotor.toLowerCase().includes(queryTerm));
           const matchStore = (storeTerm === 'ALL') || (v.tienda === storeTerm);
-          return matchSearch && matchStatus && matchStore;
+          const matchPromoter = (promoterTerm === 'ALL') || (v.email === promoterTerm);
+          const matchStatus = (statusTerm === 'ALL') || (v.status === statusTerm);
+          return matchQuery && matchStore && matchPromoter && matchStatus;
         });
 
         lblTotalFeedCount.textContent = `${filtered.length} visitas listadas`;
 
-        if (filtered.length === 0) {
-          adminMasterFeed.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 2rem 0;">No se encontraron registros bajo los filtros aplicados.</p>';
-          return;
-        }
+        let photosCount = 0;
 
         filtered.forEach((v) => {
           const card = document.createElement('div');
-          card.className = 'record-entry';
+          card.className = 'clean-card';
+          card.style.padding = '1.15rem';
 
           const timeIn = v.checkIn ? new Date(v.checkIn.toDate()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
           const timeOut = v.checkOut ? new Date(v.checkOut.toDate()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
@@ -1659,66 +1900,117 @@
           const linkGpsOut = v.checkOutGps ? `https://maps.google.com/?q=${v.checkOutGps.lat},${v.checkOutGps.lng}` : null;
 
           card.innerHTML = `
-            <div class="record-topline">
-              <span class="store-label">${v.tienda}</span>
-              <span class="duration-tag ${v.status === 'EN_TIENDA' ? 'in-progress' : ''}">
-                ${v.status === 'EN_TIENDA' ? '● En Servicio' : `${v.minutosServicio} min`}
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem;">
+              <div>
+                <span style="font-weight: 700; font-size: 0.98rem;">${v.tienda}</span>
+                ${v.proximidadAlerta ? `<span style="font-size:0.68rem; background:var(--danger-soft); color:var(--danger); padding:0.15rem 0.4rem; border-radius:3px; margin-left:0.5rem; font-weight:700;">⚠️ ${v.proximidadAlerta}</span>` : ''}
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: 0.78rem; font-weight: 600; padding: 0.2rem 0.5rem; border-radius: 4px; ${v.status === 'EN_TIENDA' ? 'background: var(--success-soft); color: #065f46;' : 'background: var(--bg-surface-subtle); color: var(--text-muted);'}">
+                  ${v.status === 'EN_TIENDA' ? '● En Servicio' : `${v.minutosServicio} min`}
+                </span>
+                <button class="delete-visit-btn" data-id="${v.id}" title="Eliminar registro" style="background: none; border: 1px solid var(--border-color); color: var(--danger); border-radius: 4px; padding: 0.2rem 0.45rem; cursor: pointer; font-size: 0.75rem; font-weight: 700;">🗑️</button>
+              </div>
+            </div>
+            <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.5rem;">${v.promotor} (${v.email}) | Entrada: ${timeIn} ${timeOut ? `• Salida: ${timeOut}` : ''}</div>
+            
+            <div style="display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.6rem;">
+              <span style="font-size: 0.75rem; background: var(--purple-soft); color: var(--purple); font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px;">
+                SOS: ${v.shareOfShelf || 0}% (Propios: ${v.frentesPropios || 0} / Comp: ${v.frentesCompetencia || 0})
               </span>
             </div>
-            <div class="promoter-meta">${v.promotor} (${v.email}) | Entrada: ${timeIn} ${timeOut ? `• Salida: ${timeOut}` : ''}</div>
-            
-            <div class="gps-anchors">
-              ${linkGpsIn ? `<a href="${linkGpsIn}" target="_blank" class="gps-link">📍 GPS Entrada (±${v.checkInGps.accuracy}m)</a>` : ''}
-              ${linkGpsOut ? `<a href="${linkGpsOut}" target="_blank" class="gps-link">📍 GPS Salida (±${v.checkOutGps.accuracy}m)</a>` : ''}
-            </div>
 
-            ${v.status === 'CONCLUIDO' ? `
-              <div class="badges-row">
-                <span class="eval-badge ${v.pilar1 === 'Cumple' ? 'yes' : 'no'}">Planograma: ${v.pilar1}</span>
-                <span class="eval-badge ${v.pilar2 === 'Cumple' ? 'yes' : 'no'}">Flujo: ${v.pilar2}</span>
-                <span class="eval-badge ${v.pilar3 === 'Cumple' ? 'yes' : 'no'}">Espacios: ${v.pilar3}</span>
-              </div>
-              <div class="photos-quad-grid">
-                ${v.fotoCheckin ? `<div class="photo-tile"><img src="${v.fotoCheckin}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">Fachada</span></div>` : ''}
-                ${v.fotoP1 ? `<div class="photo-tile"><img src="${v.fotoP1}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">P1: Planograma</span></div>` : ''}
-                ${v.fotoP2 ? `<div class="photo-tile"><img src="${v.fotoP2}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">P2: Flujo</span></div>` : ''}
-                ${v.fotoP3 ? `<div class="photo-tile"><img src="${v.fotoP3}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">P3: Espacios</span></div>` : ''}
-              </div>
-            ` : `
-              <div class="photos-quad-grid" style="grid-template-columns: 1fr; max-width: 220px;">
-                ${v.fotoCheckin ? `<div class="photo-tile" style="height: 100px;"><img src="${v.fotoCheckin}" onclick="openImageModal(this.src)"><span class="photo-tile-tag">Foto Entrada Check-in</span></div>` : ''}
-              </div>
-            `}
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.65rem;">
+              ${linkGpsIn ? `<a href="${linkGpsIn}" target="_blank" style="color: var(--info); font-size: 0.75rem; font-weight: 600; text-decoration: none;">📍 GPS Entrada (±${v.checkInGps.accuracy}m)</a>` : ''}
+              ${linkGpsOut ? `<a href="${linkGpsOut}" target="_blank" style="color: var(--info); font-size: 0.75rem; font-weight: 600; text-decoration: none;">📍 GPS Salida (±${v.checkOutGps.accuracy}m)</a>` : ''}
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;">
+              ${v.fotoCheckin ? `<img src="${v.fotoCheckin}" style="width: 100%; height: 75px; object-fit: cover; border-radius: 4px; cursor: pointer;" onclick="openImageModal(this.src)">` : ''}
+              ${v.fotoP1 ? `<img src="${v.fotoP1}" style="width: 100%; height: 75px; object-fit: cover; border-radius: 4px; cursor: pointer;" onclick="openImageModal(this.src)">` : ''}
+              ${v.fotoP2 ? `<img src="${v.fotoP2}" style="width: 100%; height: 75px; object-fit: cover; border-radius: 4px; cursor: pointer;" onclick="openImageModal(this.src)">` : ''}
+              ${v.fotoP3 ? `<img src="${v.fotoP3}" style="width: 100%; height: 75px; object-fit: cover; border-radius: 4px; cursor: pointer;" onclick="openImageModal(this.src)">` : ''}
+            </div>
           `;
           adminMasterFeed.appendChild(card);
+
+          const pushPhoto = (imgSrc, label) => {
+            if (!imgSrc) return;
+            photosCount++;
+            const gCard = document.createElement('div');
+            gCard.className = 'gallery-card';
+            gCard.innerHTML = `
+              <img src="${imgSrc}" onclick="openImageModal(this.src)">
+              <div class="gallery-info">
+                <span class="gallery-tag">${label}</span>
+                <span class="gallery-store">${v.tienda}</span>
+                <span style="color: var(--text-muted); display: block;">${v.promotor}</span>
+              </div>
+            `;
+            adminGlobalGallery.appendChild(gCard);
+          };
+
+          pushPhoto(v.fotoCheckin, "Fachada");
+          pushPhoto(v.fotoP1, "1. Planograma");
+          pushPhoto(v.fotoP2, "2. Flujo Tintos");
+          pushPhoto(v.fotoP3, "3. Espacios");
         });
+
+        lblTotalPhotosCount.textContent = `${photosCount} fotos`;
+
+        document.querySelectorAll('.delete-visit-btn').forEach(btn => {
+          btn.onclick = async (e) => {
+            const docId = e.currentTarget.getAttribute('data-id');
+            const confirmDelete = await showCustomConfirm("Eliminar Visita", "¿Estás seguro de eliminar este registro de auditoría de forma permanente?", true);
+            if (confirmDelete) {
+              try {
+                await deleteDoc(doc(db, "visitas", docId));
+              } catch (err) {
+                await showCustomAlert("Error", err.message);
+              }
+            }
+          };
+        });
+
+        if (filtered.length === 0) {
+          adminMasterFeed.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 2rem 0;">No hay visitas con los filtros seleccionados.</p>';
+          adminGlobalGallery.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 2rem 0;">No hay fotos bajo los filtros actuales.</p>';
+        }
       }
 
-      // Descarga de CSV completa
+      btnDeleteAllVisits.onclick = async () => {
+        if (!masterVisitsStore.length) {
+          await showCustomAlert("Sin Registros", "No hay visitas para eliminar.");
+          return;
+        }
+        const confirm1 = await showCustomConfirm("Zona de Peligro", "⚠️ Esta acción eliminará permanentemente <strong>TODAS</strong> las auditorías, fotos y frentes registrados. ¿Deseas continuar?", true);
+        if (!confirm1) return;
+
+        btnDeleteAllVisits.disabled = true;
+        btnDeleteAllVisits.textContent = "Eliminando registros...";
+
+        try {
+          for (const v of masterVisitsStore) {
+            await deleteDoc(doc(db, "visitas", v.id));
+          }
+          await showCustomAlert("Base de Datos Limpia", "Se han eliminado todos los registros correctamente.");
+        } catch (err) {
+          await showCustomAlert("Error", err.message);
+        } finally {
+          btnDeleteAllVisits.disabled = false;
+          btnDeleteAllVisits.textContent = "Vaciar Todas las Visitas";
+        }
+      };
+
       btnExportCsvData.onclick = () => {
-        if (!masterVisitsStore.length) { alert("No hay registros para exportar."); return; }
-        let csvContent = "Tienda,Promotor,Correo,Estatus,Minutos_Servicio,Fecha_Entrada,Hora_Entrada,Hora_Salida,GPS_Entrada_Lat,GPS_Entrada_Lng,Link_Maps_Entrada,GPS_Salida_Lat,GPS_Salida_Lng,Link_Maps_Salida,Planograma,Flujo,Espacios\n";
-        
+        if (!masterVisitsStore.length) { showCustomAlert("Aviso", "No hay registros para exportar."); return; }
+        let csvContent = "Tienda,Promotor,Correo,Estatus,Minutos_Servicio,Planograma,Flujo,Espacios,Frentes_Propios,Frentes_Competencia,Share_Of_Shelf,Alerta_GPS\n";
         masterVisitsStore.forEach(r => {
-          const inDate = r.checkIn ? new Date(r.checkIn.toDate()).toLocaleDateString() : '';
-          const inTime = r.checkIn ? new Date(r.checkIn.toDate()).toLocaleTimeString() : '';
-          const outTime = r.checkOut ? new Date(r.checkOut.toDate()).toLocaleTimeString() : '';
-          
-          const inLat = r.checkInGps ? r.checkInGps.lat : '';
-          const inLng = r.checkInGps ? r.checkInGps.lng : '';
-          const mapsIn = r.checkInGps ? `https://maps.google.com/?q=${inLat},${inLng}` : '';
-
-          const outLat = r.checkOutGps ? r.checkOutGps.lat : '';
-          const outLng = r.checkOutGps ? r.checkOutGps.lng : '';
-          const mapsOut = r.checkOutGps ? `https://maps.google.com/?q=${outLat},${outLng}` : '';
-
-          csvContent += `"${r.tienda}","${r.promotor}","${r.email}","${r.status}",${r.minutosServicio || 0},"${inDate}","${inTime}","${outTime}","${inLat}","${inLng}","${mapsIn}","${outLat}","${outLng}","${mapsOut}","${r.pilar1 || ''}","${r.pilar2 || ''}","${r.pilar3 || ''}"\n`;
+          csvContent += `"${r.tienda}","${r.promotor}","${r.email}","${r.status}",${r.minutosServicio || 0},"${r.pilar1 || ''}","${r.pilar2 || ''}","${r.pilar3 || ''}",${r.frentesPropios || 0},${r.frentesCompetencia || 0},"${r.shareOfShelf || 0}%","${r.proximidadAlerta || 'Correcto'}"\n`;
         });
-
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = `auditoria_ejecutiva_rutas_${new Date().toISOString().slice(0,10)}.csv`;
+        a.download = `auditoria_share_of_shelf_${new Date().toISOString().slice(0,10)}.csv`;
         a.click();
       };
     }
@@ -1743,7 +2035,7 @@
             text.textContent = successMsg;
             onB64(b64);
           } catch (err) {
-            alert(err.message);
+            showCustomAlert("Error de Foto", err.message);
             text.textContent = "Error al procesar foto";
           }
         }
