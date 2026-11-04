@@ -9,16 +9,13 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="theme-color" content="#ffffff">
 
-  <!-- Estilos del Mapa Leaflet -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
-
   <style>
     :root {
       --bg-body: #f8fafc;
       --bg-surface: #ffffff;
       --bg-surface-subtle: #f1f5f9;
       --border-color: #e2e8f0;
-      --border-focus: #b45309;
+      --border-focus: #d97706;
       --text-main: #0f172a;
       --text-muted: #64748b;
       --accent: #d97706;
@@ -32,12 +29,12 @@
       --info-soft: #e0f2fe;
       --purple: #7c3aed;
       --purple-soft: #ede9fe;
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 14px;
-      --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.06);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 10px -1px rgba(0, 0, 0, 0.07);
+      --shadow-lg: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
     }
 
     * {
@@ -131,11 +128,11 @@
       100% { width: 100%; }
     }
 
-    /* HEADER RESPONSIVO OPTIMIZADO */
+    /* HEADER */
     header {
       background-color: var(--bg-surface);
       border-bottom: 1px solid var(--border-color);
-      padding: 0.65rem 1rem;
+      padding: 0.75rem 1.25rem;
       position: sticky;
       top: 0;
       z-index: 1000;
@@ -146,157 +143,250 @@
       max-width: 1300px;
       margin: 0 auto;
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 0.5rem;
+      gap: 1rem;
     }
     .brand-cluster {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.65rem;
+      min-width: 0;
     }
     .mini-badge-idi {
       border: 1.5px solid #475569;
       font-size: 0.75rem;
       font-weight: 800;
       letter-spacing: 0.12rem;
-      padding: 0.15rem 0.4rem;
+      padding: 0.18rem 0.45rem;
       border-radius: 4px;
       color: #334155;
       background-color: #fff;
       flex-shrink: 0;
     }
     .brand-title {
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--text-main);
       white-space: nowrap;
     }
-    .header-nav {
+
+    .circular-menu-btn {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      gap: 0.35rem;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
     }
-    .role-tag {
+    .circular-menu-btn:hover {
+      background-color: var(--bg-surface-subtle);
+    }
+    .circular-menu-btn span {
+      display: block;
+      width: 18px;
+      height: 2.5px;
+      background-color: #0f172a;
+      border-radius: 2px;
+    }
+
+    /* DRAWER LATERAL REFINADO */
+    #menuBackdrop {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(2px);
+      z-index: 1050;
+      display: none;
+    }
+    #menuBackdrop.active { display: block; }
+
+    #universalDrawer {
+      position: fixed;
+      top: 0;
+      right: -340px;
+      width: 320px;
+      height: 100vh;
+      background-color: #ffffff;
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.12);
+      z-index: 1100;
+      padding: 1.5rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      transition: right 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+    }
+    #universalDrawer.active { right: 0; }
+
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.85rem;
+    }
+    .btn-close-drawer {
+      background: none;
+      border: none;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .drawer-user-info-box {
+      background-color: var(--bg-surface-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.85rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .drawer-section-title {
       font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
-      padding: 0.25rem 0.5rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05rem;
+      margin-top: 0.4rem;
+    }
+
+    .role-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.3rem 0.6rem;
       border-radius: var(--radius-sm);
-      letter-spacing: 0.04rem;
+      letter-spacing: 0.05rem;
       background-color: var(--bg-surface-subtle);
       color: var(--text-muted);
       border: 1px solid var(--border-color);
-      white-space: nowrap;
     }
     .role-tag.admin {
       background-color: var(--accent-soft);
       color: var(--accent-hover);
       border-color: #fcd34d;
     }
-    .btn-header-action {
-      background-color: var(--bg-surface-subtle);
+
+    .btn-drawer-nav {
+      background-color: #ffffff;
       border: 1px solid var(--border-color);
       color: var(--text-main);
-      padding: 0.25rem 0.55rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.74rem;
+      padding: 0.75rem 0.9rem;
+      border-radius: var(--radius-md);
+      font-size: 0.86rem;
       font-weight: 600;
       cursor: pointer;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 0.25rem;
-      white-space: nowrap;
+      gap: 0.6rem;
+      transition: all 0.15s ease;
+      text-align: left;
+      width: 100%;
     }
-    .btn-header-action:hover { background-color: #e2e8f0; }
-    .btn-logout {
-      background-color: transparent;
-      border: 1px solid var(--border-color);
-      color: var(--text-muted);
-      padding: 0.25rem 0.55rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.74rem;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .btn-logout:hover {
-      background-color: var(--danger-soft);
-      border-color: #fca5a5;
-      color: var(--danger);
+    .btn-drawer-nav:hover, .btn-drawer-nav.active {
+      background-color: var(--accent-soft);
+      border-color: #fcd34d;
+      color: var(--accent-hover);
     }
 
     /* CONTENEDOR PRINCIPAL */
     main {
       flex: 1;
-      padding: 1rem 0.75rem;
+      padding: 1.25rem 1rem;
       max-width: 1300px;
       margin: 0 auto;
       width: 100%;
+      display: flex;
+      flex-direction: column;
     }
 
     .clean-card {
       background-color: var(--bg-surface);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
-      padding: 1.15rem;
-      margin-bottom: 1rem;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
       box-shadow: var(--shadow-sm);
       width: 100%;
       overflow: hidden;
     }
 
-    .field-group { margin-bottom: 0.85rem; width: 100%; }
+    /* GRID OPERATIVO PROMOTOR */
+    .promoter-workspace-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      width: 100%;
+      align-items: start;
+    }
+    @media (min-width: 992px) {
+      .promoter-workspace-grid {
+        grid-template-columns: 480px 1fr;
+      }
+      .promoter-workspace-grid.full-history {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    .field-group { margin-bottom: 0.95rem; width: 100%; }
     .field-label {
       display: block;
-      font-size: 0.72rem;
-      font-weight: 600;
+      font-size: 0.74rem;
+      font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.05rem;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.4rem;
     }
     .form-input, .form-select {
       width: 100%;
-      max-width: 100%;
-      background-color: var(--bg-surface);
-      border: 1px solid var(--border-color);
+      background-color: #ffffff;
+      border: 1px solid #cbd5e1;
       color: var(--text-main);
-      padding: 0.65rem 0.8rem;
-      border-radius: var(--radius-md);
-      font-size: 0.88rem;
+      padding: 0.75rem 0.9rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
       outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
     .form-input:focus, .form-select:focus {
       border-color: var(--border-focus);
       box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15);
     }
+
     .btn-solid {
       width: 100%;
       background-color: var(--accent);
       color: #ffffff;
       border: none;
-      padding: 0.75rem;
-      border-radius: var(--radius-md);
-      font-size: 0.88rem;
-      font-weight: 600;
+      padding: 0.85rem;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.4rem;
       text-align: center;
-      word-break: break-word;
+      box-shadow: 0 2px 4px rgba(217, 119, 6, 0.2);
     }
     .btn-solid:hover { background-color: var(--accent-hover); }
     .btn-secondary {
       background-color: var(--bg-surface-subtle);
       border: 1px solid var(--border-color);
       color: var(--text-main);
-      padding: 0.7rem;
-      border-radius: var(--radius-md);
+      padding: 0.75rem;
+      border-radius: 10px;
       font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
@@ -305,51 +395,40 @@
       margin-top: 0.5rem;
     }
     .btn-secondary:hover { background-color: #e2e8f0; }
-    .btn-danger-solid { background-color: var(--danger); }
+    .btn-danger-solid { background-color: var(--danger); box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2); }
     .btn-danger-solid:hover { background-color: #b91c1c; }
-
-    .responsive-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      width: 100%;
-    }
-    @media (min-width: 992px) {
-      .responsive-grid-user { grid-template-columns: 460px 1fr; }
-      .responsive-grid-admin { grid-template-columns: 360px 1fr; }
-    }
 
     .active-session-banner {
       background: linear-gradient(to right, #ffffff, #fffbeb);
       border: 1px solid #fde68a;
       border-left: 5px solid var(--accent);
       border-radius: var(--radius-md);
-      padding: 1rem;
-      margin-bottom: 1rem;
+      padding: 1.15rem;
+      margin-bottom: 1.15rem;
     }
-    .active-store-heading { font-size: 1.05rem; font-weight: 700; color: #78350f; }
+    .active-store-heading { font-size: 1.1rem; font-weight: 800; color: #78350f; }
     .active-clock {
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       font-family: ui-monospace, monospace;
       color: #b45309;
-      font-weight: 600;
+      font-weight: 700;
       margin-top: 0.25rem;
     }
     .audit-pillar-box {
       background-color: var(--bg-surface-subtle);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
-      padding: 0.95rem;
-      margin-bottom: 0.85rem;
+      padding: 1.1rem;
+      margin-bottom: 1rem;
     }
-    .pillar-title { font-size: 0.88rem; font-weight: 700; color: var(--text-main); }
-    .pillar-instruction { font-size: 0.75rem; color: var(--text-muted); margin: 0.25rem 0 0.65rem; line-height: 1.35; }
-    .compliance-selector { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .pillar-title { font-size: 0.92rem; font-weight: 800; color: var(--text-main); }
+    .pillar-instruction { font-size: 0.78rem; color: var(--text-muted); margin: 0.25rem 0 0.75rem; line-height: 1.4; }
+    .compliance-selector { display: flex; gap: 0.5rem; margin-bottom: 0.85rem; }
     .compliance-btn {
-      flex: 1; padding: 0.5rem; text-align: center;
+      flex: 1; padding: 0.6rem; text-align: center;
       border: 1px solid var(--border-color); border-radius: var(--radius-sm);
       background-color: var(--bg-surface); color: var(--text-muted);
-      font-size: 0.8rem; font-weight: 600; cursor: pointer;
+      font-size: 0.82rem; font-weight: 600; cursor: pointer;
     }
     .compliance-btn input { display: none; }
     .compliance-btn.selected-yes { background-color: var(--success); border-color: var(--success); color: #ffffff; }
@@ -358,38 +437,38 @@
     .sos-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.5rem;
+      gap: 0.65rem;
       margin-bottom: 0.75rem;
     }
     .sos-live-pill {
       background-color: #f1f5f9;
       border: 1px solid #cbd5e1;
-      padding: 0.45rem;
+      padding: 0.55rem 0.75rem;
       border-radius: var(--radius-sm);
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: var(--text-main);
       display: flex;
       justify-content: space-between;
-      margin-bottom: 0.65rem;
+      margin-bottom: 0.85rem;
     }
 
     .photo-actions-group {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.45rem;
+      gap: 0.5rem;
       margin-top: 0.35rem;
     }
     .photo-btn-action {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.35rem;
+      gap: 0.4rem;
       background-color: var(--bg-surface);
       border: 1.5px dashed var(--border-color);
       border-radius: var(--radius-md);
-      padding: 0.65rem 0.4rem;
-      font-size: 0.76rem;
+      padding: 0.75rem 0.5rem;
+      font-size: 0.8rem;
       font-weight: 600;
       color: var(--text-muted);
       cursor: pointer;
@@ -415,7 +494,7 @@
       overflow: hidden;
       border: 1px solid var(--border-color);
       background-color: #0f172a;
-      max-height: 200px;
+      max-height: 220px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -424,33 +503,33 @@
     .single-preview-wrapper img {
       width: 100%;
       height: 100%;
-      max-height: 200px;
+      max-height: 220px;
       object-fit: cover;
       display: block;
     }
     .btn-remove-single-photo {
       position: absolute;
-      top: 6px;
-      right: 6px;
-      background: rgba(15, 23, 42, 0.8);
+      top: 8px;
+      right: 8px;
+      background: rgba(15, 23, 42, 0.85);
       color: #ffffff;
       border: none;
       border-radius: 20px;
-      padding: 0.2rem 0.5rem;
-      font-size: 0.68rem;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.7rem;
       font-weight: 700;
       cursor: pointer;
     }
 
     .multi-photo-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
-      gap: 0.45rem;
+      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      gap: 0.5rem;
       margin-top: 0.5rem;
     }
     .multi-photo-item {
       position: relative;
-      height: 65px;
+      height: 70px;
       border-radius: var(--radius-sm);
       overflow: hidden;
       border: 1px solid var(--border-color);
@@ -475,19 +554,105 @@
       font-size: 11px;
       font-weight: bold;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .admin-metrics-grid {
+    /* MINI KPIS EN EL HISTORIAL */
+    .promoter-kpis-strip {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 0.65rem;
       margin-bottom: 1rem;
+    }
+    .promoter-mini-kpi {
+      background: var(--bg-surface-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 0.75rem;
+      text-align: center;
+    }
+    .promoter-mini-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+    .promoter-mini-lbl {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* FILTROS RÁPIDOS EN HISTORIAL */
+    .history-quick-filters {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.85rem;
+    }
+    .filter-pill-btn {
+      background: var(--bg-surface-subtle);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.3rem 0.65rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-pill-btn.active {
+      background: var(--accent-soft);
+      border-color: #fcd34d;
+      color: var(--accent-hover);
+    }
+
+    /* TARJETA COLAPSABLE DE VISITA (ACORDEÓN) */
+    .history-card-item {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.75rem;
+      background: #ffffff;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .history-card-header {
+      padding: 0.85rem 1rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      transition: background 0.15s;
+    }
+    .history-card-header:hover {
+      background: var(--bg-surface-subtle);
+    }
+    .history-card-body {
+      padding: 0.85rem 1rem 1rem;
+      border-top: 1px solid var(--border-color);
+      background: #fbfcfe;
+      display: none;
+    }
+    .history-card-item.expanded .history-card-body {
+      display: block;
+    }
+
+    /* KPIS & MÉTRICAS ADMIN */
+    .admin-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.85rem;
+      margin-bottom: 1.25rem;
     }
     .metric-box {
       background-color: var(--bg-surface);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
-      padding: 0.85rem 0.75rem;
+      padding: 1.1rem 0.95rem;
       position: relative;
       overflow: hidden;
       box-shadow: var(--shadow-sm);
@@ -505,47 +670,142 @@
     .metric-box.time-card::before { background-color: var(--accent); }
     .metric-box.compliance-card::before { background-color: #8b5cf6; }
     .metric-box.sos-card::before { background-color: var(--purple); }
-    .metric-number { font-size: 1.35rem; font-weight: 800; color: var(--text-main); line-height: 1; }
-    .metric-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-top: 0.35rem; }
+    .metric-number { font-size: 1.65rem; font-weight: 800; color: var(--text-main); line-height: 1.1; }
+    .metric-label { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-top: 0.35rem; letter-spacing: 0.04rem; }
 
-    /* PESTAÑAS ADMIN CON SCROLL HORIZONTAL SUAVE EN MÓVILES */
-    .admin-tab-bar {
+    /* CONTROLES Y TARJETAS DE TIENDAS EN DASHBOARD */
+    .dashboard-filter-bar {
       display: flex;
-      background-color: var(--bg-surface-subtle);
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-bottom: 1rem;
+      background: var(--bg-surface-subtle);
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+    .dashboard-pills {
+      display: flex;
+      gap: 0.4rem;
+    }
+    .dash-pill-btn {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.4rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .dash-pill-btn.active {
+      background: var(--purple);
+      color: #ffffff;
+      border-color: var(--purple);
+    }
+
+    /* GRID REFORMADO DE TIENDAS */
+    .store-charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1.15rem;
+      margin-top: 0.75rem;
+    }
+    .store-chart-card {
+      background-color: #ffffff;
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
-      padding: 3px;
-      margin-bottom: 1rem;
-      overflow-x: auto;
-      white-space: nowrap;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    .admin-tab-bar::-webkit-scrollbar { display: none; }
-    .admin-tab-btn {
-      flex: 0 0 auto;
-      padding: 0.5rem 0.75rem;
-      font-size: 0.78rem;
-      font-weight: 600;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-    }
-    .admin-tab-btn.active {
-      background-color: var(--bg-surface);
-      color: var(--text-main);
+      padding: 1.15rem 1rem 0.9rem;
       box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .store-chart-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .store-chart-header {
+      width: 100%;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.65rem;
+    }
+    .store-chart-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .store-chart-zone {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+    .store-chart-canvas-wrap {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      margin: 0.35rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .store-chart-center-val {
+      position: absolute;
+      text-align: center;
+      pointer-events: none;
+    }
+    .store-chart-center-val .pct {
+      font-size: 1.35rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--purple);
+    }
+    .store-chart-center-val .lbl {
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .store-chart-stats {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      font-size: 0.75rem;
+      padding-top: 0.65rem;
+      border-top: 1px solid #f1f5f9;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+
+    /* FILTROS EN BITÁCORA */
+    .filters-inline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      background-color: var(--bg-surface-subtle);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
     }
 
     .gallery-masonry {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-      gap: 0.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 0.65rem;
     }
     @media (min-width: 768px) {
-      .gallery-masonry { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; }
+      .gallery-masonry { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.85rem; }
     }
     .gallery-card {
       border: 1px solid var(--border-color);
@@ -556,51 +816,41 @@
       flex-direction: column;
       box-shadow: var(--shadow-sm);
     }
-    .gallery-card img { width: 100%; height: 110px; object-fit: cover; cursor: pointer; }
-    .gallery-info { padding: 0.35rem 0.45rem; font-size: 0.65rem; }
+    .gallery-card img { width: 100%; height: 120px; object-fit: cover; cursor: pointer; }
+    .gallery-info { padding: 0.45rem 0.55rem; font-size: 0.68rem; }
     .gallery-tag { font-weight: 700; color: var(--accent-hover); display: block; }
     .gallery-store { color: var(--text-main); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
     .route-checkbox-list {
-      max-height: 200px;
+      max-height: 220px;
       overflow-y: auto;
       border: 1px solid var(--border-color);
       border-radius: var(--radius-sm);
-      padding: 0.5rem;
+      padding: 0.65rem;
       background: var(--bg-surface);
-      margin-bottom: 0.85rem;
+      margin-bottom: 1rem;
     }
     .route-checkbox-item {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.78rem;
-      padding: 0.3rem 0;
+      font-size: 0.82rem;
+      padding: 0.35rem 0;
       border-bottom: 1px solid #f1f5f9;
     }
 
-    .table-container { width: 100%; overflow-x: auto; margin-top: 0.75rem; }
-    .custom-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; text-align: left; }
+    .table-container { width: 100%; overflow-x: auto; margin-top: 1rem; }
+    .custom-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; text-align: left; }
     .custom-table th {
       background-color: var(--bg-surface-subtle);
-      padding: 0.5rem 0.65rem;
+      padding: 0.65rem 0.75rem;
       border-bottom: 1px solid var(--border-color);
       color: var(--text-muted);
       font-weight: 700;
       text-transform: uppercase;
-      font-size: 0.68rem;
+      font-size: 0.7rem;
     }
-    .custom-table td { padding: 0.5rem 0.65rem; border-bottom: 1px solid #f1f5f9; color: var(--text-main); }
-
-    /* CONTENEDOR DEL MAPA */
-    #liveMapContainer {
-      width: 100%;
-      height: 420px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-color);
-      background-color: #f1f5f9;
-      position: relative;
-    }
+    .custom-table td { padding: 0.65rem 0.75rem; border-bottom: 1px solid #f1f5f9; color: var(--text-main); }
 
     /* MODAL POPUPS */
     .custom-modal-backdrop {
@@ -620,17 +870,17 @@
       border-radius: var(--radius-lg);
       max-width: 440px;
       width: 100%;
-      padding: 1.5rem;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-lg);
       border: 1px solid var(--border-color);
     }
-    .custom-modal-title { font-size: 1rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.4rem; }
-    .custom-modal-body { font-size: 0.84rem; color: var(--text-muted); line-height: 1.45; margin-bottom: 1.25rem; }
-    .custom-modal-actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
+    .custom-modal-title { font-size: 1.05rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.5rem; }
+    .custom-modal-body { font-size: 0.86rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.5rem; }
+    .custom-modal-actions { display: flex; gap: 0.65rem; justify-content: flex-end; }
     .modal-btn {
-      padding: 0.55rem 1rem;
+      padding: 0.65rem 1.15rem;
       border-radius: var(--radius-sm);
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       font-weight: 600;
       cursor: pointer;
       border: 1px solid transparent;
@@ -641,23 +891,79 @@
 
     #detailPhotoModal {
       position: fixed; inset: 0; background-color: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(5px); z-index: 10100; display: none; align-items: center; justify-content: center; padding: 1rem;
+      backdrop-filter: blur(5px); z-index: 10100; display: none; align-items: center; justify-content: center; padding: 1.25rem;
     }
     #detailPhotoModal.active { display: flex; }
     .detail-photo-card {
-      background: #ffffff; border-radius: var(--radius-lg); max-width: 580px; width: 100%;
-      overflow: hidden; display: flex; flex-direction: column; max-height: 90vh;
+      background: #ffffff; border-radius: var(--radius-lg); max-width: 600px; width: 100%;
+      overflow: hidden; display: flex; flex-direction: column; max-height: 90vh; box-shadow: var(--shadow-lg);
     }
     .detail-photo-img-wrap {
-      background: #000; width: 100%; height: 280px; display: flex; align-items: center; justify-content: center;
+      background: #000; width: 100%; height: 300px; display: flex; align-items: center; justify-content: center;
     }
     .detail-photo-img-wrap img { width: 100%; height: 100%; object-fit: contain; }
-    .detail-photo-info { padding: 1rem; overflow-y: auto; }
+    .detail-photo-info { padding: 1.25rem; overflow-y: auto; }
     .detail-badge-pill {
-      display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 0.18rem 0.5rem; border-radius: 4px; margin-bottom: 0.35rem;
+      display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 4px; margin-bottom: 0.4rem;
     }
-    .detail-photo-title { font-size: 0.95rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.2rem; }
-    .detail-photo-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.45; margin-top: 0.35rem; }
+    .detail-photo-title { font-size: 1rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.25rem; }
+    .detail-photo-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.45; margin-top: 0.4rem; }
+
+    /* ESTILO AUTH */
+    .auth-page-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 0.5rem;
+      min-height: calc(100vh - 120px);
+    }
+    .auth-box-card {
+      background: #ffffff;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+    .auth-box-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #d97706, #f59e0b, #b45309);
+    }
+    .auth-brand-head {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+    .auth-brand-idi {
+      border: 2px solid #334155;
+      padding: 0.4rem 1.1rem;
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: 0.4rem;
+      color: #1e293b;
+      border-radius: 4px;
+      margin-right: -0.4rem;
+    }
+    .auth-brand-divider { width: 1px; height: 32px; background-color: #e2e8f0; }
+    .auth-brand-yello { font-size: 1.15rem; font-weight: 800; color: #0f172a; letter-spacing: 0.05rem; line-height: 1.15; }
+    .auth-brand-yello small { display: block; font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.22rem; text-transform: uppercase; font-weight: 600; }
+    .segmented-control { display: flex; background-color: #f1f5f9; border-radius: 10px; padding: 4px; margin-bottom: 1.5rem; border: 1px solid #e2e8f0; }
+    .segmented-btn { flex: 1; padding: 0.6rem 0.5rem; font-size: 0.84rem; font-weight: 600; border: none; background: transparent; color: var(--text-muted); border-radius: 7px; cursor: pointer; transition: all 0.2s; }
+    .segmented-btn.active { background-color: #ffffff; color: var(--text-main); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); font-weight: 700; }
+    .input-field-wrap { position: relative; margin-bottom: 1.1rem; }
+    .input-field-wrap .field-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none; display: flex; align-items: center; }
+    .input-field-wrap .form-input-styled { width: 100%; background-color: #f8fafc; border: 1px solid #cbd5e1; color: var(--text-main); padding: 0.75rem 0.9rem 0.75rem 2.6rem; border-radius: 10px; font-size: 0.92rem; outline: none; transition: all 0.2s; }
+    .input-field-wrap .form-input-styled:focus { background-color: #ffffff; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15); }
+    .toggle-pass-visibility { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #94a3b8; cursor: pointer; padding: 4px; display: flex; align-items: center; }
+    .toggle-pass-visibility:hover { color: var(--text-main); }
 
     .view-zone { display: none; }
     .view-zone.active { display: block; }
@@ -683,94 +989,193 @@
         <span class="mini-badge-idi">IDI</span>
         <span class="brand-title">Trade Management</span>
       </div>
-      <div class="header-nav">
-        <button id="btnOpenDedicatedDashboard" class="btn-header-action" style="display: none; background: var(--accent-soft); color: var(--accent-hover); border-color: #fcd34d;">
-          📊 Dashboard
-        </button>
-        <span class="role-tag" id="roleTag" style="display: none;"></span>
-        <button class="btn-logout" id="btnLogout" style="display: none;">Salir</button>
-      </div>
+
+      <!-- Botón circular universal -->
+      <button class="circular-menu-btn" id="btnUniversalMenu" style="display: none;" title="Abrir Menú">
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </header>
+
+  <!-- BACKDROP Y DRAWER LATERAL -->
+  <div id="menuBackdrop"></div>
+  <div id="universalDrawer">
+    <div class="drawer-header">
+      <span class="role-tag" id="drawerRoleTag">Promotor</span>
+      <button class="btn-close-drawer" id="btnCloseDrawer">&times;</button>
+    </div>
+    
+    <div class="drawer-user-info-box">
+      <div style="font-size: 0.74rem; font-weight: 700; color: var(--text-main);" id="drawerUserName">Usuario</div>
+      <div style="font-size: 0.7rem; color: var(--text-muted); word-break: break-all;" id="drawerUserEmail">correo@empresa.com</div>
+    </div>
+
+    <!-- Menú Administrador (Sin pestaña de mapa) -->
+    <div id="drawerAdminNav" style="display: none; flex-direction: column; gap: 0.4rem;">
+      <div class="drawer-section-title">Mesa de Control</div>
+      <button class="btn-drawer-nav active" data-target="adminDashboardContainer">📊 Dashboard & KPIs</button>
+      <button class="btn-drawer-nav" data-target="adminFeedContainer">📋 Bitácora en Vivo</button>
+      <button class="btn-drawer-nav" data-target="adminGalleryContainer">🖼️ Galería de Evidencias</button>
+      <div class="drawer-section-title">Operación</div>
+      <button class="btn-drawer-nav" data-target="adminAssignContainer">📅 Asignar Rutas</button>
+      <button class="btn-drawer-nav" data-target="adminStoresContainer">🏪 Tiendas & GPS</button>
+      <div class="drawer-section-title">Sistema</div>
+      <button class="btn-drawer-nav" data-target="adminSettingsContainer">⚙️ Configuración & Datos</button>
+    </div>
+
+    <!-- Menú Promotor -->
+    <div id="drawerPromoterNav" style="display: none; flex-direction: column; gap: 0.4rem;">
+      <div class="drawer-section-title">Mi Jornada de Hoy</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0.35rem;">
+        <div style="background: var(--bg-surface-subtle); padding: 0.6rem; border-radius: 8px; text-align: center; border: 1px solid var(--border-color);">
+          <div style="font-size: 1.15rem; font-weight: 800; color: var(--accent);" id="drawerStatVisits">0</div>
+          <div style="font-size: 0.65rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Tiendas</div>
+        </div>
+        <div style="background: var(--bg-surface-subtle); padding: 0.6rem; border-radius: 8px; text-align: center; border: 1px solid var(--border-color);">
+          <div style="font-size: 1.15rem; font-weight: 800; color: var(--purple);" id="drawerStatSos">0%</div>
+          <div style="font-size: 0.65rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">SOS Prom.</div>
+        </div>
+      </div>
+
+      <div class="drawer-section-title">Vistas de Operación</div>
+      <button class="btn-drawer-nav active" id="btnNavPromoterCheckin">📍 Registro / Check-in Actual</button>
+      <button class="btn-drawer-nav" id="btnNavPromoterHistory">📅 Mi Historial Completo</button>
+    </div>
+
+    <div style="flex: 1;"></div>
+
+    <button id="btnDrawerLogout" class="btn-solid btn-danger-solid" style="padding: 0.75rem;">
+      Cerrar Sesión
+    </button>
+  </div>
 
   <main>
     <!-- 1. VISTA AUTENTICACIÓN -->
     <section id="authZone" class="view-zone active">
-      <div class="clean-card" style="max-width: 400px; margin: 1.5rem auto;">
-        <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.25rem;">
-          <div style="border: 2px solid #334155; padding: 0.35rem 1rem; font-size: 1.1rem; font-weight: 800; letter-spacing: 0.35rem; color: #1e293b; border-radius: 3px;">IDI</div>
-          <div style="width: 1px; height: 26px; background-color: var(--border-color);"></div>
-          <div style="font-size: 1.05rem; font-weight: 800; color: #0f172a;">YELLO <small style="display: block; font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.2rem;">MKT Group</small></div>
+      <div class="auth-page-wrapper">
+        <div class="auth-box-card">
+          <div class="auth-brand-head">
+            <div class="auth-brand-idi">IDI</div>
+            <div class="auth-brand-divider"></div>
+            <div class="auth-brand-yello">
+              YELLO
+              <small>MKT Group</small>
+            </div>
+          </div>
+
+          <div class="segmented-control">
+            <button class="segmented-btn active" id="tabLoginBtn">Iniciar Sesión</button>
+            <button class="segmented-btn" id="tabRegisterBtn">Registrarse</button>
+          </div>
+
+          <div id="authAlert" style="display: none; background-color: var(--danger-soft); border: 1px solid #fca5a5; color: #991b1b; font-size: 0.8rem; padding: 0.65rem 0.85rem; border-radius: 10px; margin-bottom: 1.1rem; line-height: 1.4;"></div>
+
+          <form id="formLogin">
+            <div class="field-group">
+              <label class="field-label">Correo Electrónico</label>
+              <div class="input-field-wrap">
+                <span class="field-icon">
+                  <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </span>
+                <input type="email" id="loginEmail" class="form-input-styled" placeholder="promotor@yellomkt.com" required autocomplete="email">
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Contraseña</label>
+              <div class="input-field-wrap">
+                <span class="field-icon">
+                  <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </span>
+                <input type="password" id="loginPass" class="form-input-styled" placeholder="••••••••" required autocomplete="current-password">
+                <button type="button" class="toggle-pass-visibility" id="btnToggleLoginPass" title="Ver contraseña">
+                  <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-solid" style="margin-top: 0.5rem;">
+              Ingresar al Portal
+            </button>
+          </form>
+
+          <form id="formRegister" style="display: none;">
+            <div class="field-group">
+              <label class="field-label">Nombre Completo</label>
+              <div class="input-field-wrap">
+                <span class="field-icon">
+                  <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </span>
+                <input type="text" id="regName" class="form-input-styled" placeholder="Nombre y Apellidos" required autocomplete="name">
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Correo Electrónico</label>
+              <div class="input-field-wrap">
+                <span class="field-icon">
+                  <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </span>
+                <input type="email" id="regEmail" class="form-input-styled" placeholder="correo@empresa.com" required autocomplete="email">
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Contraseña (Mínimo 6 caracteres)</label>
+              <div class="input-field-wrap">
+                <span class="field-icon">
+                  <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </span>
+                <input type="password" id="regPass" class="form-input-styled" placeholder="••••••••" minlength="6" required autocomplete="new-password">
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Código de Rol (Opcional)</label>
+              <div class="input-field-wrap">
+                <span class="field-icon">
+                  <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </span>
+                <input type="text" id="regCode" class="form-input-styled" placeholder="Código de autorización">
+              </div>
+              <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: -0.4rem; margin-bottom: 0.6rem;">* Ingresa "Yello-Admin" para rol de administrador.</span>
+            </div>
+
+            <button type="submit" class="btn-solid">Registrar Cuenta</button>
+          </form>
         </div>
-
-        <div style="display: flex; background: var(--bg-surface-subtle); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 3px; margin-bottom: 1.25rem;">
-          <button class="admin-tab-btn active" id="tabLoginBtn" style="flex:1;">Iniciar Sesión</button>
-          <button class="admin-tab-btn" id="tabRegisterBtn" style="flex:1;">Registrarse</button>
-        </div>
-
-        <div id="authAlert" style="display: none; background-color: var(--danger-soft); border: 1px solid #fca5a5; color: #991b1b; font-size: 0.8rem; padding: 0.6rem 0.8rem; border-radius: var(--radius-md); margin-bottom: 1rem;"></div>
-
-        <form id="formLogin">
-          <div class="field-group">
-            <label class="field-label">Correo Electrónico</label>
-            <input type="email" id="loginEmail" class="form-input" placeholder="promotor@yellomkt.com" required autocomplete="email">
-          </div>
-          <div class="field-group">
-            <label class="field-label">Contraseña</label>
-            <input type="password" id="loginPass" class="form-input" placeholder="••••••••" required autocomplete="current-password">
-          </div>
-          <button type="submit" class="btn-solid">Ingresar</button>
-        </form>
-
-        <form id="formRegister" style="display: none;">
-          <div class="field-group">
-            <label class="field-label">Nombre Completo</label>
-            <input type="text" id="regName" class="form-input" placeholder="Nombre y Apellidos" required autocomplete="name">
-          </div>
-          <div class="field-group">
-            <label class="field-label">Correo Electrónico</label>
-            <input type="email" id="regEmail" class="form-input" placeholder="correo@empresa.com" required autocomplete="email">
-          </div>
-          <div class="field-group">
-            <label class="field-label">Contraseña (Mínimo 6 caracteres)</label>
-            <input type="password" id="regPass" class="form-input" placeholder="••••••••" minlength="6" required autocomplete="new-password">
-          </div>
-          <div class="field-group">
-            <label class="field-label">Código de Rol (Opcional)</label>
-            <input type="text" id="regCode" class="form-input" placeholder="Código de autorización">
-            <span style="font-size: 0.68rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">* Ingresa "Yello-Admin" para rol de administrador.</span>
-          </div>
-          <button type="submit" class="btn-solid">Registrar Cuenta</button>
-        </form>
       </div>
     </section>
 
     <!-- 2. VISTA PROMOTOR -->
     <section id="userZone" class="view-zone">
-      <div class="responsive-grid responsive-grid-user">
-        <div>
-          <!-- Check-in -->
+      <div class="promoter-workspace-grid" id="promoterWorkspaceContainer">
+        
+        <!-- COLUMNA 1: CHECK-IN / AUDITORÍA EN CURSO -->
+        <div id="promoterCheckinColumn">
+          <!-- Check-in Inicial -->
           <div class="clean-card" id="cardCheckIn">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
-              <h2 style="font-size: 1rem; font-weight: 700;">Check-in de Asistencia</h2>
-              <span id="routeAssignedBadge" style="font-size: 0.68rem; background: var(--accent-soft); color: var(--accent-hover); padding: 0.15rem 0.45rem; border-radius: 4px; font-weight: 700;">Ruta de Hoy</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem;">
+              <h2 style="font-size: 1.05rem; font-weight: 800;">Check-in de Asistencia</h2>
+              <span id="routeAssignedBadge" style="font-size: 0.7rem; background: var(--accent-soft); color: var(--accent-hover); padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700;">Ruta de Hoy</span>
             </div>
 
-            <div id="noRouteAlert" style="display: none; background: #fffbeb; border: 1px solid #fef3c7; color: #b45309; padding: 0.65rem; border-radius: 6px; font-size: 0.76rem; margin-bottom: 0.85rem;">
+            <div id="noRouteAlert" style="display: none; background: #fffbeb; border: 1px solid #fef3c7; color: #b45309; padding: 0.75rem; border-radius: 8px; font-size: 0.8rem; margin-bottom: 1rem;">
               Sin ruta asignada hoy. Mostrando catálogo completo de tiendas.
             </div>
 
             <div class="field-group" id="storeSelectGroup">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
                 <label class="field-label" style="margin-bottom: 0;">Tienda a Visitar</label>
-                <a id="btnMapsNavigate" href="#" target="_blank" style="display: none; font-size: 0.72rem; color: var(--info); font-weight: 700; text-decoration: none;">🗺️ Cómo llegar</a>
+                <a id="btnMapsNavigate" href="#" target="_blank" style="display: none; font-size: 0.74rem; color: var(--info); font-weight: 700; text-decoration: none;">🗺️ Cómo llegar</a>
               </div>
               <select id="selStore" class="form-select" required>
                 <option value="" disabled selected>-- Elige una tienda --</option>
               </select>
             </div>
 
-            <!-- FOTO ENTRADA CON BOTONES SEPARADOS: CÁMARA O ARCHIVO -->
+            <!-- FOTO ENTRADA (CÁMARA / ARCHIVO) -->
             <div class="field-group">
               <label class="field-label">Fotografía de Fachada / Entrada *</label>
               <div class="photo-actions-group">
@@ -790,8 +1195,8 @@
               </div>
             </div>
 
-            <button id="btnDoCheckIn" class="btn-solid" style="margin-top: 0.75rem;">
-              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <button id="btnDoCheckIn" class="btn-solid" style="margin-top: 1rem;">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
               Validar GPS y Registrar Entrada
             </button>
           </div>
@@ -801,11 +1206,10 @@
             <div class="active-session-banner">
               <div class="active-store-heading" id="lblActiveStore">-</div>
               <div class="active-clock" id="lblActiveTimer">Tiempo en tienda: 00:00:00</div>
-              <div style="font-size: 0.68rem; color: #92400e; margin-top: 0.25rem;" id="lblGpsInStatus">GPS verificado</div>
+              <div style="font-size: 0.72rem; color: #92400e; margin-top: 0.25rem;" id="lblGpsInStatus">GPS verificado</div>
             </div>
 
             <form id="formAudit">
-              <!-- PILAR 1 MULTI-FOTOS -->
               <div class="audit-pillar-box">
                 <div class="pillar-title">1. Apego al planograma</div>
                 <div class="pillar-instruction">Acomodo físico coincide con el plano autorizado: posición, orden, bloques y niveles.</div>
@@ -827,7 +1231,6 @@
                 <div class="multi-photo-grid" id="gridP1"></div>
               </div>
 
-              <!-- PILAR 2 MULTI-FOTOS -->
               <div class="audit-pillar-box">
                 <div class="pillar-title">2. Flujo de navegación</div>
                 <div class="pillar-instruction">Recorrido acorde al flujo. Apertura obligatoria por vinos tintos.</div>
@@ -849,7 +1252,6 @@
                 <div class="multi-photo-grid" id="gridP2"></div>
               </div>
 
-              <!-- PILAR 3 MULTI-FOTOS + SHARE OF SHELF -->
               <div class="audit-pillar-box">
                 <div class="pillar-title">3. Distribución de espacios y Frentes</div>
                 <div class="pillar-instruction">Frentes asignados por marca, SKU, presentaciones mini y sin alcohol.</div>
@@ -888,7 +1290,29 @@
                 <div class="multi-photo-grid" id="gridP3"></div>
               </div>
 
-              <!-- FOTO SALIDA: CÁMARA O ARCHIVO -->
+              <!-- MÓDULO DE INCIDENCIAS OPERATIVAS -->
+              <div class="audit-pillar-box" style="border-left: 4px solid var(--info);">
+                <div class="pillar-title">Incidencias y Reporte de Anaquel</div>
+                <div class="pillar-instruction">Registra si encontraste agotados, invasión de espacios o anomalías físicas.</div>
+
+                <div class="field-group">
+                  <label class="field-label">Tipo de Incidencia</label>
+                  <select id="selIssueType" class="form-select">
+                    <option value="Sin Incidencias">🟢 Sin Incidencias / Anaquel en Orden</option>
+                    <option value="Quiebre de stock / Agotado">🔴 Quiebre de Stock (Agotado en trastienda)</option>
+                    <option value="Espacio invadido por competencia">🟡 Espacio invadido por competencia</option>
+                    <option value="Falta de cenefa / Precio erróneo">🟡 Falta de etiquetado o precio incorrecto</option>
+                    <option value="Mercancía dañada / Merma">🔴 Producto dañado / Merma en piso</option>
+                  </select>
+                </div>
+
+                <div class="field-group" style="margin-bottom: 0;">
+                  <label class="field-label">Observaciones del Promotor (Opcional)</label>
+                  <input type="text" id="inputIssueNotes" class="form-input" placeholder="Ej. Encargado de pasillo no autorizó reacomodo...">
+                </div>
+              </div>
+
+              <!-- FOTO SALIDA -->
               <div class="audit-pillar-box" style="border-left: 4px solid var(--accent);">
                 <div class="pillar-title">4. Fotografía de Salida / Cierre de Tienda *</div>
                 <div class="pillar-instruction">Captura la evidencia fotográfica final estampada al retirarte de la sucursal.</div>
@@ -907,7 +1331,7 @@
               </div>
 
               <button type="submit" class="btn-solid btn-danger-solid">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                 Validar GPS y Finalizar Check-out
               </button>
 
@@ -918,289 +1342,299 @@
           </div>
         </div>
 
-        <!-- HISTORIAL PROMOTOR -->
-        <div>
-          <div class="clean-card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.4rem;">
-              <h3 style="font-size: 0.92rem; font-weight: 700; color: var(--text-main);">Historial de Visitas</h3>
-              <div style="display: flex; align-items: center; gap: 0.35rem;">
-                <input type="date" id="historyFilterDate" class="form-input" style="padding: 0.3rem 0.5rem; font-size: 0.74rem; width: auto;">
-                <button id="btnShowAllHistory" style="background: var(--bg-surface-subtle); border: 1px solid var(--border-color); font-size: 0.72rem; font-weight: 600; padding: 0.3rem 0.5rem; border-radius: var(--radius-sm); cursor: pointer; white-space: nowrap;">Ver Todo</button>
+        <!-- COLUMNA 2: HISTORIAL CON MINI KPIS Y BUSCADOR -->
+        <div id="promoterHistoryColumn">
+          <div class="clean-card" style="min-height: 520px; display: flex; flex-direction: column;">
+            
+            <!-- Mini KPIs de la Jornada -->
+            <div class="promoter-kpis-strip">
+              <div class="promoter-mini-kpi">
+                <div class="promoter-mini-val" style="color: var(--accent);" id="lblPromoterTodayVisits">0</div>
+                <div class="promoter-mini-lbl">Visitas Hoy</div>
+              </div>
+              <div class="promoter-mini-kpi">
+                <div class="promoter-mini-val" style="color: var(--info);" id="lblPromoterTodayTime">0m</div>
+                <div class="promoter-mini-lbl">Tiempo Campo</div>
+              </div>
+              <div class="promoter-mini-kpi">
+                <div class="promoter-mini-val" style="color: var(--purple);" id="lblPromoterTodaySos">0%</div>
+                <div class="promoter-mini-lbl">SOS Promedio</div>
               </div>
             </div>
-            <div id="userVisitsFeed">
-              <p style="color: var(--text-muted); font-size: 0.8rem; text-align: center; padding: 1.25rem 0;">No has concluido visitas en la fecha seleccionada.</p>
+
+            <!-- Cabecera y Selector de Fecha -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <h3 style="font-size: 0.95rem; font-weight: 800; color: var(--text-main);" id="lblHistorialTitle">Historial de Visitas</h3>
+                <button id="btnReturnToCheckinView" style="display: none; background: var(--accent-soft); border: 1px solid #fcd34d; color: var(--accent-hover); font-size: 0.72rem; font-weight: 700; padding: 0.25rem 0.55rem; border-radius: 4px; cursor: pointer;">
+                  ← Volver a Check-in
+                </button>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.4rem;">
+                <input type="date" id="historyFilterDate" class="form-input" style="padding: 0.35rem 0.55rem; font-size: 0.76rem; width: auto;">
+                <button id="btnShowAllHistory" style="background: var(--bg-surface-subtle); border: 1px solid var(--border-color); font-size: 0.74rem; font-weight: 700; padding: 0.35rem 0.6rem; border-radius: var(--radius-sm); cursor: pointer; white-space: nowrap;">Todas</button>
+              </div>
+            </div>
+
+            <!-- Buscador y Filtros Rápidos -->
+            <input type="text" id="inputSearchPromoterFeed" class="form-input" placeholder="Buscar por nombre de sucursal..." style="margin-bottom: 0.65rem; padding: 0.55rem 0.8rem; font-size: 0.82rem;">
+
+            <div class="history-quick-filters">
+              <button class="filter-pill-btn active" data-filter="ALL">Todas</button>
+              <button class="filter-pill-btn" data-filter="ISSUES">⚠️ Con Incidencias</button>
+              <button class="filter-pill-btn" data-filter="PERFECT">✨ Cumple Pilares</button>
+            </div>
+
+            <!-- Feed Colapsable -->
+            <div id="userVisitsFeed" style="flex: 1; overflow-y: auto;">
+              <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 3rem 1rem;">No has concluido visitas en la fecha seleccionada.</p>
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
-    <!-- 3. VISTA ADMINISTRADOR -->
+    <!-- 3. VISTA ADMINISTRADOR (100% OPERATIVA SIN MAPA) -->
     <section id="adminZone" class="view-zone">
-      <div class="responsive-grid responsive-grid-admin">
-        
-        <!-- Panel Izquierdo: Métricas y Filtros -->
-        <div>
-          <div class="admin-metrics-grid">
-            <div class="metric-box active-card">
-              <div class="metric-number" id="kpiActive">0</div>
-              <div class="metric-label">En Tienda</div>
+      <!-- SECCIÓN 1: DASHBOARD CON GRÁFICAS CIRCULARES POR TIENDA -->
+      <div id="adminDashboardContainer" class="admin-tab-content">
+        <div class="admin-metrics-grid">
+          <div class="metric-box active-card">
+            <div class="metric-number" id="kpiActive" style="color: var(--success);">0</div>
+            <div class="metric-label">En Tienda Activos</div>
+          </div>
+          <div class="metric-box completed-card">
+            <div class="metric-number" id="kpiFinished" style="color: var(--info);">0</div>
+            <div class="metric-label">Auditorías Concluidas</div>
+          </div>
+          <div class="metric-box time-card">
+            <div class="metric-number" id="kpiAvgTime" style="color: var(--accent);">0m</div>
+            <div class="metric-label">Tiempo Promedio</div>
+          </div>
+          <div class="metric-box compliance-card">
+            <div class="metric-number" id="kpiGlobalRate" style="color: #8b5cf6;">0%</div>
+            <div class="metric-label">% Apego Global</div>
+          </div>
+          <div class="metric-box sos-card">
+            <div class="metric-number" id="kpiAvgSos" style="color: var(--purple);">0%</div>
+            <div class="metric-label">Share of Shelf Promedio</div>
+          </div>
+          <div class="metric-box" style="border-left: 4px solid var(--accent);">
+            <div class="metric-number" id="kpiTotalFacings" style="color: var(--text-main);">0</div>
+            <div class="metric-label">Total Frentes Auditados</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-bottom: 1.25rem;">
+          <div class="clean-card" style="margin-bottom: 0;">
+            <h3 style="font-size: 0.88rem; font-weight: 800; margin-bottom: 0.75rem; text-transform: uppercase;">Participación Total Acumulada</h3>
+            <div style="position: relative; height: 230px;">
+              <canvas id="chartSosPie"></canvas>
             </div>
-            <div class="metric-box completed-card">
-              <div class="metric-number" id="kpiFinished">0</div>
-              <div class="metric-label">Concluidas</div>
+          </div>
+          <div class="clean-card" style="margin-bottom: 0;">
+            <h3 style="font-size: 0.88rem; font-weight: 800; margin-bottom: 0.75rem; text-transform: uppercase;">Cumplimiento por Pilar Operativo</h3>
+            <div style="position: relative; height: 230px;">
+              <canvas id="chartPillarsBar"></canvas>
             </div>
-            <div class="metric-box time-card">
-              <div class="metric-number" id="kpiAvgTime">0m</div>
-              <div class="metric-label">Tiempo Promedio</div>
+          </div>
+        </div>
+
+        <!-- MÓDULO DE TIENDAS CON FILTRO Y BUSCADOR INTELIGENTE -->
+        <div class="clean-card">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.85rem; flex-wrap: wrap; gap: 0.65rem;">
+            <div>
+              <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--text-main);">Participación de Anaquel por Tienda (Share of Shelf)</h3>
+              <span style="font-size: 0.74rem; color: var(--text-muted);">Monitoreo visual individual de presencia física en anaquel</span>
             </div>
-            <div class="metric-box compliance-card">
-              <div class="metric-number" id="kpiGlobalRate">0%</div>
-              <div class="metric-label">% Apego Global</div>
+            <span style="font-size: 0.74rem; font-weight: 800; background: var(--purple-soft); color: var(--purple); padding: 0.3rem 0.65rem; border-radius: 6px;" id="lblStoresChartsCount">0 Tiendas</span>
+          </div>
+
+          <!-- Barra de Control del Dashboard -->
+          <div class="dashboard-filter-bar">
+            <div class="dashboard-pills">
+              <button class="dash-pill-btn active" id="btnDashFilterAudited">Con Auditoría Activa</button>
+              <button class="dash-pill-btn" id="btnDashFilterAll">Todas las Tiendas (20)</button>
             </div>
-            <div class="metric-box sos-card" style="grid-column: span 2;">
-              <div class="metric-number" id="kpiAvgSos" style="color: var(--purple);">0%</div>
-              <div class="metric-label">Participación en Anaquel Promedio (SOS)</div>
+            <div style="flex: 1; max-width: 320px; min-width: 200px;">
+              <input type="text" id="inputDashSearchStore" class="form-input" placeholder="Buscar sucursal o zona..." style="padding: 0.4rem 0.75rem; font-size: 0.78rem;">
             </div>
           </div>
 
-          <!-- Filtros de Auditoría -->
-          <div class="clean-card">
-            <h3 style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.75rem; letter-spacing: 0.05rem;">Filtros de Auditoría</h3>
-            
-            <div class="field-group">
-              <label class="field-label">Buscar Promotor o Tienda</label>
-              <input type="text" id="adminSearchInput" class="form-input" placeholder="Nombre o sucursal...">
-            </div>
+          <div id="storeChartsContainer" class="store-charts-grid">
+            <p style="color: var(--text-muted); font-size: 0.85rem; grid-column: 1 / -1; text-align: center; padding: 3rem 0;">Cargando gráficas por tienda...</p>
+          </div>
+        </div>
+      </div>
 
-            <div class="field-group">
-              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.25rem;">
-                <label class="field-label" style="margin-bottom: 0;">Filtrar por Fecha</label>
-                <button type="button" id="btnAdminClearDate" style="background: none; border: none; font-size: 0.68rem; color: var(--accent); font-weight: 700; cursor: pointer;">Todas las fechas</button>
+      <!-- SECCIÓN 2: BITÁCORA EN VIVO -->
+      <div id="adminFeedContainer" class="admin-tab-content" style="display: none;">
+        <div class="clean-card">
+          <div class="filters-inline-grid">
+            <div>
+              <label class="field-label">Búsqueda</label>
+              <input type="text" id="adminSearchInput" class="form-input" placeholder="Promotor o tienda...">
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <label class="field-label">Fecha</label>
+                <button type="button" id="btnAdminClearDate" style="background:none; border:none; color:var(--accent); font-size:0.68rem; font-weight:700; cursor:pointer;">Todas</button>
               </div>
               <input type="date" id="adminFilterDate" class="form-input">
             </div>
-
-            <div class="field-group">
-              <label class="field-label">Filtrar por Tienda</label>
+            <div>
+              <label class="field-label">Tienda</label>
               <select id="adminFilterStore" class="form-select">
                 <option value="ALL">Todas las tiendas</option>
               </select>
             </div>
-
-            <div class="field-group">
-              <label class="field-label">Filtrar por Promotor</label>
+            <div>
+              <label class="field-label">Promotor</label>
               <select id="adminFilterPromoter" class="form-select">
                 <option value="ALL">Todos los promotores</option>
               </select>
             </div>
-
-            <div class="field-group">
-              <label class="field-label">Estado de la Visita</label>
+            <div>
+              <label class="field-label">Estatus</label>
               <select id="adminFilterStatus" class="form-select">
                 <option value="ALL">Todos los estados</option>
-                <option value="EN_TIENDA">En servicio actualmente</option>
+                <option value="EN_TIENDA">En servicio</option>
                 <option value="CONCLUIDO">Concluidas</option>
               </select>
             </div>
+          </div>
 
-            <button id="btnExportCsvData" class="btn-solid" style="background-color: #334155; margin-top: 0.35rem; width: 100%;">
-              Exportar Auditoría CSV
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h2 style="font-size: 0.95rem; font-weight: 700;">Bitácora Cronológica</h2>
+            <span id="lblTotalFeedCount" style="font-size: 0.75rem; color: var(--text-muted);">0 visitas listadas</span>
+          </div>
+          <div id="adminMasterFeed">
+            <p style="color: var(--text-muted); font-size: 0.82rem; text-align: center; padding: 1.5rem 0;">Cargando registros...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 3: GALERÍA -->
+      <div id="adminGalleryContainer" class="admin-tab-content" style="display: none;">
+        <div class="clean-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h2 style="font-size: 0.95rem; font-weight: 700;">Evidencias Fotográficas Estampadas</h2>
+            <span id="lblTotalPhotosCount" style="font-size: 0.75rem; color: var(--accent); font-weight: 700;">0 fotos</span>
+          </div>
+          <div class="gallery-masonry" id="adminGlobalGallery">
+            <p style="color: var(--text-muted); font-size: 0.82rem; text-align: center; padding: 1.5rem 0;">Cargando galería...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 4: ASIGNAR RUTAS -->
+      <div id="adminAssignContainer" class="admin-tab-content" style="display: none;">
+        <div class="clean-card" style="max-width: 650px; margin: 0 auto;">
+          <h2 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem;">Programación de Rutas por Promotor</h2>
+          <form id="formAssignRoute">
+            <div class="field-group">
+              <label class="field-label">Seleccionar Promotor</label>
+              <select id="routePromoterSelect" class="form-select" required>
+                <option value="" disabled selected>Cargando lista de promotores...</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Fecha de Visita</label>
+              <input type="date" id="routeDateInput" class="form-input" required>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Seleccionar Tiendas a Visitar</label>
+              <div class="route-checkbox-list" id="routeStoresCheckList"></div>
+            </div>
+
+            <button type="submit" class="btn-solid">Guardar y Asignar Ruta</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 5: TIENDAS & GPS -->
+      <div id="adminStoresContainer" class="admin-tab-content" style="display: none;">
+        <div class="clean-card">
+          <h2 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem;">Alta de Tiendas con Coordenadas GPS</h2>
+          <p style="font-size: 0.74rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+            Registra sucursales con coordenadas exactas para validar la proximidad del promotor al hacer Check-in.
+          </p>
+
+          <form id="formAddCustomStore">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.65rem;">
+              <div class="field-group">
+                <label class="field-label">Nombre de la Tienda</label>
+                <input type="text" id="newStoreName" class="form-input" placeholder="Ej. SP INTERLOMAS" required>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Zona / Alcaldía</label>
+                <input type="text" id="newStoreZone" class="form-input" placeholder="Ej. Huixquilucan, Edomex" required>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Latitud</label>
+                <input type="number" step="any" id="newStoreLat" class="form-input" placeholder="19.432608" required>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Longitud</label>
+                <input type="number" step="any" id="newStoreLng" class="form-input" placeholder="-99.133209" required>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Radio Tolerancia (m)</label>
+                <input type="number" id="newStoreRadius" class="form-input" value="350" required>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-solid" style="background-color: var(--info); max-width: 250px;">
+              Agregar Tienda al Catálogo
             </button>
+          </form>
 
-            <!-- ZONA DE DEPURACIÓN CORREGIDA SIN DESBORDAMIENTO -->
-            <div style="margin-top: 1.25rem; padding-top: 0.85rem; border-top: 1px solid var(--border-color); width: 100%;">
-              <label class="field-label" style="color: var(--danger);">Zona de Depuración</label>
-              <button id="btnDeleteAllVisits" class="btn-solid btn-danger-solid" style="font-size: 0.78rem; padding: 0.65rem 0.5rem; width: 100%;">
-                Vaciar Todas las Visitas
-              </button>
-            </div>
+          <div class="table-container">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Tienda</th>
+                  <th>Zona</th>
+                  <th>Coordenadas GPS</th>
+                  <th>Radio</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="storesTableBody">
+                <tr><td colspan="5" style="text-align:center;">Cargando catálogo...</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
+      </div>
 
-        <!-- Panel Derecho: Pestañas y Vistas -->
-        <div style="min-width: 0; width: 100%;">
-          <div class="admin-tab-bar">
-            <button class="admin-tab-btn active" id="btnTabFeed">Bitácora en Vivo</button>
-            <button class="admin-tab-btn" id="btnTabMap">Mapa en Vivo</button>
-            <button class="admin-tab-btn" id="btnTabGallery">Galería de Evidencias</button>
-            <button class="admin-tab-btn" id="btnTabAssign">Asignar Rutas</button>
-            <button class="admin-tab-btn" id="btnTabStores">Gestión de Tiendas & GPS</button>
+      <!-- SECCIÓN 6: CONFIGURACIÓN Y EXPORTACIÓN / DEPURACIÓN -->
+      <div id="adminSettingsContainer" class="admin-tab-content" style="display: none;">
+        <div class="clean-card" style="max-width: 500px; margin: 0 auto;">
+          <h2 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.85rem;">Herramientas del Sistema</h2>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <label class="field-label">Descargar Datos</label>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">Exporta la base completa de visitas con incidencias, porcentajes de Share of Shelf y tiempos de permanencia.</p>
+            <button id="btnExportCsvData" class="btn-solid" style="background-color: #334155;">
+              Descargar Auditoría en CSV
+            </button>
           </div>
 
-          <!-- Bitácora -->
-          <div class="clean-card" id="adminFeedContainer">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-              <h2 style="font-size: 0.95rem; font-weight: 700;">Auditoría de Rutas</h2>
-              <span id="lblTotalFeedCount" style="font-size: 0.72rem; color: var(--text-muted);">0 visitas</span>
-            </div>
-            <div id="adminMasterFeed">
-              <p style="color: var(--text-muted); font-size: 0.82rem; text-align: center; padding: 1.5rem 0;">Cargando registros...</p>
-            </div>
-          </div>
-
-          <!-- Mapa Interactivo en Vivo -->
-          <div class="clean-card" id="adminMapContainer" style="display: none;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-              <h2 style="font-size: 0.95rem; font-weight: 700;">Mapeo Geográfico Operativo</h2>
-              <span style="font-size: 0.7rem; color: var(--text-muted);">🟢 En Tienda | 🔵 Concluida | ⚪ Sucursales</span>
-            </div>
-            <div id="liveMapContainer"></div>
-          </div>
-
-          <!-- Galería -->
-          <div class="clean-card" id="adminGalleryContainer" style="display: none;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-              <h2 style="font-size: 0.95rem; font-weight: 700;">Evidencias Fotográficas Estampadas</h2>
-              <span id="lblTotalPhotosCount" style="font-size: 0.72rem; color: var(--accent); font-weight: 700;">0 fotos</span>
-            </div>
-            <div class="gallery-masonry" id="adminGlobalGallery">
-              <p style="color: var(--text-muted); font-size: 0.82rem; text-align: center; padding: 1.5rem 0;">Cargando galería...</p>
-            </div>
-          </div>
-
-          <!-- Asignación -->
-          <div class="clean-card" id="adminAssignContainer" style="display: none;">
-            <h2 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem;">Programación de Rutas por Promotor</h2>
-            <form id="formAssignRoute">
-              <div class="field-group">
-                <label class="field-label">Seleccionar Promotor</label>
-                <select id="routePromoterSelect" class="form-select" required>
-                  <option value="" disabled selected>Cargando lista de promotores...</option>
-                </select>
-              </div>
-
-              <div class="field-group">
-                <label class="field-label">Fecha de Visita</label>
-                <input type="date" id="routeDateInput" class="form-input" required>
-              </div>
-
-              <div class="field-group">
-                <label class="field-label">Seleccionar Tiendas a Visitar</label>
-                <div class="route-checkbox-list" id="routeStoresCheckList"></div>
-              </div>
-
-              <button type="submit" class="btn-solid">Guardar y Asignar Ruta</button>
-            </form>
-          </div>
-
-          <!-- Catálogo Tiendas -->
-          <div class="clean-card" id="adminStoresContainer" style="display: none;">
-            <h2 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem;">Alta de Tiendas con Coordenadas GPS</h2>
-            <p style="font-size: 0.74rem; color: var(--text-muted); margin-bottom: 0.75rem;">
-              Registra sucursales con coordenadas exactas para validar la proximidad del promotor al hacer Check-in.
-            </p>
-
-            <form id="formAddCustomStore">
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-                <div class="field-group">
-                  <label class="field-label">Nombre de la Tienda</label>
-                  <input type="text" id="newStoreName" class="form-input" placeholder="Ej. SP INTERLOMAS" required>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Zona / Alcaldía</label>
-                  <input type="text" id="newStoreZone" class="form-input" placeholder="Ej. Huixquilucan, Edomex" required>
-                </div>
-              </div>
-
-              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
-                <div class="field-group">
-                  <label class="field-label">Latitud</label>
-                  <input type="number" step="any" id="newStoreLat" class="form-input" placeholder="19.432608" required>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Longitud</label>
-                  <input type="number" step="any" id="newStoreLng" class="form-input" placeholder="-99.133209" required>
-                </div>
-                <div class="field-group">
-                  <label class="field-label">Radio Tolerancia (m)</label>
-                  <input type="number" id="newStoreRadius" class="form-input" value="350" required>
-                </div>
-              </div>
-
-              <button type="submit" class="btn-solid" style="background-color: var(--info);">
-                Agregar Tienda al Catálogo
-              </button>
-            </form>
-
-            <div class="table-container">
-              <table class="custom-table">
-                <thead>
-                  <tr>
-                    <th>Tienda</th>
-                    <th>Zona</th>
-                    <th>Coordenadas GPS</th>
-                    <th>Radio</th>
-                    <th>Acción</th>
-                  </tr>
-                </thead>
-                <tbody id="storesTableBody">
-                  <tr><td colspan="5" style="text-align:center;">Cargando catálogo...</td></tr>
-                </tbody>
-              </table>
-            </div>
+          <div style="border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
+            <label class="field-label" style="color: var(--danger);">Zona de Peligro</label>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">Elimina permanentemente todas las visitas y fotos de la base de datos de pruebas.</p>
+            <button id="btnDeleteAllVisits" class="btn-solid btn-danger-solid">
+              Vaciar Todas las Visitas
+            </button>
           </div>
         </div>
-
       </div>
     </section>
   </main>
-
-  <!-- DASHBOARD DEDICADO CON CHART.JS -->
-  <div id="dedicatedDashboardModal" class="custom-modal-backdrop">
-    <div class="custom-modal-card" style="max-width: 950px; width: 95vw; max-height: 90vh; overflow-y: auto;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
-        <div>
-          <h2 style="font-size: 1.1rem; font-weight: 800; color: var(--text-main);">Panel Analítico Ejecutivo & Share of Shelf</h2>
-          <span style="font-size: 0.74rem; color: var(--text-muted);">Métricas consolidadas de campo en tiempo real</span>
-        </div>
-        <button id="btnCloseDedicatedDashboard" class="modal-btn modal-btn-cancel" style="padding: 0.3rem 0.65rem;">✕ Cerrar</button>
-      </div>
-
-      <div class="admin-metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
-        <div class="metric-box active-card">
-          <div class="metric-number" id="modalKpiActive">0</div>
-          <div class="metric-label">En Tienda Activos</div>
-        </div>
-        <div class="metric-box completed-card">
-          <div class="metric-number" id="modalKpiFinished">0</div>
-          <div class="metric-label">Concluidas</div>
-        </div>
-        <div class="metric-box time-card">
-          <div class="metric-number" id="modalKpiAvgTime">0m</div>
-          <div class="metric-label">Tiempo Promedio</div>
-        </div>
-        <div class="metric-box compliance-card">
-          <div class="metric-number" id="modalKpiGlobalRate">0%</div>
-          <div class="metric-label">% Apego Global</div>
-        </div>
-        <div class="metric-box sos-card">
-          <div class="metric-number" id="modalKpiAvgSos" style="color: var(--purple);">0%</div>
-          <div class="metric-label">Share of Shelf Promedio</div>
-        </div>
-        <div class="metric-box" style="border-left: 4px solid var(--accent);">
-          <div class="metric-number" id="modalKpiTotalFacings">0</div>
-          <div class="metric-label">Total Frentes Auditados</div>
-        </div>
-      </div>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.75rem; margin-top: 0.75rem;">
-        <div class="clean-card" style="padding: 0.85rem;">
-          <h3 style="font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase;">Participación Total (Frentes)</h3>
-          <div style="position: relative; height: 210px;">
-            <canvas id="chartSosPie"></canvas>
-          </div>
-        </div>
-        <div class="clean-card" style="padding: 0.85rem;">
-          <h3 style="font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase;">Apego por Pilar Operativo</h3>
-          <div style="position: relative; height: 210px;">
-            <canvas id="chartPillarsBar"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- MODAL DETALLE DE FOTO CON EXPLICACIÓN -->
   <div id="detailPhotoModal">
@@ -1231,7 +1665,7 @@
     </div>
   </div>
 
-  <!-- CARGA ASÍNCRONA SEGURA DE LIBRERÍAS DE TERCEROS -->
+  <!-- CARGA ASÍNCRONA DE CHART.JS -->
   <script>
     function loadScriptAsync(src) {
       return new Promise((resolve, reject) => {
@@ -1243,10 +1677,8 @@
       });
     }
 
-    window._libsLoaded = Promise.all([
-      loadScriptAsync("https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"),
-      loadScriptAsync("https://cdn.jsdelivr.net/npm/chart.js")
-    ]).catch(err => console.error("Error al cargar librerías:", err));
+    window._libsLoaded = loadScriptAsync("https://cdn.jsdelivr.net/npm/chart.js")
+      .catch(err => console.error("Error al cargar Chart.js:", err));
   </script>
 
   <!-- FIREBASE SDK V10 & LÓGICA PRINCIPAL -->
@@ -1321,14 +1753,49 @@
     const authZone = document.getElementById('authZone');
     const userZone = document.getElementById('userZone');
     const adminZone = document.getElementById('adminZone');
-    const roleTag = document.getElementById('roleTag');
-    const btnLogout = document.getElementById('btnLogout');
     const authAlert = document.getElementById('authAlert');
 
     const tabLoginBtn = document.getElementById('tabLoginBtn');
     const tabRegisterBtn = document.getElementById('tabRegisterBtn');
     const formLogin = document.getElementById('formLogin');
     const formRegister = document.getElementById('formRegister');
+    const btnToggleLoginPass = document.getElementById('btnToggleLoginPass');
+    const loginPass = document.getElementById('loginPass');
+
+    btnToggleLoginPass.onclick = () => {
+      const isPass = loginPass.type === 'password';
+      loginPass.type = isPass ? 'text' : 'password';
+      btnToggleLoginPass.style.color = isPass ? 'var(--accent)' : '#94a3b8';
+    };
+
+    // CONTROL DEL MENÚ UNIVERSAL
+    const btnUniversalMenu = document.getElementById('btnUniversalMenu');
+    const universalDrawer = document.getElementById('universalDrawer');
+    const menuBackdrop = document.getElementById('menuBackdrop');
+    const btnCloseDrawer = document.getElementById('btnCloseDrawer');
+    const drawerRoleTag = document.getElementById('drawerRoleTag');
+    const drawerUserName = document.getElementById('drawerUserName');
+    const drawerUserEmail = document.getElementById('drawerUserEmail');
+    const drawerAdminNav = document.getElementById('drawerAdminNav');
+    const drawerPromoterNav = document.getElementById('drawerPromoterNav');
+    const btnDrawerLogout = document.getElementById('btnDrawerLogout');
+
+    const drawerStatVisits = document.getElementById('drawerStatVisits');
+    const drawerStatSos = document.getElementById('drawerStatSos');
+
+    const toggleDrawer = (open) => {
+      if (open) {
+        universalDrawer.classList.add('active');
+        menuBackdrop.classList.add('active');
+      } else {
+        universalDrawer.classList.remove('active');
+        menuBackdrop.classList.remove('active');
+      }
+    };
+
+    btnUniversalMenu.onclick = () => toggleDrawer(true);
+    btnCloseDrawer.onclick = () => toggleDrawer(false);
+    menuBackdrop.onclick = () => toggleDrawer(false);
 
     let currentUserProfile = null;
     let activeVisitState = null;
@@ -1338,10 +1805,11 @@
     let masterVisitsStore = [];
     let masterStoresList = [];
 
-    let adminLeafletMap = null;
-    let adminMapMarkersLayer = null;
     let chartSosPieInstance = null;
     let chartPillarsBarInstance = null;
+    let storeChartInstances = {};
+
+    let dashStoreFilter = "AUDITED";
 
     // POPUPS
     const customDialogModal = document.getElementById('customDialogModal');
@@ -1401,17 +1869,6 @@
     };
     btnCloseDetailPhoto.onclick = () => detailPhotoModal.classList.remove('active');
     detailPhotoModal.onclick = (e) => { if (e.target === detailPhotoModal) detailPhotoModal.classList.remove('active'); };
-
-    const btnOpenDedicatedDashboard = document.getElementById('btnOpenDedicatedDashboard');
-    const dedicatedDashboardModal = document.getElementById('dedicatedDashboardModal');
-    const btnCloseDedicatedDashboard = document.getElementById('btnCloseDedicatedDashboard');
-
-    btnOpenDedicatedDashboard.onclick = async () => {
-      dedicatedDashboardModal.classList.add('active');
-      await window._libsLoaded;
-      renderDashboardCharts();
-    };
-    btnCloseDedicatedDashboard.onclick = () => dedicatedDashboardModal.classList.remove('active');
 
     function calcularDistanciaMetros(lat1, lon1, lat2, lon2) {
       const R = 6371e3;
@@ -1545,7 +2002,8 @@
       }
     };
 
-    btnLogout.onclick = async () => {
+    btnDrawerLogout.onclick = async () => {
+      toggleDrawer(false);
       if (unsubUserVisits) unsubUserVisits();
       if (unsubAdminVisits) unsubAdminVisits();
       if (visitClockTimer) clearInterval(visitClockTimer);
@@ -1567,19 +2025,24 @@
           currentUserProfile = uDoc.exists() ? { uid: user.uid, ...uDoc.data() } : { uid: user.uid, email: user.email, role: 'normal', nombre: user.email };
           
           authZone.classList.remove('active');
-          btnLogout.style.display = 'block';
-          roleTag.style.display = 'inline-block';
-          roleTag.textContent = currentUserProfile.role === 'admin' ? 'Administrador' : 'Promotor';
+          btnUniversalMenu.style.display = 'flex';
+          
+          const roleLabel = currentUserProfile.role === 'admin' ? 'Administrador' : 'Promotor';
+          drawerRoleTag.textContent = roleLabel;
+          drawerUserName.textContent = currentUserProfile.nombre || "Usuario";
+          drawerUserEmail.textContent = currentUserProfile.email;
 
           if (currentUserProfile.role === 'admin') {
-            roleTag.className = 'role-tag admin';
-            btnOpenDedicatedDashboard.style.display = 'inline-flex';
+            drawerRoleTag.className = 'role-tag admin';
+            drawerAdminNav.style.display = 'flex';
+            drawerPromoterNav.style.display = 'none';
             adminZone.classList.add('active');
             userZone.classList.remove('active');
             initAdminModule();
           } else {
-            roleTag.className = 'role-tag';
-            btnOpenDedicatedDashboard.style.display = 'none';
+            drawerRoleTag.className = 'role-tag';
+            drawerAdminNav.style.display = 'none';
+            drawerPromoterNav.style.display = 'flex';
             userZone.classList.add('active');
             adminZone.classList.remove('active');
             initPromoterModule(user.uid);
@@ -1589,9 +2052,8 @@
         authZone.classList.add('active');
         userZone.classList.remove('active');
         adminZone.classList.remove('active');
-        roleTag.style.display = 'none';
-        btnLogout.style.display = 'none';
-        btnOpenDedicatedDashboard.style.display = 'none';
+        btnUniversalMenu.style.display = 'none';
+        toggleDrawer(false);
       }
     });
 
@@ -1614,9 +2076,68 @@
       const btnShowAllHistory = document.getElementById('btnShowAllHistory');
       const btnMapsNavigate = document.getElementById('btnMapsNavigate');
 
+      const inputSearchPromoterFeed = document.getElementById('inputSearchPromoterFeed');
+      const quickFilterPills = document.querySelectorAll('.history-quick-filters .filter-pill-btn');
+
+      const lblPromoterTodayVisits = document.getElementById('lblPromoterTodayVisits');
+      const lblPromoterTodayTime = document.getElementById('lblPromoterTodayTime');
+      const lblPromoterTodaySos = document.getElementById('lblPromoterTodaySos');
+
+      const btnNavPromoterCheckin = document.getElementById('btnNavPromoterCheckin');
+      const btnNavPromoterHistory = document.getElementById('btnNavPromoterHistory');
+      const promoterWorkspaceContainer = document.getElementById('promoterWorkspaceContainer');
+      const promoterCheckinColumn = document.getElementById('promoterCheckinColumn');
+      const promoterHistoryColumn = document.getElementById('promoterHistoryColumn');
+      const btnReturnToCheckinView = document.getElementById('btnReturnToCheckinView');
+
+      let currentQuickFilter = "ALL";
+
+      btnNavPromoterCheckin.onclick = () => {
+        toggleDrawer(false);
+        btnNavPromoterCheckin.classList.add('active');
+        btnNavPromoterHistory.classList.remove('active');
+        promoterWorkspaceContainer.classList.remove('full-history');
+        promoterCheckinColumn.style.display = 'block';
+        promoterHistoryColumn.style.display = 'block';
+        btnReturnToCheckinView.style.display = 'none';
+        promoterCheckinColumn.scrollIntoView({ behavior: 'smooth' });
+      };
+
+      btnNavPromoterHistory.onclick = () => {
+        toggleDrawer(false);
+        btnNavPromoterHistory.classList.add('active');
+        btnNavPromoterCheckin.classList.remove('active');
+        
+        promoterWorkspaceContainer.classList.add('full-history');
+        promoterCheckinColumn.style.display = 'none';
+        promoterHistoryColumn.style.display = 'block';
+        btnReturnToCheckinView.style.display = 'inline-block';
+        
+        historyFilterDate.value = "";
+        renderPromoterHistory();
+        promoterHistoryColumn.scrollIntoView({ behavior: 'smooth' });
+      };
+
+      btnReturnToCheckinView.onclick = () => {
+        btnNavPromoterCheckin.click();
+      };
+
+      quickFilterPills.forEach(pill => {
+        pill.onclick = () => {
+          quickFilterPills.forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+          currentQuickFilter = pill.getAttribute('data-filter');
+          renderPromoterHistory();
+        };
+      });
+
+      inputSearchPromoterFeed.oninput = () => renderPromoterHistory();
+
       const inputFrentesPropios = document.getElementById('inputFrentesPropios');
       const inputFrentesCompetencia = document.getElementById('inputFrentesCompetencia');
       const lblLiveSos = document.getElementById('lblLiveSos');
+      const selIssueType = document.getElementById('selIssueType');
+      const inputIssueNotes = document.getElementById('inputIssueNotes');
 
       let fotoInBase64 = "";
       let fotoOutBase64 = "";
@@ -1843,6 +2364,8 @@
             pilar1: null,
             pilar2: null,
             pilar3: null,
+            incidenciaTipo: "Sin Incidencias",
+            incidenciaNotas: "",
             frentesPropios: 0,
             frentesCompetencia: 0,
             shareOfShelf: 0,
@@ -1899,6 +2422,8 @@
             pilar1: p1,
             pilar2: p2,
             pilar3: p3,
+            incidenciaTipo: selIssueType.value || "Sin Incidencias",
+            incidenciaNotas: inputIssueNotes.value.trim(),
             frentesPropios: fPropios,
             frentesCompetencia: fComp,
             shareOfShelf: sosCalculado,
@@ -1925,6 +2450,8 @@
         inputFrentesPropios.value = 0;
         inputFrentesCompetencia.value = 0;
         lblLiveSos.textContent = "0.0%";
+        selIssueType.selectedIndex = 0;
+        inputIssueNotes.value = "";
 
         fotoInBase64 = "";
         prevFotoIn.src = "";
@@ -1980,24 +2507,58 @@
       function renderPromoterHistory() {
         userVisitsFeed.innerHTML = '';
         const filterDateVal = historyFilterDate.value;
+        const searchTerm = (inputSearchPromoterFeed.value || "").toLowerCase().trim();
+
+        let todayDoneCount = 0;
+        let todayMinutesSum = 0;
+        let todaySosSum = 0;
+
+        allPromoterVisits.forEach(v => {
+          if (v.status === "CONCLUIDO" && v.checkIn) {
+            const vDate = new Date(v.checkIn.toDate()).toISOString().slice(0, 10);
+            if (vDate === todayStr) {
+              todayDoneCount++;
+              todayMinutesSum += (v.minutosServicio || 0);
+              todaySosSum += (v.shareOfShelf || 0);
+            }
+          }
+        });
+
+        lblPromoterTodayVisits.textContent = todayDoneCount;
+        lblPromoterTodayTime.textContent = `${todayMinutesSum}m`;
+        lblPromoterTodaySos.textContent = todayDoneCount > 0 ? `${(todaySosSum / todayDoneCount).toFixed(1)}%` : "0%";
+
+        drawerStatVisits.textContent = todayDoneCount;
+        drawerStatSos.textContent = todayDoneCount > 0 ? `${(todaySosSum / todayDoneCount).toFixed(1)}%` : "0%";
 
         const filtered = allPromoterVisits.filter(v => {
           if (v.status !== "CONCLUIDO") return false;
-          if (!filterDateVal) return true;
-          if (!v.checkIn) return false;
-          const visitDateStr = new Date(v.checkIn.toDate()).toISOString().slice(0, 10);
-          return visitDateStr === filterDateVal;
+          if (filterDateVal) {
+            if (!v.checkIn) return false;
+            const visitDateStr = new Date(v.checkIn.toDate()).toISOString().slice(0, 10);
+            if (visitDateStr !== filterDateVal) return false;
+          }
+          if (searchTerm) {
+            if (!v.tienda || !v.tienda.toLowerCase().includes(searchTerm)) return false;
+          }
+          if (currentQuickFilter === "ISSUES") {
+            if (!v.incidenciaTipo || v.incidenciaTipo === "Sin Incidencias") return false;
+          }
+          if (currentQuickFilter === "PERFECT") {
+            if (v.pilar1 !== "Cumple" || v.pilar2 !== "Cumple" || v.pilar3 !== "Cumple") return false;
+          }
+          return true;
         });
 
         if (filtered.length === 0) {
-          userVisitsFeed.innerHTML = `<p style="color: var(--text-muted); font-size: 0.8rem; text-align: center; padding: 1.25rem 0;">No hay visitas registradas ${filterDateVal ? `para el ${filterDateVal}` : ''}.</p>`;
+          userVisitsFeed.innerHTML = `<p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 3rem 1rem;">No hay visitas registradas bajo este criterio.</p>`;
           return;
         }
 
-        filtered.forEach((v) => {
+        filtered.forEach((v, index) => {
           const item = document.createElement('div');
-          item.className = 'clean-card';
-          item.style.padding = '1rem';
+          item.className = 'history-card-item';
+          if (index === 0) item.classList.add('expanded');
 
           let thumbnailsHtml = '';
           const visitDateFormatted = v.checkIn ? new Date(v.checkIn.toDate()).toLocaleDateString() : '';
@@ -2050,23 +2611,49 @@
             `;
           }
 
+          const hasIssue = v.incidenciaTipo && v.incidenciaTipo !== "Sin Incidencias";
+
           item.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.3rem;">
+            <div class="history-card-header">
               <div>
-                <span style="font-weight: 700; font-size: 0.95rem;">${v.tienda}</span>
-                <span style="font-size: 0.68rem; color: var(--text-muted); margin-left: 0.35rem;">(${visitDateFormatted})</span>
+                <div style="font-weight: 800; font-size: 0.94rem; display:flex; align-items:center; gap:0.4rem;">
+                  <span>${v.tienda}</span>
+                  ${hasIssue ? `<span style="font-size:0.62rem; background:var(--danger-soft); color:var(--danger); padding:0.1rem 0.35rem; border-radius:3px;">⚠️ Incidencia</span>` : ''}
+                </div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">
+                  ${visitDateFormatted} • <b>${v.minutosServicio} min</b> de servicio
+                </div>
               </div>
-              <span style="font-size: 0.74rem; background: var(--bg-surface-subtle); padding: 0.15rem 0.45rem; border-radius: 4px; font-weight: 600;">${v.minutosServicio} min</span>
+              <div style="text-align: right;">
+                <div style="font-size: 1.05rem; font-weight: 800; color: var(--purple);">${v.shareOfShelf || 0}% <small style="font-size:0.65rem;">SOS</small></div>
+                <div style="font-size: 0.65rem; color: var(--text-muted);">Tocar para ver ▼</div>
+              </div>
             </div>
-            <div style="display: flex; gap: 0.35rem; flex-wrap: wrap; margin-bottom: 0.65rem;">
-              <span style="font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.45rem; border-radius: 4px; ${v.pilar1 === 'Cumple' ? 'background: var(--success-soft); color: #065f46;' : 'background: var(--danger-soft); color: #991b1b;'}">Planograma: ${v.pilar1}</span>
-              <span style="font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.45rem; border-radius: 4px; ${v.pilar2 === 'Cumple' ? 'background: var(--success-soft); color: #065f46;' : 'background: var(--danger-soft); color: #991b1b;'}">Flujo: ${v.pilar2}</span>
-              <span style="font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.45rem; border-radius: 4px; background: var(--purple-soft); color: var(--purple);">SOS: ${v.shareOfShelf || 0}%</span>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(65px, 1fr)); gap: 0.45rem;">
-              ${thumbnailsHtml}
+
+            <div class="history-card-body">
+              <div style="display: flex; gap: 0.35rem; flex-wrap: wrap; margin-bottom: 0.65rem;">
+                <span style="font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.45rem; border-radius: 4px; ${v.pilar1 === 'Cumple' ? 'background: var(--success-soft); color: #065f46;' : 'background: var(--danger-soft); color: #991b1b;'}">Planograma: ${v.pilar1}</span>
+                <span style="font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.45rem; border-radius: 4px; ${v.pilar2 === 'Cumple' ? 'background: var(--success-soft); color: #065f46;' : 'background: var(--danger-soft); color: #991b1b;'}">Flujo: ${v.pilar2}</span>
+                <span style="font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.45rem; border-radius: 4px; ${v.pilar3 === 'Cumple' ? 'background: var(--success-soft); color: #065f46;' : 'background: var(--danger-soft); color: #991b1b;'}">Espacios: ${v.pilar3}</span>
+              </div>
+
+              ${hasIssue ? `
+                <div style="background:#fff1f2; border:1px solid #fecdd3; border-radius:6px; padding:0.5rem 0.65rem; font-size:0.75rem; color:#9f1239; margin-bottom:0.75rem;">
+                  <strong>Incidencia:</strong> ${v.incidenciaTipo} ${v.incidenciaNotas ? `— <em>"${v.incidenciaNotas}"</em>` : ''}
+                </div>
+              ` : ''}
+
+              <div style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.4rem;">Evidencias Estampadas:</div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(65px, 1fr)); gap: 0.45rem;">
+                ${thumbnailsHtml}
+              </div>
             </div>
           `;
+
+          item.querySelector('.history-card-header').onclick = () => {
+            item.classList.toggle('expanded');
+          };
+
           userVisitsFeed.appendChild(item);
         });
       }
@@ -2107,13 +2694,9 @@
       const kpiAvgTime = document.getElementById('kpiAvgTime');
       const kpiGlobalRate = document.getElementById('kpiGlobalRate');
       const kpiAvgSos = document.getElementById('kpiAvgSos');
-
-      const modalKpiActive = document.getElementById('modalKpiActive');
-      const modalKpiFinished = document.getElementById('modalKpiFinished');
-      const modalKpiAvgTime = document.getElementById('modalKpiAvgTime');
-      const modalKpiGlobalRate = document.getElementById('modalKpiGlobalRate');
-      const modalKpiAvgSos = document.getElementById('modalKpiAvgSos');
-      const modalKpiTotalFacings = document.getElementById('modalKpiTotalFacings');
+      const kpiTotalFacings = document.getElementById('kpiTotalFacings');
+      const lblStoresChartsCount = document.getElementById('lblStoresChartsCount');
+      const storeChartsContainer = document.getElementById('storeChartsContainer');
 
       const adminMasterFeed = document.getElementById('adminMasterFeed');
       const adminGlobalGallery = document.getElementById('adminGlobalGallery');
@@ -2129,17 +2712,66 @@
       const btnExportCsvData = document.getElementById('btnExportCsvData');
       const btnDeleteAllVisits = document.getElementById('btnDeleteAllVisits');
 
-      const btnTabFeed = document.getElementById('btnTabFeed');
-      const btnTabMap = document.getElementById('btnTabMap');
-      const btnTabGallery = document.getElementById('btnTabGallery');
-      const btnTabAssign = document.getElementById('btnTabAssign');
-      const btnTabStores = document.getElementById('btnTabStores');
-      
-      const adminFeedContainer = document.getElementById('adminFeedContainer');
-      const adminMapContainer = document.getElementById('adminMapContainer');
-      const adminGalleryContainer = document.getElementById('adminGalleryContainer');
-      const adminAssignContainer = document.getElementById('adminAssignContainer');
-      const adminStoresContainer = document.getElementById('adminStoresContainer');
+      const btnDashFilterAudited = document.getElementById('btnDashFilterAudited');
+      const btnDashFilterAll = document.getElementById('btnDashFilterAll');
+      const inputDashSearchStore = document.getElementById('inputDashSearchStore');
+
+      btnDashFilterAudited.onclick = () => {
+        btnDashFilterAudited.classList.add('active');
+        btnDashFilterAll.classList.remove('active');
+        dashStoreFilter = "AUDITED";
+        renderIndividualStoreCharts();
+      };
+
+      btnDashFilterAll.onclick = () => {
+        btnDashFilterAll.classList.add('active');
+        btnDashFilterAudited.classList.remove('active');
+        dashStoreFilter = "ALL";
+        renderIndividualStoreCharts();
+      };
+
+      inputDashSearchStore.oninput = () => renderIndividualStoreCharts();
+
+      const drawerNavBtns = document.querySelectorAll('.btn-drawer-nav[data-target]');
+      const tabContainers = {
+        adminDashboardContainer: document.getElementById('adminDashboardContainer'),
+        adminFeedContainer: document.getElementById('adminFeedContainer'),
+        adminGalleryContainer: document.getElementById('adminGalleryContainer'),
+        adminAssignContainer: document.getElementById('adminAssignContainer'),
+        adminStoresContainer: document.getElementById('adminStoresContainer'),
+        adminSettingsContainer: document.getElementById('adminSettingsContainer')
+      };
+
+      const activateTab = async (targetId) => {
+        toggleDrawer(false);
+
+        Object.values(tabContainers).forEach(c => {
+          if (c) c.style.display = 'none';
+        });
+
+        drawerNavBtns.forEach(btn => {
+          if (btn.getAttribute('data-target') === targetId) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+
+        const activeContainer = tabContainers[targetId];
+        if (activeContainer) {
+          activeContainer.style.display = 'block';
+        }
+
+        if (targetId === 'adminDashboardContainer') {
+          await window._libsLoaded;
+          renderDashboardCharts();
+          renderIndividualStoreCharts();
+        }
+      };
+
+      drawerNavBtns.forEach(btn => {
+        btn.onclick = () => activateTab(btn.getAttribute('data-target'));
+      });
 
       const routePromoterSelect = document.getElementById('routePromoterSelect');
       const routeDateInput = document.getElementById('routeDateInput');
@@ -2150,87 +2782,6 @@
       const storesTableBody = document.getElementById('storesTableBody');
 
       routeDateInput.value = new Date().toISOString().slice(0, 10);
-
-      const tabElements = [
-        { btn: btnTabFeed, container: adminFeedContainer },
-        { btn: btnTabMap, container: adminMapContainer },
-        { btn: btnTabGallery, container: adminGalleryContainer },
-        { btn: btnTabAssign, container: adminAssignContainer },
-        { btn: btnTabStores, container: adminStoresContainer }
-      ];
-
-      tabElements.forEach(({ btn, container }) => {
-        btn.onclick = async () => {
-          tabElements.forEach(t => {
-            t.btn.classList.remove('active');
-            t.container.style.display = 'none';
-          });
-          btn.classList.add('active');
-          container.style.display = 'block';
-
-          if (container === adminMapContainer) {
-            await window._libsLoaded;
-            initOrUpdateLeafletMap();
-          }
-        };
-      });
-
-      function initOrUpdateLeafletMap() {
-        if (!window.L) return;
-        const mapContainer = document.getElementById('liveMapContainer');
-
-        if (!adminLeafletMap) {
-          adminLeafletMap = window.L.map(mapContainer).setView([19.4326, -99.1332], 11);
-          window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '© OpenStreetMap'
-          }).addTo(adminLeafletMap);
-          adminMapMarkersLayer = window.L.layerGroup().addTo(adminLeafletMap);
-        }
-
-        setTimeout(() => {
-          adminLeafletMap.invalidateSize();
-        }, 150);
-
-        adminMapMarkersLayer.clearLayers();
-
-        masterStoresList.forEach(st => {
-          if (st.lat && st.lng) {
-            const circle = window.L.circle([st.lat, st.lng], {
-              color: '#94a3b8',
-              fillColor: '#cbd5e1',
-              fillOpacity: 0.25,
-              radius: st.radius || 350
-            });
-            circle.bindPopup(`<b>${st.nombre}</b><br>${st.zona}<br>Radio: ${st.radius || 350}m`);
-            adminMapMarkersLayer.addLayer(circle);
-          }
-        });
-
-        masterVisitsStore.forEach(v => {
-          const lat = v.checkInGps?.lat;
-          const lng = v.checkInGps?.lng;
-          if (lat && lng) {
-            const isEnTienda = v.status === "EN_TIENDA";
-            const markerColor = isEnTienda ? "#10b981" : "#0284c7";
-            const marker = window.L.circleMarker([lat, lng], {
-              radius: 8,
-              fillColor: markerColor,
-              color: "#ffffff",
-              weight: 2,
-              opacity: 1,
-              fillOpacity: 0.9
-            });
-            marker.bindPopup(`
-              <b>${v.tienda}</b><br>
-              ${v.promotor}<br>
-              Estatus: <b>${v.status}</b><br>
-              SOS: ${v.shareOfShelf || 0}%
-            `);
-            adminMapMarkersLayer.addLayer(marker);
-          }
-        });
-      }
 
       onSnapshot(collection(db, "tiendas"), (snap) => {
         masterStoresList = [];
@@ -2263,9 +2814,7 @@
           storesTableBody.appendChild(tr);
         });
 
-        if (adminMapContainer.style.display !== 'none') {
-          initOrUpdateLeafletMap();
-        }
+        renderIndividualStoreCharts();
 
         document.querySelectorAll('.delete-store-btn').forEach(b => {
           b.onclick = async (e) => {
@@ -2375,16 +2924,11 @@
         kpiAvgTime.textContent = avgMins;
         kpiGlobalRate.textContent = globalPct;
         kpiAvgSos.textContent = avgSosVal;
+        kpiTotalFacings.textContent = totalPropios + totalComp;
 
-        modalKpiActive.textContent = inStore;
-        modalKpiFinished.textContent = done;
-        modalKpiAvgTime.textContent = avgMins;
-        modalKpiGlobalRate.textContent = globalPct;
-        modalKpiAvgSos.textContent = avgSosVal;
-        modalKpiTotalFacings.textContent = totalPropios + totalComp;
-
-        if (adminMapContainer.style.display !== 'none') {
-          initOrUpdateLeafletMap();
+        if (tabContainers.adminDashboardContainer.style.display !== 'none') {
+          renderDashboardCharts();
+          renderIndividualStoreCharts();
         }
         renderFilteredAdminView();
       });
@@ -2435,7 +2979,8 @@
         filtered.forEach((v) => {
           const card = document.createElement('div');
           card.className = 'clean-card';
-          card.style.padding = '1rem';
+          card.style.padding = '1.15rem';
+          card.style.marginBottom = '0.85rem';
 
           const timeIn = v.checkIn ? new Date(v.checkIn.toDate()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
           const timeOut = v.checkOut ? new Date(v.checkOut.toDate()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
@@ -2492,31 +3037,36 @@
             `;
           }
 
+          const hasIssue = v.incidenciaTipo && v.incidenciaTipo !== "Sin Incidencias";
+
           card.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.3rem;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem;">
               <div>
-                <span style="font-weight: 700; font-size: 0.95rem;">${v.tienda}</span>
-                <span style="font-size: 0.68rem; color: var(--text-muted); margin-left: 0.35rem;">(${dateInFormatted})</span>
-                ${v.proximidadAlerta ? `<span style="font-size:0.65rem; background:var(--danger-soft); color:var(--danger); padding:0.12rem 0.35rem; border-radius:3px; margin-left:0.4rem; font-weight:700;">⚠️ ${v.proximidadAlerta}</span>` : ''}
+                <span style="font-weight: 800; font-size: 0.98rem;">${v.tienda}</span>
+                <span style="font-size: 0.7rem; color: var(--text-muted); margin-left: 0.35rem;">(${dateInFormatted})</span>
+                ${v.proximidadAlerta ? `<span style="font-size:0.65rem; background:var(--danger-soft); color:var(--danger); padding:0.15rem 0.4rem; border-radius:4px; margin-left:0.4rem; font-weight:700;">⚠️ ${v.proximidadAlerta}</span>` : ''}
               </div>
-              <div style="display: flex; align-items: center; gap: 0.4rem;">
-                <span style="font-size: 0.74rem; font-weight: 600; padding: 0.15rem 0.45rem; border-radius: 4px; ${v.status === 'EN_TIENDA' ? 'background: var(--success-soft); color: #065f46;' : 'background: var(--bg-surface-subtle); color: var(--text-muted);'}">
+              <div style="display: flex; align-items: center; gap: 0.45rem;">
+                <span style="font-size: 0.74rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px; ${v.status === 'EN_TIENDA' ? 'background: var(--success-soft); color: #065f46;' : 'background: var(--bg-surface-subtle); color: var(--text-muted);'}">
                   ${v.status === 'EN_TIENDA' ? '● En Servicio' : `${v.minutosServicio} min`}
                 </span>
-                <button class="delete-visit-btn" data-id="${v.id}" title="Eliminar registro" style="background: none; border: 1px solid var(--border-color); color: var(--danger); border-radius: 4px; padding: 0.15rem 0.4rem; cursor: pointer; font-size: 0.72rem; font-weight: 700;">🗑️</button>
+                <button class="delete-visit-btn" data-id="${v.id}" title="Eliminar registro" style="background: none; border: 1px solid var(--border-color); color: var(--danger); border-radius: 4px; padding: 0.18rem 0.45rem; cursor: pointer; font-size: 0.74rem; font-weight: 700;">🗑️</button>
               </div>
             </div>
-            <div style="font-size: 0.74rem; color: var(--text-muted); margin-bottom: 0.45rem;">${v.promotor} (${v.email}) | Entrada: ${timeIn} ${timeOut ? `• Salida: ${timeOut}` : ''}</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">${v.promotor} (${v.email}) | Entrada: ${timeIn} ${timeOut ? `• Salida: ${timeOut}` : ''}</div>
             
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.55rem;">
-              <span style="font-size: 0.72rem; background: var(--purple-soft); color: var(--purple); font-weight: 700; padding: 0.18rem 0.45rem; border-radius: 4px;">
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.6rem;">
+              <span style="font-size: 0.74rem; background: var(--purple-soft); color: var(--purple); font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px;">
                 SOS: ${v.shareOfShelf || 0}% (Propios: ${v.frentesPropios || 0} / Comp: ${v.frentesCompetencia || 0})
               </span>
+              ${hasIssue ? `<span style="font-size: 0.72rem; background: #fff1f2; color: #9f1239; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px; border: 1px solid #fecdd3;">⚠️ ${v.incidenciaTipo}</span>` : ''}
             </div>
 
-            <div style="display: flex; gap: 0.65rem; flex-wrap: wrap; margin-bottom: 0.6rem;">
-              ${linkGpsIn ? `<a href="${linkGpsIn}" target="_blank" style="color: var(--info); font-size: 0.72rem; font-weight: 600; text-decoration: none;">📍 GPS Entrada (±${v.checkInGps.accuracy}m)</a>` : ''}
-              ${linkGpsOut ? `<a href="${linkGpsOut}" target="_blank" style="color: var(--info); font-size: 0.72rem; font-weight: 600; text-decoration: none;">📍 GPS Salida (±${v.checkOutGps.accuracy}m)</a>` : ''}
+            ${v.incidenciaNotas ? `<div style="font-size:0.75rem; color:#475569; font-style:italic; margin-bottom:0.5rem; background:#f8fafc; padding:0.35rem 0.5rem; border-radius:4px;">"${v.incidenciaNotas}"</div>` : ''}
+
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.65rem;">
+              ${linkGpsIn ? `<a href="${linkGpsIn}" target="_blank" style="color: var(--info); font-size: 0.74rem; font-weight: 600; text-decoration: none;">📍 GPS Entrada (±${v.checkInGps.accuracy}m)</a>` : ''}
+              ${linkGpsOut ? `<a href="${linkGpsOut}" target="_blank" style="color: var(--info); font-size: 0.74rem; font-weight: 600; text-decoration: none;">📍 GPS Salida (±${v.checkOutGps.accuracy}m)</a>` : ''}
             </div>
             <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(65px, 1fr)); gap: 0.45rem;">
               ${thumbnailsHtml}
@@ -2564,9 +3114,128 @@
         });
 
         if (filtered.length === 0) {
-          adminMasterFeed.innerHTML = '<p style="color: var(--text-muted); font-size: 0.82rem; text-align: center; padding: 1.5rem 0;">No hay visitas con los filtros seleccionados.</p>';
-          adminGlobalGallery.innerHTML = '<p style="color: var(--text-muted); font-size: 0.82rem; text-align: center; padding: 1.5rem 0;">No hay fotos bajo los filtros actuales.</p>';
+          adminMasterFeed.innerHTML = '<p style="color: var(--text-muted); font-size: 0.82rem; text-align: center; padding: 2rem 0;">No hay visitas con los filtros seleccionados.</p>';
+          adminGlobalGallery.innerHTML = '<p style="color: var(--text-muted); font-size: 0.82rem; text-align: center; padding: 2rem 0;">No hay fotos bajo los filtros actuales.</p>';
         }
+      }
+
+      function renderIndividualStoreCharts() {
+        if (!window.Chart) return;
+
+        const storeStats = {};
+
+        masterStoresList.forEach(st => {
+          storeStats[st.nombre] = {
+            zona: st.zona || "General",
+            propios: 0,
+            comp: 0,
+            visitas: 0
+          };
+        });
+
+        masterVisitsStore.forEach(v => {
+          if (v.status === "CONCLUIDO" && v.tienda) {
+            if (!storeStats[v.tienda]) {
+              storeStats[v.tienda] = { zona: "General", propios: 0, comp: 0, visitas: 0 };
+            }
+            storeStats[v.tienda].propios += (v.frentesPropios || 0);
+            storeStats[v.tienda].comp += (v.frentesCompetencia || 0);
+            storeStats[v.tienda].visitas++;
+          }
+        });
+
+        Object.values(storeChartInstances).forEach(chart => {
+          if (chart && typeof chart.destroy === 'function') chart.destroy();
+        });
+        storeChartInstances = {};
+
+        let storeNames = Object.keys(storeStats);
+
+        const searchVal = (document.getElementById('inputDashSearchStore')?.value || "").toLowerCase().trim();
+        if (searchVal) {
+          storeNames = storeNames.filter(name => {
+            return name.toLowerCase().includes(searchVal) || (storeStats[name].zona && storeStats[name].zona.toLowerCase().includes(searchVal));
+          });
+        }
+
+        if (dashStoreFilter === "AUDITED") {
+          storeNames = storeNames.filter(name => storeStats[name].visitas > 0);
+        }
+
+        storeNames.sort((a, b) => {
+          if (storeStats[b].visitas !== storeStats[a].visitas) {
+            return storeStats[b].visitas - storeStats[a].visitas;
+          }
+          return a.localeCompare(b);
+        });
+
+        lblStoresChartsCount.textContent = `${storeNames.length} Tiendas Mostradas`;
+        storeChartsContainer.innerHTML = '';
+
+        if (storeNames.length === 0) {
+          storeChartsContainer.innerHTML = `<p style="color: var(--text-muted); font-size: 0.85rem; grid-column: 1 / -1; text-align: center; padding: 3rem 0;">No se encontraron sucursales con este criterio de filtro.</p>`;
+          return;
+        }
+
+        storeNames.forEach((name, idx) => {
+          const s = storeStats[name];
+          const total = s.propios + s.comp;
+          const sosPct = total > 0 ? ((s.propios / total) * 100).toFixed(1) : "0.0";
+          const canvasId = `storeChartCanvas_${idx}`;
+
+          const card = document.createElement('div');
+          card.className = 'store-chart-card';
+          card.innerHTML = `
+            <div class="store-chart-header">
+              <div class="store-chart-title" title="${name}">${name}</div>
+              <div class="store-chart-zone">${s.zona} • <b>${s.visitas}</b> auditoría${s.visitas === 1 ? '' : 's'}</div>
+            </div>
+            
+            <div class="store-chart-canvas-wrap">
+              <canvas id="${canvasId}"></canvas>
+              <div class="store-chart-center-val">
+                <div class="pct">${sosPct}%</div>
+                <div class="lbl">SOS</div>
+              </div>
+            </div>
+
+            <div class="store-chart-stats">
+              <span>Propios: <b style="color: var(--purple);">${s.propios}</b></span>
+              <span>Comp: <b>${s.comp}</b></span>
+              <span>Total: <b>${total}</b></span>
+            </div>
+          `;
+          storeChartsContainer.appendChild(card);
+
+          const ctx = document.getElementById(canvasId).getContext('2d');
+          storeChartInstances[name] = new window.Chart(ctx, {
+            type: 'doughnut',
+            data: {
+              labels: ['IDI / Yello', 'Competencia'],
+              datasets: [{
+                data: total > 0 ? [s.propios, s.comp] : [0, 1],
+                backgroundColor: total > 0 ? ['#7c3aed', '#94a3b8'] : ['#f1f5f9', '#e2e8f0'],
+                borderWidth: 0
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: false },
+                tooltip: {
+                  enabled: total > 0,
+                  callbacks: {
+                    label: function(context) {
+                      return ` ${context.label}: ${context.raw} frentes`;
+                    }
+                  }
+                }
+              },
+              cutout: '68%'
+            }
+          });
+        });
       }
 
       function renderDashboardCharts() {
@@ -2648,10 +3317,10 @@
 
       btnExportCsvData.onclick = () => {
         if (!masterVisitsStore.length) { showCustomAlert("Aviso", "No hay registros para exportar."); return; }
-        let csvContent = "Tienda,Promotor,Correo,Estatus,Minutos_Servicio,Fecha,Planograma,Flujo,Espacios,Frentes_Propios,Frentes_Competencia,Share_Of_Shelf,Alerta_GPS\n";
+        let csvContent = "Tienda,Promotor,Correo,Estatus,Minutos_Servicio,Fecha,Planograma,Flujo,Espacios,Incidencia_Tipo,Incidencia_Notas,Frentes_Propios,Frentes_Competencia,Share_Of_Shelf,Alerta_GPS\n";
         masterVisitsStore.forEach(r => {
           const dateStr = r.checkIn ? new Date(r.checkIn.toDate()).toLocaleDateString() : '';
-          csvContent += `"${r.tienda}","${r.promotor}","${r.email}","${r.status}",${r.minutosServicio || 0},"${dateStr}","${r.pilar1 || ''}","${r.pilar2 || ''}","${r.pilar3 || ''}",${r.frentesPropios || 0},${r.frentesCompetencia || 0},"${r.shareOfShelf || 0}%","${r.proximidadAlerta || 'Correcto'}"\n`;
+          csvContent += `"${r.tienda}","${r.promotor}","${r.email}","${r.status}",${r.minutosServicio || 0},"${dateStr}","${r.pilar1 || ''}","${r.pilar2 || ''}","${r.pilar3 || ''}","${r.incidenciaTipo || 'Sin Incidencias'}","${r.incidenciaNotas || ''}",${r.frentesPropios || 0},${r.frentesCompetencia || 0},"${r.shareOfShelf || 0}%","${r.proximidadAlerta || 'Correcto'}"\n`;
         });
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
         const a = document.createElement('a');
