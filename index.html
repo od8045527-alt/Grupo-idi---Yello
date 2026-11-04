@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>IDI & YELLO</title>
+  <title>IDI & YELLO - Trade Management Enterprise</title>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -55,6 +55,7 @@
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
+      width: 100%;
     }
 
     /* PANTALLA DE CARGA */
@@ -130,63 +131,65 @@
       100% { width: 100%; }
     }
 
-    /* HEADER */
+    /* HEADER RESPONSIVO OPTIMIZADO */
     header {
       background-color: var(--bg-surface);
       border-bottom: 1px solid var(--border-color);
-      padding: 0.75rem 1.5rem;
+      padding: 0.65rem 1rem;
       position: sticky;
       top: 0;
       z-index: 1000;
       box-shadow: var(--shadow-sm);
+      width: 100%;
     }
     .header-content {
       max-width: 1300px;
       margin: 0 auto;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
+      gap: 0.5rem;
     }
     .brand-cluster {
       display: flex;
       align-items: center;
-      gap: 0.65rem;
-      min-width: 0;
+      gap: 0.5rem;
     }
     .mini-badge-idi {
       border: 1.5px solid #475569;
       font-size: 0.75rem;
       font-weight: 800;
-      letter-spacing: 0.15rem;
-      padding: 0.2rem 0.45rem;
+      letter-spacing: 0.12rem;
+      padding: 0.15rem 0.4rem;
       border-radius: 4px;
       color: #334155;
       background-color: #fff;
       flex-shrink: 0;
     }
     .brand-title {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: var(--text-main);
       white-space: nowrap;
     }
     .header-nav {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      gap: 0.5rem;
-      flex-shrink: 0;
+      gap: 0.35rem;
     }
     .role-tag {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
-      padding: 0.3rem 0.6rem;
+      padding: 0.25rem 0.5rem;
       border-radius: var(--radius-sm);
-      letter-spacing: 0.05rem;
+      letter-spacing: 0.04rem;
       background-color: var(--bg-surface-subtle);
       color: var(--text-muted);
       border: 1px solid var(--border-color);
+      white-space: nowrap;
     }
     .role-tag.admin {
       background-color: var(--accent-soft);
@@ -197,25 +200,27 @@
       background-color: var(--bg-surface-subtle);
       border: 1px solid var(--border-color);
       color: var(--text-main);
-      padding: 0.35rem 0.75rem;
+      padding: 0.25rem 0.55rem;
       border-radius: var(--radius-sm);
-      font-size: 0.78rem;
+      font-size: 0.74rem;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.25rem;
+      white-space: nowrap;
     }
     .btn-header-action:hover { background-color: #e2e8f0; }
     .btn-logout {
       background-color: transparent;
       border: 1px solid var(--border-color);
       color: var(--text-muted);
-      padding: 0.35rem 0.75rem;
+      padding: 0.25rem 0.55rem;
       border-radius: var(--radius-sm);
-      font-size: 0.78rem;
+      font-size: 0.74rem;
       font-weight: 600;
       cursor: pointer;
+      white-space: nowrap;
     }
     .btn-logout:hover {
       background-color: var(--danger-soft);
@@ -223,9 +228,10 @@
       color: var(--danger);
     }
 
+    /* CONTENEDOR PRINCIPAL */
     main {
       flex: 1;
-      padding: 1.5rem 1rem;
+      padding: 1rem 0.75rem;
       max-width: 1300px;
       margin: 0 auto;
       width: 100%;
@@ -235,29 +241,32 @@
       background-color: var(--bg-surface);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      margin-bottom: 1.25rem;
+      padding: 1.15rem;
+      margin-bottom: 1rem;
       box-shadow: var(--shadow-sm);
+      width: 100%;
+      overflow: hidden;
     }
 
-    .field-group { margin-bottom: 1rem; }
+    .field-group { margin-bottom: 0.85rem; width: 100%; }
     .field-label {
       display: block;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.05rem;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
     .form-input, .form-select {
       width: 100%;
+      max-width: 100%;
       background-color: var(--bg-surface);
       border: 1px solid var(--border-color);
       color: var(--text-main);
-      padding: 0.75rem 0.9rem;
+      padding: 0.65rem 0.8rem;
       border-radius: var(--radius-md);
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       outline: none;
     }
     .form-input:focus, .form-select:focus {
@@ -269,24 +278,26 @@
       background-color: var(--accent);
       color: #ffffff;
       border: none;
-      padding: 0.85rem;
+      padding: 0.75rem;
       border-radius: var(--radius-md);
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
+      gap: 0.4rem;
+      text-align: center;
+      word-break: break-word;
     }
     .btn-solid:hover { background-color: var(--accent-hover); }
     .btn-secondary {
       background-color: var(--bg-surface-subtle);
       border: 1px solid var(--border-color);
       color: var(--text-main);
-      padding: 0.75rem;
+      padding: 0.7rem;
       border-radius: var(--radius-md);
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
       width: 100%;
@@ -300,11 +311,12 @@
     .responsive-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.5rem;
+      gap: 1rem;
+      width: 100%;
     }
     @media (min-width: 992px) {
       .responsive-grid-user { grid-template-columns: 460px 1fr; }
-      .responsive-grid-admin { grid-template-columns: 380px 1fr; }
+      .responsive-grid-admin { grid-template-columns: 360px 1fr; }
     }
 
     .active-session-banner {
@@ -312,12 +324,12 @@
       border: 1px solid #fde68a;
       border-left: 5px solid var(--accent);
       border-radius: var(--radius-md);
-      padding: 1.25rem;
-      margin-bottom: 1.25rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
     }
-    .active-store-heading { font-size: 1.15rem; font-weight: 700; color: #78350f; }
+    .active-store-heading { font-size: 1.05rem; font-weight: 700; color: #78350f; }
     .active-clock {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-family: ui-monospace, monospace;
       color: #b45309;
       font-weight: 600;
@@ -327,17 +339,17 @@
       background-color: var(--bg-surface-subtle);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
-      padding: 1.1rem;
-      margin-bottom: 1rem;
+      padding: 0.95rem;
+      margin-bottom: 0.85rem;
     }
-    .pillar-title { font-size: 0.92rem; font-weight: 700; color: var(--text-main); }
-    .pillar-instruction { font-size: 0.78rem; color: var(--text-muted); margin: 0.25rem 0 0.75rem; line-height: 1.35; }
-    .compliance-selector { display: flex; gap: 0.5rem; margin-bottom: 0.85rem; }
+    .pillar-title { font-size: 0.88rem; font-weight: 700; color: var(--text-main); }
+    .pillar-instruction { font-size: 0.75rem; color: var(--text-muted); margin: 0.25rem 0 0.65rem; line-height: 1.35; }
+    .compliance-selector { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; }
     .compliance-btn {
-      flex: 1; padding: 0.55rem; text-align: center;
+      flex: 1; padding: 0.5rem; text-align: center;
       border: 1px solid var(--border-color); border-radius: var(--radius-sm);
       background-color: var(--bg-surface); color: var(--text-muted);
-      font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer;
     }
     .compliance-btn input { display: none; }
     .compliance-btn.selected-yes { background-color: var(--success); border-color: var(--success); color: #ffffff; }
@@ -346,39 +358,38 @@
     .sos-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
+      gap: 0.5rem;
       margin-bottom: 0.75rem;
     }
     .sos-live-pill {
       background-color: #f1f5f9;
       border: 1px solid #cbd5e1;
-      padding: 0.5rem;
+      padding: 0.45rem;
       border-radius: var(--radius-sm);
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 700;
       color: var(--text-main);
       display: flex;
       justify-content: space-between;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.65rem;
     }
 
-    /* GRUPO DE BOTONES PARA FOTO DUAL: CÁMARA O ARCHIVO */
     .photo-actions-group {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.5rem;
+      gap: 0.45rem;
       margin-top: 0.35rem;
     }
     .photo-btn-action {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.45rem;
+      gap: 0.35rem;
       background-color: var(--bg-surface);
       border: 1.5px dashed var(--border-color);
       border-radius: var(--radius-md);
-      padding: 0.7rem 0.5rem;
-      font-size: 0.78rem;
+      padding: 0.65rem 0.4rem;
+      font-size: 0.76rem;
       font-weight: 600;
       color: var(--text-muted);
       cursor: pointer;
@@ -404,41 +415,42 @@
       overflow: hidden;
       border: 1px solid var(--border-color);
       background-color: #0f172a;
-      max-height: 220px;
+      max-height: 200px;
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 100%;
     }
     .single-preview-wrapper img {
       width: 100%;
       height: 100%;
-      max-height: 220px;
+      max-height: 200px;
       object-fit: cover;
       display: block;
     }
     .btn-remove-single-photo {
       position: absolute;
-      top: 8px;
-      right: 8px;
-      background: rgba(15, 23, 42, 0.75);
+      top: 6px;
+      right: 6px;
+      background: rgba(15, 23, 42, 0.8);
       color: #ffffff;
       border: none;
       border-radius: 20px;
-      padding: 0.25rem 0.55rem;
-      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.68rem;
       font-weight: 700;
       cursor: pointer;
     }
 
     .multi-photo-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-      gap: 0.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+      gap: 0.45rem;
       margin-top: 0.5rem;
     }
     .multi-photo-item {
       position: relative;
-      height: 70px;
+      height: 65px;
       border-radius: var(--radius-sm);
       overflow: hidden;
       border: 1px solid var(--border-color);
@@ -466,43 +478,60 @@
     }
 
     .admin-metrics-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-bottom: 1.25rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.65rem;
+      margin-bottom: 1rem;
     }
     .metric-box {
-      background-color: var(--bg-surface); border: 1px solid var(--border-color);
-      border-radius: var(--radius-md); padding: 1rem 0.9rem; position: relative; overflow: hidden; box-shadow: var(--shadow-sm);
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 0.75rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
     }
     .metric-box::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
     }
     .metric-box.active-card::before { background-color: var(--success); }
     .metric-box.completed-card::before { background-color: var(--info); }
     .metric-box.time-card::before { background-color: var(--accent); }
     .metric-box.compliance-card::before { background-color: #8b5cf6; }
     .metric-box.sos-card::before { background-color: var(--purple); }
-    .metric-number { font-size: 1.55rem; font-weight: 800; color: var(--text-main); line-height: 1; }
-    .metric-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-top: 0.35rem; }
+    .metric-number { font-size: 1.35rem; font-weight: 800; color: var(--text-main); line-height: 1; }
+    .metric-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-top: 0.35rem; }
 
+    /* PESTAÑAS ADMIN CON SCROLL HORIZONTAL SUAVE EN MÓVILES */
     .admin-tab-bar {
       display: flex;
       background-color: var(--bg-surface-subtle);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
-      padding: 4px;
-      margin-bottom: 1.25rem;
+      padding: 3px;
+      margin-bottom: 1rem;
       overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
     }
+    .admin-tab-bar::-webkit-scrollbar { display: none; }
     .admin-tab-btn {
-      flex: 1;
-      padding: 0.65rem 0.8rem;
-      font-size: 0.82rem;
+      flex: 0 0 auto;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.78rem;
       font-weight: 600;
       border: none;
       background: transparent;
       color: var(--text-muted);
       border-radius: var(--radius-sm);
       cursor: pointer;
-      white-space: nowrap;
     }
     .admin-tab-btn.active {
       background-color: var(--bg-surface);
@@ -512,11 +541,11 @@
 
     .gallery-masonry {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 0.65rem;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 0.5rem;
     }
     @media (min-width: 768px) {
-      .gallery-masonry { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0.85rem; }
+      .gallery-masonry { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; }
     }
     .gallery-card {
       border: 1px solid var(--border-color);
@@ -527,46 +556,46 @@
       flex-direction: column;
       box-shadow: var(--shadow-sm);
     }
-    .gallery-card img { width: 100%; height: 130px; object-fit: cover; cursor: pointer; }
-    .gallery-info { padding: 0.45rem 0.55rem; font-size: 0.68rem; }
+    .gallery-card img { width: 100%; height: 110px; object-fit: cover; cursor: pointer; }
+    .gallery-info { padding: 0.35rem 0.45rem; font-size: 0.65rem; }
     .gallery-tag { font-weight: 700; color: var(--accent-hover); display: block; }
     .gallery-store { color: var(--text-main); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
     .route-checkbox-list {
-      max-height: 220px;
+      max-height: 200px;
       overflow-y: auto;
       border: 1px solid var(--border-color);
       border-radius: var(--radius-sm);
       padding: 0.5rem;
       background: var(--bg-surface);
-      margin-bottom: 1rem;
+      margin-bottom: 0.85rem;
     }
     .route-checkbox-item {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.82rem;
-      padding: 0.35rem 0;
+      font-size: 0.78rem;
+      padding: 0.3rem 0;
       border-bottom: 1px solid #f1f5f9;
     }
 
-    .table-container { width: 100%; overflow-x: auto; margin-top: 1rem; }
-    .custom-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; text-align: left; }
+    .table-container { width: 100%; overflow-x: auto; margin-top: 0.75rem; }
+    .custom-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; text-align: left; }
     .custom-table th {
       background-color: var(--bg-surface-subtle);
-      padding: 0.6rem 0.75rem;
+      padding: 0.5rem 0.65rem;
       border-bottom: 1px solid var(--border-color);
       color: var(--text-muted);
       font-weight: 700;
       text-transform: uppercase;
-      font-size: 0.7rem;
+      font-size: 0.68rem;
     }
-    .custom-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #f1f5f9; color: var(--text-main); }
+    .custom-table td { padding: 0.5rem 0.65rem; border-bottom: 1px solid #f1f5f9; color: var(--text-main); }
 
     /* CONTENEDOR DEL MAPA */
     #liveMapContainer {
       width: 100%;
-      height: 480px;
+      height: 420px;
       border-radius: var(--radius-md);
       border: 1px solid var(--border-color);
       background-color: #f1f5f9;
@@ -583,7 +612,7 @@
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 1.25rem;
+      padding: 1rem;
     }
     .custom-modal-backdrop.active { display: flex; }
     .custom-modal-card {
@@ -591,17 +620,17 @@
       border-radius: var(--radius-lg);
       max-width: 440px;
       width: 100%;
-      padding: 1.75rem;
+      padding: 1.5rem;
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
       border: 1px solid var(--border-color);
     }
-    .custom-modal-title { font-size: 1.1rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.5rem; }
-    .custom-modal-body { font-size: 0.88rem; color: var(--text-muted); line-height: 1.45; margin-bottom: 1.5rem; }
-    .custom-modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; }
+    .custom-modal-title { font-size: 1rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.4rem; }
+    .custom-modal-body { font-size: 0.84rem; color: var(--text-muted); line-height: 1.45; margin-bottom: 1.25rem; }
+    .custom-modal-actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
     .modal-btn {
-      padding: 0.65rem 1.2rem;
+      padding: 0.55rem 1rem;
       border-radius: var(--radius-sm);
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 600;
       cursor: pointer;
       border: 1px solid transparent;
@@ -612,23 +641,23 @@
 
     #detailPhotoModal {
       position: fixed; inset: 0; background-color: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(5px); z-index: 10100; display: none; align-items: center; justify-content: center; padding: 1.25rem;
+      backdrop-filter: blur(5px); z-index: 10100; display: none; align-items: center; justify-content: center; padding: 1rem;
     }
     #detailPhotoModal.active { display: flex; }
     .detail-photo-card {
-      background: #ffffff; border-radius: var(--radius-lg); max-width: 620px; width: 100%;
+      background: #ffffff; border-radius: var(--radius-lg); max-width: 580px; width: 100%;
       overflow: hidden; display: flex; flex-direction: column; max-height: 90vh;
     }
     .detail-photo-img-wrap {
-      background: #000; width: 100%; height: 320px; display: flex; align-items: center; justify-content: center;
+      background: #000; width: 100%; height: 280px; display: flex; align-items: center; justify-content: center;
     }
     .detail-photo-img-wrap img { width: 100%; height: 100%; object-fit: contain; }
-    .detail-photo-info { padding: 1.25rem; overflow-y: auto; }
+    .detail-photo-info { padding: 1rem; overflow-y: auto; }
     .detail-badge-pill {
-      display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 4px; margin-bottom: 0.4rem;
+      display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 0.18rem 0.5rem; border-radius: 4px; margin-bottom: 0.35rem;
     }
-    .detail-photo-title { font-size: 1.05rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.25rem; }
-    .detail-photo-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.45; margin-top: 0.4rem; }
+    .detail-photo-title { font-size: 0.95rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.2rem; }
+    .detail-photo-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.45; margin-top: 0.35rem; }
 
     .view-zone { display: none; }
     .view-zone.active { display: block; }
@@ -652,14 +681,14 @@
     <div class="header-content">
       <div class="brand-cluster">
         <span class="mini-badge-idi">IDI</span>
-        <span class="brand-title">Trade Management Console</span>
+        <span class="brand-title">Trade Management</span>
       </div>
       <div class="header-nav">
         <button id="btnOpenDedicatedDashboard" class="btn-header-action" style="display: none; background: var(--accent-soft); color: var(--accent-hover); border-color: #fcd34d;">
-          📊 Dashboard Full
+          📊 Dashboard
         </button>
         <span class="role-tag" id="roleTag" style="display: none;"></span>
-        <button class="btn-logout" id="btnLogout" style="display: none;">Cerrar Sesión</button>
+        <button class="btn-logout" id="btnLogout" style="display: none;">Salir</button>
       </div>
     </div>
   </header>
@@ -667,19 +696,19 @@
   <main>
     <!-- 1. VISTA AUTENTICACIÓN -->
     <section id="authZone" class="view-zone active">
-      <div class="clean-card" style="max-width: 420px; margin: 2rem auto;">
-        <div style="display: flex; align-items: center; justify-content: center; gap: 1.25rem; margin-bottom: 1.5rem;">
-          <div style="border: 2px solid #334155; padding: 0.4rem 1.2rem; font-size: 1.2rem; font-weight: 800; letter-spacing: 0.4rem; color: #1e293b; border-radius: 3px;">IDI</div>
-          <div style="width: 1px; height: 30px; background-color: var(--border-color);"></div>
-          <div style="font-size: 1.15rem; font-weight: 800; color: #0f172a;">YELLO <small style="display: block; font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.2rem;">MKT Group</small></div>
+      <div class="clean-card" style="max-width: 400px; margin: 1.5rem auto;">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.25rem;">
+          <div style="border: 2px solid #334155; padding: 0.35rem 1rem; font-size: 1.1rem; font-weight: 800; letter-spacing: 0.35rem; color: #1e293b; border-radius: 3px;">IDI</div>
+          <div style="width: 1px; height: 26px; background-color: var(--border-color);"></div>
+          <div style="font-size: 1.05rem; font-weight: 800; color: #0f172a;">YELLO <small style="display: block; font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.2rem;">MKT Group</small></div>
         </div>
 
-        <div style="display: flex; background: var(--bg-surface-subtle); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 4px; margin-bottom: 1.5rem;">
-          <button class="admin-tab-btn active" id="tabLoginBtn">Iniciar Sesión</button>
-          <button class="admin-tab-btn" id="tabRegisterBtn">Registrarse</button>
+        <div style="display: flex; background: var(--bg-surface-subtle); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 3px; margin-bottom: 1.25rem;">
+          <button class="admin-tab-btn active" id="tabLoginBtn" style="flex:1;">Iniciar Sesión</button>
+          <button class="admin-tab-btn" id="tabRegisterBtn" style="flex:1;">Registrarse</button>
         </div>
 
-        <div id="authAlert" class="alert-banner"></div>
+        <div id="authAlert" style="display: none; background-color: var(--danger-soft); border: 1px solid #fca5a5; color: #991b1b; font-size: 0.8rem; padding: 0.6rem 0.8rem; border-radius: var(--radius-md); margin-bottom: 1rem;"></div>
 
         <form id="formLogin">
           <div class="field-group">
@@ -690,7 +719,7 @@
             <label class="field-label">Contraseña</label>
             <input type="password" id="loginPass" class="form-input" placeholder="••••••••" required autocomplete="current-password">
           </div>
-          <button type="submit" class="btn-solid">Ingresar al Portal</button>
+          <button type="submit" class="btn-solid">Ingresar</button>
         </form>
 
         <form id="formRegister" style="display: none;">
@@ -709,7 +738,7 @@
           <div class="field-group">
             <label class="field-label">Código de Rol (Opcional)</label>
             <input type="text" id="regCode" class="form-input" placeholder="Código de autorización">
-            <span style="font-size: 0.72rem; color: var(--text-muted); display: block; margin-top: 0.3rem;">* Ingresa "Yello-Admin" para rol de administrador.</span>
+            <span style="font-size: 0.68rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">* Ingresa "Yello-Admin" para rol de administrador.</span>
           </div>
           <button type="submit" class="btn-solid">Registrar Cuenta</button>
         </form>
@@ -722,26 +751,26 @@
         <div>
           <!-- Check-in -->
           <div class="clean-card" id="cardCheckIn">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-              <h2 style="font-size: 1.05rem; font-weight: 700;">Check-in de Asistencia</h2>
-              <span id="routeAssignedBadge" style="font-size: 0.72rem; background: var(--accent-soft); color: var(--accent-hover); padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700;">Ruta de Hoy</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+              <h2 style="font-size: 1rem; font-weight: 700;">Check-in de Asistencia</h2>
+              <span id="routeAssignedBadge" style="font-size: 0.68rem; background: var(--accent-soft); color: var(--accent-hover); padding: 0.15rem 0.45rem; border-radius: 4px; font-weight: 700;">Ruta de Hoy</span>
             </div>
 
-            <div id="noRouteAlert" style="display: none; background: #fffbeb; border: 1px solid #fef3c7; color: #b45309; padding: 0.75rem; border-radius: 6px; font-size: 0.8rem; margin-bottom: 1rem;">
+            <div id="noRouteAlert" style="display: none; background: #fffbeb; border: 1px solid #fef3c7; color: #b45309; padding: 0.65rem; border-radius: 6px; font-size: 0.76rem; margin-bottom: 0.85rem;">
               Sin ruta asignada hoy. Mostrando catálogo completo de tiendas.
             </div>
 
             <div class="field-group" id="storeSelectGroup">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem;">
                 <label class="field-label" style="margin-bottom: 0;">Tienda a Visitar</label>
-                <a id="btnMapsNavigate" href="#" target="_blank" style="display: none; font-size: 0.75rem; color: var(--info); font-weight: 700; text-decoration: none;">🗺️ Cómo llegar</a>
+                <a id="btnMapsNavigate" href="#" target="_blank" style="display: none; font-size: 0.72rem; color: var(--info); font-weight: 700; text-decoration: none;">🗺️ Cómo llegar</a>
               </div>
               <select id="selStore" class="form-select" required>
                 <option value="" disabled selected>-- Elige una tienda --</option>
               </select>
             </div>
 
-            <!-- FOTO ENTRADA CON OPCIONES: CÁMARA O ARCHIVO -->
+            <!-- FOTO ENTRADA CON BOTONES SEPARADOS: CÁMARA O ARCHIVO -->
             <div class="field-group">
               <label class="field-label">Fotografía de Fachada / Entrada *</label>
               <div class="photo-actions-group">
@@ -752,7 +781,6 @@
                   📁 Galería / Archivo
                 </button>
               </div>
-              <!-- Inputs reales invisibles -->
               <input type="file" id="inputFotoInCam" accept="image/*" capture="environment" style="display:none;">
               <input type="file" id="inputFotoInFile" accept="image/png, image/jpeg, image/jpg, image/webp" style="display:none;">
               
@@ -762,8 +790,8 @@
               </div>
             </div>
 
-            <button id="btnDoCheckIn" class="btn-solid" style="margin-top: 1rem;">
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <button id="btnDoCheckIn" class="btn-solid" style="margin-top: 0.75rem;">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
               Validar GPS y Registrar Entrada
             </button>
           </div>
@@ -773,7 +801,7 @@
             <div class="active-session-banner">
               <div class="active-store-heading" id="lblActiveStore">-</div>
               <div class="active-clock" id="lblActiveTimer">Tiempo en tienda: 00:00:00</div>
-              <div style="font-size: 0.72rem; color: #92400e; margin-top: 0.35rem;" id="lblGpsInStatus">GPS verificado</div>
+              <div style="font-size: 0.68rem; color: #92400e; margin-top: 0.25rem;" id="lblGpsInStatus">GPS verificado</div>
             </div>
 
             <form id="formAudit">
@@ -824,7 +852,7 @@
               <!-- PILAR 3 MULTI-FOTOS + SHARE OF SHELF -->
               <div class="audit-pillar-box">
                 <div class="pillar-title">3. Distribución de espacios y Frentes</div>
-                <div class="pillar-instruction">Frentes asignados por marca, SKU, presentaciones mini y sin alcohol. Conteo de participación.</div>
+                <div class="pillar-instruction">Frentes asignados por marca, SKU, presentaciones mini y sin alcohol.</div>
                 
                 <div class="compliance-selector">
                   <label class="compliance-btn selected-yes" id="lblP3Yes">
@@ -837,17 +865,17 @@
 
                 <div class="sos-grid">
                   <div>
-                    <label class="field-label">Frentes Marca Propia</label>
+                    <label class="field-label">Frentes Propios</label>
                     <input type="number" id="inputFrentesPropios" class="form-input" min="0" value="0" required>
                   </div>
                   <div>
-                    <label class="field-label">Frentes Competencia</label>
+                    <label class="field-label">Competencia</label>
                     <input type="number" id="inputFrentesCompetencia" class="form-input" min="0" value="0" required>
                   </div>
                 </div>
 
                 <div class="sos-live-pill">
-                  <span>Participación en Anaquel (SOS):</span>
+                  <span>Share of Shelf (SOS):</span>
                   <span id="lblLiveSos" style="color: var(--purple);">0.0%</span>
                 </div>
 
@@ -879,7 +907,7 @@
               </div>
 
               <button type="submit" class="btn-solid btn-danger-solid">
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                 Validar GPS y Finalizar Check-out
               </button>
 
@@ -893,15 +921,15 @@
         <!-- HISTORIAL PROMOTOR -->
         <div>
           <div class="clean-card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem; flex-wrap: wrap; gap: 0.5rem;">
-              <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main);">Historial de Visitas</h3>
-              <div style="display: flex; align-items: center; gap: 0.4rem;">
-                <input type="date" id="historyFilterDate" class="form-input" style="padding: 0.35rem 0.6rem; font-size: 0.78rem; width: auto;">
-                <button id="btnShowAllHistory" style="background: var(--bg-surface-subtle); border: 1px solid var(--border-color); font-size: 0.75rem; font-weight: 600; padding: 0.35rem 0.55rem; border-radius: var(--radius-sm); cursor: pointer; white-space: nowrap;">Ver Todo</button>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.4rem;">
+              <h3 style="font-size: 0.92rem; font-weight: 700; color: var(--text-main);">Historial de Visitas</h3>
+              <div style="display: flex; align-items: center; gap: 0.35rem;">
+                <input type="date" id="historyFilterDate" class="form-input" style="padding: 0.3rem 0.5rem; font-size: 0.74rem; width: auto;">
+                <button id="btnShowAllHistory" style="background: var(--bg-surface-subtle); border: 1px solid var(--border-color); font-size: 0.72rem; font-weight: 600; padding: 0.3rem 0.5rem; border-radius: var(--radius-sm); cursor: pointer; white-space: nowrap;">Ver Todo</button>
               </div>
             </div>
             <div id="userVisitsFeed">
-              <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 1.5rem 0;">No has concluido visitas en la fecha seleccionada.</p>
+              <p style="color: var(--text-muted); font-size: 0.8rem; text-align: center; padding: 1.25rem 0;">No has concluido visitas en la fecha seleccionada.</p>
             </div>
           </div>
         </div>
@@ -912,7 +940,7 @@
     <section id="adminZone" class="view-zone">
       <div class="responsive-grid responsive-grid-admin">
         
-        <!-- Panel Izquierdo -->
+        <!-- Panel Izquierdo: Métricas y Filtros -->
         <div>
           <div class="admin-metrics-grid">
             <div class="metric-box active-card">
@@ -937,19 +965,19 @@
             </div>
           </div>
 
-          <!-- Filtros -->
+          <!-- Filtros de Auditoría -->
           <div class="clean-card">
-            <h3 style="font-size: 0.88rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.85rem; letter-spacing: 0.05rem;">Filtros de Auditoría</h3>
+            <h3 style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.75rem; letter-spacing: 0.05rem;">Filtros de Auditoría</h3>
             
             <div class="field-group">
               <label class="field-label">Buscar Promotor o Tienda</label>
-              <input type="text" id="adminSearchInput" class="form-input" placeholder="Nombre de promotor o sucursal...">
+              <input type="text" id="adminSearchInput" class="form-input" placeholder="Nombre o sucursal...">
             </div>
 
             <div class="field-group">
-              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.25rem;">
                 <label class="field-label" style="margin-bottom: 0;">Filtrar por Fecha</label>
-                <button type="button" id="btnAdminClearDate" style="background: none; border: none; font-size: 0.72rem; color: var(--accent); font-weight: 700; cursor: pointer;">Todas las fechas</button>
+                <button type="button" id="btnAdminClearDate" style="background: none; border: none; font-size: 0.68rem; color: var(--accent); font-weight: 700; cursor: pointer;">Todas las fechas</button>
               </div>
               <input type="date" id="adminFilterDate" class="form-input">
             </div>
@@ -977,21 +1005,22 @@
               </select>
             </div>
 
-            <button id="btnExportCsvData" class="btn-solid" style="background-color: #334155; margin-top: 0.5rem;">
+            <button id="btnExportCsvData" class="btn-solid" style="background-color: #334155; margin-top: 0.35rem; width: 100%;">
               Exportar Auditoría CSV
             </button>
 
-            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <!-- ZONA DE DEPURACIÓN CORREGIDA SIN DESBORDAMIENTO -->
+            <div style="margin-top: 1.25rem; padding-top: 0.85rem; border-top: 1px solid var(--border-color); width: 100%;">
               <label class="field-label" style="color: var(--danger);">Zona de Depuración</label>
-              <button id="btnDeleteAllVisits" class="btn-solid btn-danger-solid" style="font-size: 0.8rem; padding: 0.6rem;">
+              <button id="btnDeleteAllVisits" class="btn-solid btn-danger-solid" style="font-size: 0.78rem; padding: 0.65rem 0.5rem; width: 100%;">
                 Vaciar Todas las Visitas
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Panel Derecho: Pestañas -->
-        <div>
+        <!-- Panel Derecho: Pestañas y Vistas -->
+        <div style="min-width: 0; width: 100%;">
           <div class="admin-tab-bar">
             <button class="admin-tab-btn active" id="btnTabFeed">Bitácora en Vivo</button>
             <button class="admin-tab-btn" id="btnTabMap">Mapa en Vivo</button>
@@ -1002,38 +1031,38 @@
 
           <!-- Bitácora -->
           <div class="clean-card" id="adminFeedContainer">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-              <h2 style="font-size: 1.05rem; font-weight: 700;">Auditoría de Rutas</h2>
-              <span id="lblTotalFeedCount" style="font-size: 0.75rem; color: var(--text-muted);">0 visitas</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <h2 style="font-size: 0.95rem; font-weight: 700;">Auditoría de Rutas</h2>
+              <span id="lblTotalFeedCount" style="font-size: 0.72rem; color: var(--text-muted);">0 visitas</span>
             </div>
             <div id="adminMasterFeed">
-              <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 2rem 0;">Cargando registros...</p>
+              <p style="color: var(--text-muted); font-size: 0.82rem; text-align: center; padding: 1.5rem 0;">Cargando registros...</p>
             </div>
           </div>
 
           <!-- Mapa Interactivo en Vivo -->
           <div class="clean-card" id="adminMapContainer" style="display: none;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-              <h2 style="font-size: 1.05rem; font-weight: 700;">Mapeo Geográfico Operativo</h2>
-              <span style="font-size: 0.75rem; color: var(--text-muted);">🟢 En Tienda | 🔵 Concluida | ⚪ Sucursales</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <h2 style="font-size: 0.95rem; font-weight: 700;">Mapeo Geográfico Operativo</h2>
+              <span style="font-size: 0.7rem; color: var(--text-muted);">🟢 En Tienda | 🔵 Concluida | ⚪ Sucursales</span>
             </div>
             <div id="liveMapContainer"></div>
           </div>
 
           <!-- Galería -->
           <div class="clean-card" id="adminGalleryContainer" style="display: none;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-              <h2 style="font-size: 1.05rem; font-weight: 700;">Evidencias Fotográficas Estampadas</h2>
-              <span id="lblTotalPhotosCount" style="font-size: 0.75rem; color: var(--accent); font-weight: 700;">0 fotos</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <h2 style="font-size: 0.95rem; font-weight: 700;">Evidencias Fotográficas Estampadas</h2>
+              <span id="lblTotalPhotosCount" style="font-size: 0.72rem; color: var(--accent); font-weight: 700;">0 fotos</span>
             </div>
             <div class="gallery-masonry" id="adminGlobalGallery">
-              <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 2rem 0;">Cargando galería...</p>
+              <p style="color: var(--text-muted); font-size: 0.82rem; text-align: center; padding: 1.5rem 0;">Cargando galería...</p>
             </div>
           </div>
 
           <!-- Asignación -->
           <div class="clean-card" id="adminAssignContainer" style="display: none;">
-            <h2 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem;">Programación de Rutas por Promotor</h2>
+            <h2 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem;">Programación de Rutas por Promotor</h2>
             <form id="formAssignRoute">
               <div class="field-group">
                 <label class="field-label">Seleccionar Promotor</label>
@@ -1058,13 +1087,13 @@
 
           <!-- Catálogo Tiendas -->
           <div class="clean-card" id="adminStoresContainer" style="display: none;">
-            <h2 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem;">Alta de Tiendas con Coordenadas GPS</h2>
-            <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem;">
+            <h2 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem;">Alta de Tiendas con Coordenadas GPS</h2>
+            <p style="font-size: 0.74rem; color: var(--text-muted); margin-bottom: 0.75rem;">
               Registra sucursales con coordenadas exactas para validar la proximidad del promotor al hacer Check-in.
             </p>
 
             <form id="formAddCustomStore">
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
                 <div class="field-group">
                   <label class="field-label">Nombre de la Tienda</label>
                   <input type="text" id="newStoreName" class="form-input" placeholder="Ej. SP INTERLOMAS" required>
@@ -1075,7 +1104,7 @@
                 </div>
               </div>
 
-              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
                 <div class="field-group">
                   <label class="field-label">Latitud</label>
                   <input type="number" step="any" id="newStoreLat" class="form-input" placeholder="19.432608" required>
@@ -1120,31 +1149,31 @@
 
   <!-- DASHBOARD DEDICADO CON CHART.JS -->
   <div id="dedicatedDashboardModal" class="custom-modal-backdrop">
-    <div class="custom-modal-card" style="max-width: 1000px; width: 95vw; max-height: 92vh; overflow-y: auto;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+    <div class="custom-modal-card" style="max-width: 950px; width: 95vw; max-height: 90vh; overflow-y: auto;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
         <div>
-          <h2 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">Panel Analítico Ejecutivo & Share of Shelf</h2>
-          <span style="font-size: 0.78rem; color: var(--text-muted);">Métricas consolidadas de campo en tiempo real</span>
+          <h2 style="font-size: 1.1rem; font-weight: 800; color: var(--text-main);">Panel Analítico Ejecutivo & Share of Shelf</h2>
+          <span style="font-size: 0.74rem; color: var(--text-muted);">Métricas consolidadas de campo en tiempo real</span>
         </div>
-        <button id="btnCloseDedicatedDashboard" class="modal-btn modal-btn-cancel" style="padding: 0.35rem 0.75rem;">✕ Cerrar</button>
+        <button id="btnCloseDedicatedDashboard" class="modal-btn modal-btn-cancel" style="padding: 0.3rem 0.65rem;">✕ Cerrar</button>
       </div>
 
-      <div class="admin-metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+      <div class="admin-metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
         <div class="metric-box active-card">
           <div class="metric-number" id="modalKpiActive">0</div>
           <div class="metric-label">En Tienda Activos</div>
         </div>
         <div class="metric-box completed-card">
           <div class="metric-number" id="modalKpiFinished">0</div>
-          <div class="metric-label">Auditorías Concluidas</div>
+          <div class="metric-label">Concluidas</div>
         </div>
         <div class="metric-box time-card">
           <div class="metric-number" id="modalKpiAvgTime">0m</div>
-          <div class="metric-label">Tiempo Promedio Servicio</div>
+          <div class="metric-label">Tiempo Promedio</div>
         </div>
         <div class="metric-box compliance-card">
           <div class="metric-number" id="modalKpiGlobalRate">0%</div>
-          <div class="metric-label">% Apego a Pilares</div>
+          <div class="metric-label">% Apego Global</div>
         </div>
         <div class="metric-box sos-card">
           <div class="metric-number" id="modalKpiAvgSos" style="color: var(--purple);">0%</div>
@@ -1156,16 +1185,16 @@
         </div>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 1rem;">
-        <div class="clean-card" style="padding: 1rem;">
-          <h3 style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.75rem; text-transform: uppercase;">Participación Total (Frentes)</h3>
-          <div style="position: relative; height: 240px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.75rem; margin-top: 0.75rem;">
+        <div class="clean-card" style="padding: 0.85rem;">
+          <h3 style="font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase;">Participación Total (Frentes)</h3>
+          <div style="position: relative; height: 210px;">
             <canvas id="chartSosPie"></canvas>
           </div>
         </div>
-        <div class="clean-card" style="padding: 1rem;">
-          <h3 style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.75rem; text-transform: uppercase;">Apego por Pilar Operativo</h3>
-          <div style="position: relative; height: 240px;">
+        <div class="clean-card" style="padding: 0.85rem;">
+          <h3 style="font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase;">Apego por Pilar Operativo</h3>
+          <div style="position: relative; height: 210px;">
             <canvas id="chartPillarsBar"></canvas>
           </div>
         </div>
@@ -1182,9 +1211,9 @@
       <div class="detail-photo-info">
         <span id="detailModalBadge" class="detail-badge-pill"></span>
         <div id="detailModalTitle" class="detail-photo-title">Título de la Evidencia</div>
-        <div id="detailModalStore" style="font-size: 0.8rem; font-weight: 700; color: var(--accent); margin-bottom: 0.4rem;">Tienda: -</div>
+        <div id="detailModalStore" style="font-size: 0.78rem; font-weight: 700; color: var(--accent); margin-bottom: 0.35rem;">Tienda: -</div>
         <p id="detailModalDesc" class="detail-photo-desc">Explicación del criterio de auditoría.</p>
-        <div style="margin-top: 1rem; text-align: right;">
+        <div style="margin-top: 0.85rem; text-align: right;">
           <button id="btnCloseDetailPhoto" class="modal-btn modal-btn-cancel">Cerrar</button>
         </div>
       </div>
@@ -1499,7 +1528,10 @@
         await setDoc(doc(db, "usuarios", cred.user.uid), {
           nombre: name, email, role, creado: serverTimestamp()
         });
-      } catch (err) { showAuthError(parseAuthError(err.code)); }
+      } catch (err) {
+        authAlert.textContent = "Error al registrar: " + err.message;
+        authAlert.style.display = "block";
+      }
     };
 
     formLogin.onsubmit = async (e) => {
@@ -1507,7 +1539,10 @@
       authAlert.style.display = 'none';
       try {
         await signInWithEmailAndPassword(auth, document.getElementById('loginEmail').value.trim(), document.getElementById('loginPass').value);
-      } catch (err) { showAuthError(parseAuthError(err.code)); }
+      } catch (err) {
+        authAlert.textContent = "Credenciales incorrectas o usuario no registrado.";
+        authAlert.style.display = "block";
+      }
     };
 
     btnLogout.onclick = async () => {
@@ -1657,7 +1692,7 @@
         });
       });
 
-      // MANEJO DUAL FOTO ENTRADA (CÁMARA Y ARCHIVO)
+      // FOTO ENTRADA (CÁMARA / ARCHIVO)
       const btnCamIn = document.getElementById('btnCamIn');
       const btnFileIn = document.getElementById('btnFileIn');
       const inputFotoInCam = document.getElementById('inputFotoInCam');
@@ -1702,7 +1737,7 @@
         inputFotoInFile.value = "";
       };
 
-      // MANEJO DUAL FOTO SALIDA (CÁMARA Y ARCHIVO)
+      // FOTO SALIDA (CÁMARA / ARCHIVO)
       const btnCamOut = document.getElementById('btnCamOut');
       const btnFileOut = document.getElementById('btnFileOut');
       const inputFotoOutCam = document.getElementById('inputFotoOutCam');
@@ -1746,7 +1781,6 @@
         inputFotoOutFile.value = "";
       };
 
-      // ENLACE DUAL MULTI-FOTOS (P1, P2, P3)
       bindDualMultiPhotoField('btnCamP1', 'btnFileP1', 'inputP1Cam', 'inputP1File', 'gridP1', fotosP1, () => activeVisitState?.tienda || selStore.value);
       bindDualMultiPhotoField('btnCamP2', 'btnFileP2', 'inputP2Cam', 'inputP2File', 'gridP2', fotosP2, () => activeVisitState?.tienda || selStore.value);
       bindDualMultiPhotoField('btnCamP3', 'btnFileP3', 'inputP3Cam', 'inputP3File', 'gridP3', fotosP3, () => activeVisitState?.tienda || selStore.value);
@@ -1783,10 +1817,10 @@
             const dist = calcularDistanciaMetros(gpsIn.lat, gpsIn.lng, targetStoreObj.lat, targetStoreObj.lng);
             const radioMax = targetStoreObj.radius || 350;
             if (dist > radioMax) {
-              const proceed = await showCustomConfirm("Aviso de Proximidad", `Te encuentras a <strong>${dist} metros</strong> de la sucursal (radio de tolerancia: ${radioMax}m). ¿Deseas registrar el Check-in de todos modos?`);
+              const proceed = await showCustomConfirm("Aviso de Proximidad", `Te encuentras a <strong>${dist} metros</strong> de la sucursal (radio permitido: ${radioMax}m). ¿Deseas registrar el Check-in de todos modos?`);
               if (!proceed) {
                 btnDoCheckIn.disabled = false;
-                btnDoCheckIn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg> Validar GPS y Registrar Entrada`;
+                btnDoCheckIn.innerHTML = `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg> Validar GPS y Registrar Entrada`;
                 return;
               }
               distanceAlert = `Fuera de rango (${dist}m)`;
@@ -1824,7 +1858,7 @@
           await showCustomAlert("Aviso de Check-in", err.message);
         } finally {
           btnDoCheckIn.disabled = false;
-          btnDoCheckIn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg> Validar GPS y Registrar Entrada`;
+          btnDoCheckIn.innerHTML = `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg> Validar GPS y Registrar Entrada`;
         }
       };
 
@@ -1879,7 +1913,7 @@
           await showCustomAlert("Aviso de Check-out", err.message);
         } finally {
           submitBtn.disabled = false;
-          submitBtn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg> Validar GPS y Finalizar Check-out`;
+          submitBtn.innerHTML = `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg> Validar GPS y Finalizar Check-out`;
         }
       };
 
@@ -1956,21 +1990,21 @@
         });
 
         if (filtered.length === 0) {
-          userVisitsFeed.innerHTML = `<p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 1.5rem 0;">No hay visitas registradas ${filterDateVal ? `para el ${filterDateVal}` : ''}.</p>`;
+          userVisitsFeed.innerHTML = `<p style="color: var(--text-muted); font-size: 0.8rem; text-align: center; padding: 1.25rem 0;">No hay visitas registradas ${filterDateVal ? `para el ${filterDateVal}` : ''}.</p>`;
           return;
         }
 
         filtered.forEach((v) => {
           const item = document.createElement('div');
           item.className = 'clean-card';
-          item.style.padding = '1.25rem';
+          item.style.padding = '1rem';
 
           let thumbnailsHtml = '';
           const visitDateFormatted = v.checkIn ? new Date(v.checkIn.toDate()).toLocaleDateString() : '';
 
           if (v.fotoCheckin) {
             thumbnailsHtml += `
-              <div style="position: relative; height: 75px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
+              <div style="position: relative; height: 65px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
                 <img src="${v.fotoCheckin}" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" 
                      onclick="openDetailPhotoModal('${v.fotoCheckin}', 'Fachada / Entrada Principal', '${v.tienda}', 'Check-in Validado', 'eval-badge yes', 'Evidencia fotográfica estampada al inicio del servicio.')">
               </div>
@@ -1980,9 +2014,9 @@
           const p1Photos = v.fotosP1 || (v.fotoP1 ? [v.fotoP1] : []);
           p1Photos.forEach((img, idx) => {
             thumbnailsHtml += `
-              <div style="position: relative; height: 75px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
+              <div style="position: relative; height: 65px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
                 <img src="${img}" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" 
-                     onclick="openDetailPhotoModal('${img}', '1. Apego al Planograma (Foto ${idx + 1})', '${v.tienda}', 'Planograma: ${v.pilar1}', '${v.pilar1 === 'Cumple' ? 'eval-badge yes' : 'eval-badge no'}', 'Acomodo físico evaluado conforme al plano autorizado.')">
+                     onclick="openDetailPhotoModal('${img}', '1. Apego al Planograma (Foto ${idx + 1})', '${v.tienda}', 'Planograma: ${v.pilar1}', '${v.pilar1 === 'Cumple' ? 'eval-badge yes' : 'eval-badge no'}', 'Evaluación de posición, bloques, niveles y orden físico.')">
               </div>
             `;
           });
@@ -1990,9 +2024,9 @@
           const p2Photos = v.fotosP2 || (v.fotoP2 ? [v.fotoP2] : []);
           p2Photos.forEach((img, idx) => {
             thumbnailsHtml += `
-              <div style="position: relative; height: 75px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
+              <div style="position: relative; height: 65px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
                 <img src="${img}" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" 
-                     onclick="openDetailPhotoModal('${img}', '2. Flujo de Navegación (Foto ${idx + 1})', '${v.tienda}', 'Flujo: ${v.pilar2}', '${v.pilar2 === 'Cumple' ? 'eval-badge yes' : 'eval-badge no'}', 'Recorrido de compra y apertura obligatoria iniciando con vinos tintos.')">
+                     onclick="openDetailPhotoModal('${img}', '2. Flujo de Navegación (Foto ${idx + 1})', '${v.tienda}', 'Flujo: ${v.pilar2}', '${v.pilar2 === 'Cumple' ? 'eval-badge yes' : 'eval-badge no'}', 'Validación del recorrido de compra en tienda iniciando por vinos tintos.')">
               </div>
             `;
           });
@@ -2000,16 +2034,16 @@
           const p3Photos = v.fotosP3 || (v.fotoP3 ? [v.fotoP3] : []);
           p3Photos.forEach((img, idx) => {
             thumbnailsHtml += `
-              <div style="position: relative; height: 75px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
+              <div style="position: relative; height: 65px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
                 <img src="${img}" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" 
-                     onclick="openDetailPhotoModal('${img}', '3. Espacios y Frentes (Foto ${idx + 1})', '${v.tienda}', 'SOS: ${v.shareOfShelf || 0}%', 'detail-badge-pill', 'Distribución de frentes en anaquel. Frentes IDI/Yello: ${v.frentesPropios || 0} | Competencia: ${v.frentesCompetencia || 0}')">
+                     onclick="openDetailPhotoModal('${img}', '3. Espacios y Frentes (Foto ${idx + 1})', '${v.tienda}', 'SOS: ${v.shareOfShelf || 0}%', 'detail-badge-pill', 'Distribución de frentes asignados. Frentes Propios: ${v.frentesPropios || 0} | Competencia: ${v.frentesCompetencia || 0}')">
               </div>
             `;
           });
 
           if (v.fotoCheckout) {
             thumbnailsHtml += `
-              <div style="position: relative; height: 75px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
+              <div style="position: relative; height: 65px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
                 <img src="${v.fotoCheckout}" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" 
                      onclick="openDetailPhotoModal('${v.fotoCheckout}', 'Salida / Cierre de Visita', '${v.tienda}', 'Check-out Validado', 'eval-badge yes', 'Evidencia fotográfica estampada al retirarse de la sucursal.')">
               </div>
@@ -2017,19 +2051,19 @@
           }
 
           item.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.3rem;">
               <div>
-                <span style="font-weight: 700; font-size: 1.05rem;">${v.tienda}</span>
-                <span style="font-size: 0.72rem; color: var(--text-muted); margin-left: 0.4rem;">(${visitDateFormatted})</span>
+                <span style="font-weight: 700; font-size: 0.95rem;">${v.tienda}</span>
+                <span style="font-size: 0.68rem; color: var(--text-muted); margin-left: 0.35rem;">(${visitDateFormatted})</span>
               </div>
-              <span style="font-size: 0.78rem; background: var(--bg-surface-subtle); padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600;">${v.minutosServicio} min</span>
+              <span style="font-size: 0.74rem; background: var(--bg-surface-subtle); padding: 0.15rem 0.45rem; border-radius: 4px; font-weight: 600;">${v.minutosServicio} min</span>
             </div>
-            <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
-              <span style="font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.5rem; border-radius: 4px; ${v.pilar1 === 'Cumple' ? 'background: var(--success-soft); color: #065f46;' : 'background: var(--danger-soft); color: #991b1b;'}">Planograma: ${v.pilar1}</span>
-              <span style="font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.5rem; border-radius: 4px; ${v.pilar2 === 'Cumple' ? 'background: var(--success-soft); color: #065f46;' : 'background: var(--danger-soft); color: #991b1b;'}">Flujo: ${v.pilar2}</span>
-              <span style="font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.5rem; border-radius: 4px; background: var(--purple-soft); color: var(--purple);">SOS: ${v.shareOfShelf || 0}%</span>
+            <div style="display: flex; gap: 0.35rem; flex-wrap: wrap; margin-bottom: 0.65rem;">
+              <span style="font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.45rem; border-radius: 4px; ${v.pilar1 === 'Cumple' ? 'background: var(--success-soft); color: #065f46;' : 'background: var(--danger-soft); color: #991b1b;'}">Planograma: ${v.pilar1}</span>
+              <span style="font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.45rem; border-radius: 4px; ${v.pilar2 === 'Cumple' ? 'background: var(--success-soft); color: #065f46;' : 'background: var(--danger-soft); color: #991b1b;'}">Flujo: ${v.pilar2}</span>
+              <span style="font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.45rem; border-radius: 4px; background: var(--purple-soft); color: var(--purple);">SOS: ${v.shareOfShelf || 0}%</span>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 0.5rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(65px, 1fr)); gap: 0.45rem;">
               ${thumbnailsHtml}
             </div>
           `;
@@ -2401,7 +2435,7 @@
         filtered.forEach((v) => {
           const card = document.createElement('div');
           card.className = 'clean-card';
-          card.style.padding = '1.15rem';
+          card.style.padding = '1rem';
 
           const timeIn = v.checkIn ? new Date(v.checkIn.toDate()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
           const timeOut = v.checkOut ? new Date(v.checkOut.toDate()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
@@ -2412,7 +2446,7 @@
           let thumbnailsHtml = '';
           if (v.fotoCheckin) {
             thumbnailsHtml += `
-              <div style="position: relative; height: 75px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
+              <div style="position: relative; height: 65px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
                 <img src="${v.fotoCheckin}" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" 
                      onclick="openDetailPhotoModal('${v.fotoCheckin}', 'Fachada / Entrada', '${v.tienda}', 'Check-in Entrada', 'eval-badge yes', 'Evidencia fotográfica estampada al inicio del servicio.')">
               </div>
@@ -2422,7 +2456,7 @@
           const p1Arr = v.fotosP1 || (v.fotoP1 ? [v.fotoP1] : []);
           p1Arr.forEach((img, idx) => {
             thumbnailsHtml += `
-              <div style="position: relative; height: 75px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
+              <div style="position: relative; height: 65px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
                 <img src="${img}" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" 
                      onclick="openDetailPhotoModal('${img}', '1. Apego al Planograma (Foto ${idx + 1})', '${v.tienda}', 'Planograma: ${v.pilar1}', '${v.pilar1 === 'Cumple' ? 'eval-badge yes' : 'eval-badge no'}', 'Acomodo físico evaluado conforme al plano autorizado.')">
               </div>
@@ -2432,7 +2466,7 @@
           const p2Arr = v.fotosP2 || (v.fotoP2 ? [v.fotoP2] : []);
           p2Arr.forEach((img, idx) => {
             thumbnailsHtml += `
-              <div style="position: relative; height: 75px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
+              <div style="position: relative; height: 65px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
                 <img src="${img}" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" 
                      onclick="openDetailPhotoModal('${img}', '2. Flujo de Navegación (Foto ${idx + 1})', '${v.tienda}', 'Flujo: ${v.pilar2}', '${v.pilar2 === 'Cumple' ? 'eval-badge yes' : 'eval-badge no'}', 'Recorrido de compra y apertura obligatoria iniciando con vinos tintos.')">
               </div>
@@ -2442,7 +2476,7 @@
           const p3Arr = v.fotosP3 || (v.fotoP3 ? [v.fotoP3] : []);
           p3Arr.forEach((img, idx) => {
             thumbnailsHtml += `
-              <div style="position: relative; height: 75px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
+              <div style="position: relative; height: 65px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
                 <img src="${img}" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" 
                      onclick="openDetailPhotoModal('${img}', '3. Espacios y Frentes (Foto ${idx + 1})', '${v.tienda}', 'SOS: ${v.shareOfShelf || 0}%', 'detail-badge-pill', 'Distribución de frentes en anaquel. Frentes IDI/Yello: ${v.frentesPropios || 0} | Competencia: ${v.frentesCompetencia || 0}')">
               </div>
@@ -2451,7 +2485,7 @@
 
           if (v.fotoCheckout) {
             thumbnailsHtml += `
-              <div style="position: relative; height: 75px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
+              <div style="position: relative; height: 65px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
                 <img src="${v.fotoCheckout}" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" 
                      onclick="openDetailPhotoModal('${v.fotoCheckout}', 'Salida / Cierre de Visita', '${v.tienda}', 'Check-out Validado', 'eval-badge yes', 'Evidencia fotográfica estampada al retirarse de la sucursal.')">
               </div>
@@ -2459,32 +2493,32 @@
           }
 
           card.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.3rem;">
               <div>
-                <span style="font-weight: 700; font-size: 0.98rem;">${v.tienda}</span>
-                <span style="font-size: 0.72rem; color: var(--text-muted); margin-left: 0.35rem;">(${dateInFormatted})</span>
-                ${v.proximidadAlerta ? `<span style="font-size:0.68rem; background:var(--danger-soft); color:var(--danger); padding:0.15rem 0.4rem; border-radius:3px; margin-left:0.5rem; font-weight:700;">⚠️ ${v.proximidadAlerta}</span>` : ''}
+                <span style="font-weight: 700; font-size: 0.95rem;">${v.tienda}</span>
+                <span style="font-size: 0.68rem; color: var(--text-muted); margin-left: 0.35rem;">(${dateInFormatted})</span>
+                ${v.proximidadAlerta ? `<span style="font-size:0.65rem; background:var(--danger-soft); color:var(--danger); padding:0.12rem 0.35rem; border-radius:3px; margin-left:0.4rem; font-weight:700;">⚠️ ${v.proximidadAlerta}</span>` : ''}
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;">
-                <span style="font-size: 0.78rem; font-weight: 600; padding: 0.2rem 0.5rem; border-radius: 4px; ${v.status === 'EN_TIENDA' ? 'background: var(--success-soft); color: #065f46;' : 'background: var(--bg-surface-subtle); color: var(--text-muted);'}">
+              <div style="display: flex; align-items: center; gap: 0.4rem;">
+                <span style="font-size: 0.74rem; font-weight: 600; padding: 0.15rem 0.45rem; border-radius: 4px; ${v.status === 'EN_TIENDA' ? 'background: var(--success-soft); color: #065f46;' : 'background: var(--bg-surface-subtle); color: var(--text-muted);'}">
                   ${v.status === 'EN_TIENDA' ? '● En Servicio' : `${v.minutosServicio} min`}
                 </span>
-                <button class="delete-visit-btn" data-id="${v.id}" title="Eliminar registro" style="background: none; border: 1px solid var(--border-color); color: var(--danger); border-radius: 4px; padding: 0.2rem 0.45rem; cursor: pointer; font-size: 0.75rem; font-weight: 700;">🗑️</button>
+                <button class="delete-visit-btn" data-id="${v.id}" title="Eliminar registro" style="background: none; border: 1px solid var(--border-color); color: var(--danger); border-radius: 4px; padding: 0.15rem 0.4rem; cursor: pointer; font-size: 0.72rem; font-weight: 700;">🗑️</button>
               </div>
             </div>
-            <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.5rem;">${v.promotor} (${v.email}) | Entrada: ${timeIn} ${timeOut ? `• Salida: ${timeOut}` : ''}</div>
+            <div style="font-size: 0.74rem; color: var(--text-muted); margin-bottom: 0.45rem;">${v.promotor} (${v.email}) | Entrada: ${timeIn} ${timeOut ? `• Salida: ${timeOut}` : ''}</div>
             
-            <div style="display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.6rem;">
-              <span style="font-size: 0.75rem; background: var(--purple-soft); color: var(--purple); font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px;">
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.55rem;">
+              <span style="font-size: 0.72rem; background: var(--purple-soft); color: var(--purple); font-weight: 700; padding: 0.18rem 0.45rem; border-radius: 4px;">
                 SOS: ${v.shareOfShelf || 0}% (Propios: ${v.frentesPropios || 0} / Comp: ${v.frentesCompetencia || 0})
               </span>
             </div>
 
-            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.65rem;">
-              ${linkGpsIn ? `<a href="${linkGpsIn}" target="_blank" style="color: var(--info); font-size: 0.75rem; font-weight: 600; text-decoration: none;">📍 GPS Entrada (±${v.checkInGps.accuracy}m)</a>` : ''}
-              ${linkGpsOut ? `<a href="${linkGpsOut}" target="_blank" style="color: var(--info); font-size: 0.75rem; font-weight: 600; text-decoration: none;">📍 GPS Salida (±${v.checkOutGps.accuracy}m)</a>` : ''}
+            <div style="display: flex; gap: 0.65rem; flex-wrap: wrap; margin-bottom: 0.6rem;">
+              ${linkGpsIn ? `<a href="${linkGpsIn}" target="_blank" style="color: var(--info); font-size: 0.72rem; font-weight: 600; text-decoration: none;">📍 GPS Entrada (±${v.checkInGps.accuracy}m)</a>` : ''}
+              ${linkGpsOut ? `<a href="${linkGpsOut}" target="_blank" style="color: var(--info); font-size: 0.72rem; font-weight: 600; text-decoration: none;">📍 GPS Salida (±${v.checkOutGps.accuracy}m)</a>` : ''}
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 0.5rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(65px, 1fr)); gap: 0.45rem;">
               ${thumbnailsHtml}
             </div>
           `;
@@ -2530,8 +2564,8 @@
         });
 
         if (filtered.length === 0) {
-          adminMasterFeed.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 2rem 0;">No hay visitas con los filtros seleccionados.</p>';
-          adminGlobalGallery.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 2rem 0;">No hay fotos bajo los filtros actuales.</p>';
+          adminMasterFeed.innerHTML = '<p style="color: var(--text-muted); font-size: 0.82rem; text-align: center; padding: 1.5rem 0;">No hay visitas con los filtros seleccionados.</p>';
+          adminGlobalGallery.innerHTML = '<p style="color: var(--text-muted); font-size: 0.82rem; text-align: center; padding: 1.5rem 0;">No hay fotos bajo los filtros actuales.</p>';
         }
       }
 
@@ -2627,7 +2661,7 @@
       };
     }
 
-    // HELPER PARA MULTI-FOTOS DUAL (CÁMARA Y ARCHIVO)
+    // HELPER PARA MULTI-FOTOS DUAL CON ESTAMPA
     function bindDualMultiPhotoField(btnCamId, btnFileId, inputCamId, inputFileId, gridId, photoArray, getStoreNameFn) {
       const btnCam = document.getElementById(btnCamId);
       const btnFile = document.getElementById(btnFileId);
@@ -2688,8 +2722,8 @@
       if (photoArray.length > 0) {
         btnCam.classList.add('ready');
         btnFile.classList.add('ready');
-        btnCam.textContent = `📷 Tomar otra (+${photoArray.length})`;
-        btnFile.textContent = `📁 Subir otra (+${photoArray.length})`;
+        btnCam.textContent = `📷 Otra (+${photoArray.length})`;
+        btnFile.textContent = `📁 Otra (+${photoArray.length})`;
       } else {
         btnCam.classList.remove('ready');
         btnFile.classList.remove('ready');
@@ -2714,23 +2748,6 @@
           }
         });
       });
-    }
-
-    function showAuthError(msg) {
-      authAlert.textContent = msg;
-      authAlert.style.display = 'block';
-    }
-
-    function parseAuthError(code) {
-      switch (code) {
-        case 'auth/invalid-email': return 'El formato del correo es inválido.';
-        case 'auth/user-not-found': return 'No existe un usuario con este correo.';
-        case 'auth/wrong-password': return 'Contraseña incorrecta.';
-        case 'auth/invalid-credential': return 'Credenciales de acceso incorrectas.';
-        case 'auth/email-already-in-use': return 'Este correo ya se encuentra registrado.';
-        case 'auth/weak-password': return 'La contraseña debe contener al menos 6 caracteres.';
-        default: return 'No se pudo completar la autenticación. Revisa tus datos.';
-      }
     }
   </script>
 </body>
